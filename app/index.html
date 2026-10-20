@@ -1,0 +1,279 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bancada · Treino IFSC</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+:root{
+  --ground:#EAEEE9; --surface:#FDFEFC; --surface-2:#F2F5F0; --line:#CBD4CA; --line-soft:#DEE5DC;
+  --ink:#16211B; --ink-2:#3D4F45; --muted:#66786C;
+  --cobre:#A85E31; --cobre-forte:#8C4B24; --cobre-fraco:#F0E2D8;
+  --verde:#1B6E47; --verde-fraco:#DDEBE2;
+  --ambar:#96690A; --ambar-fraco:#F3E9D2;
+  --rubro:#A32B22; --rubro-fraco:#F5DEDB;
+  --a-port:#6B4E9E; --a-mat:#A85E31; --a-gh:#1B6E47; --a-cie:#1D6C86;
+  --sobre-cobre:#FFFFFF;
+  --r:3px; --r-lg:6px;
+  --sombra:0 1px 2px rgba(22,33,27,.06), 0 4px 14px -8px rgba(22,33,27,.18);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --ground:#11150F; --surface:#181D18; --surface-2:#1F2620; --line:#333D34; --line-soft:#272F28;
+  --ink:#E4EBE2; --ink-2:#B4C1B6; --muted:#87958A;
+  --cobre:#D08B5A; --cobre-forte:#E2A377; --cobre-fraco:#33251C;
+  --verde:#4FB483; --verde-fraco:#15301F;
+  --ambar:#C9A44B; --ambar-fraco:#2E2712;
+  --rubro:#E08076; --rubro-fraco:#32191A;
+  --a-port:#A48BD4; --a-mat:#D08B5A; --a-gh:#4FB483; --a-cie:#5FAECB;
+  --sobre-cobre:#11150F;
+  --sombra:0 1px 2px rgba(0,0,0,.4), 0 6px 18px -10px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --ground:#11150F; --surface:#181D18; --surface-2:#1F2620; --line:#333D34; --line-soft:#272F28;
+  --ink:#E4EBE2; --ink-2:#B4C1B6; --muted:#87958A;
+  --cobre:#D08B5A; --cobre-forte:#E2A377; --cobre-fraco:#33251C;
+  --verde:#4FB483; --verde-fraco:#15301F;
+  --ambar:#C9A44B; --ambar-fraco:#2E2712;
+  --rubro:#E08076; --rubro-fraco:#32191A;
+  --a-port:#A48BD4; --a-mat:#D08B5A; --a-gh:#4FB483; --a-cie:#5FAECB;
+  --sobre-cobre:#11150F;
+  --sombra:0 1px 2px rgba(0,0,0,.4), 0 6px 18px -10px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);
+  font-family:"IBM Plex Sans Condensed","Helvetica Neue",Arial,sans-serif;
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;text-wrap:balance;font-weight:700;letter-spacing:-.01em}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+a{color:var(--cobre);text-decoration-thickness:1px;text-underline-offset:2px}
+a.btn{text-decoration:none;color:inherit}
+:focus-visible{outline:2px solid var(--cobre);outline-offset:2px;border-radius:2px}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.rotulo{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- casca ---------- */
+.app{display:grid;grid-template-columns:200px minmax(0,1fr);min-height:100vh}
+.rail{background:var(--surface);border-right:1px solid var(--line);
+  display:flex;flex-direction:column;gap:2px;padding:18px 12px;position:sticky;top:0;height:100vh}
+.marca{display:flex;flex-direction:column;gap:1px;padding:0 8px 16px}
+.marca b{font-size:17px;letter-spacing:-.02em}
+.marca span{font-size:11px;color:var(--muted);letter-spacing:.04em}
+.nav{display:flex;flex-direction:column;gap:1px}
+.nav button{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:var(--r);
+  font-weight:600;font-size:14px;color:var(--ink-2);text-align:left;width:100%}
+.nav button:hover{background:var(--surface-2)}
+.nav button[aria-current="true"]{background:var(--cobre-fraco);color:var(--cobre-forte)}
+.nav .ct{margin-left:auto;font-size:11px;font-family:"IBM Plex Mono",monospace;
+  background:var(--cobre);color:var(--sobre-cobre);border-radius:99px;padding:1px 6px}
+.rodape-rail{margin-top:auto;display:flex;flex-direction:column;gap:6px;padding:0 8px}
+.tema{font-size:12px;color:var(--muted);text-align:left;padding:3px 0}
+.tema:hover{color:var(--ink-2)}
+main{padding:28px 32px 72px;min-width:0}
+.faixa{max-width:860px;display:flex;flex-direction:column;gap:22px}
+.topo{display:flex;flex-direction:column;gap:3px;margin-bottom:2px}
+.topo h1{font-size:26px}
+.topo p{margin:0;color:var(--muted);font-size:14px;max-width:62ch}
+
+/* ---------- blocos ---------- */
+.painel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg)}
+.painel-cab{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  padding:12px 16px;border-bottom:1px solid var(--line-soft)}
+.painel-corpo{padding:16px}
+.grade-cartoes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.cartao{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:13px 15px;
+  display:flex;flex-direction:column;gap:3px}
+.cartao .v{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;
+  font-size:30px;font-weight:600;line-height:1.05;letter-spacing:-.02em}
+.cartao .u{font-size:12px;color:var(--muted)}
+
+/* ---------- grade de respostas (réplica do caderno) ---------- */
+.grade-prova{display:grid;grid-template-columns:repeat(14,1fr);gap:4px}
+.qc{aspect-ratio:1;border-radius:2px;border:1px solid var(--line);background:var(--surface-2);
+  display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;
+  font-family:"IBM Plex Mono",monospace;color:var(--muted)}
+.qc.on{color:var(--sobre-cobre);border-color:transparent}
+.qc.port.on{background:var(--a-port)} .qc.mat.on{background:var(--a-mat)}
+.qc.gh.on{background:var(--a-gh)}    .qc.cie.on{background:var(--a-cie)}
+.legenda{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:12px;color:var(--ink-2)}
+.legenda i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:baseline}
+
+/* ---------- barras de domínio ---------- */
+.dominio{display:flex;flex-direction:column;gap:11px}
+.dlinha{display:grid;grid-template-columns:118px 1fr 58px;align-items:center;gap:12px}
+.dlinha b{font-size:13px;font-weight:600}
+.trilho{height:7px;border-radius:99px;background:var(--surface-2);border:1px solid var(--line-soft);overflow:hidden}
+.trilho i{display:block;height:100%;border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.dlinha .n{text-align:right;font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+
+/* ---------- questão ---------- */
+.questao{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+.q-cab{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line-soft);
+  background:var(--surface-2);flex-wrap:wrap}
+.selo{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:2px 7px;border-radius:2px;border:1px solid currentColor}
+.selo.port{color:var(--a-port)} .selo.mat{color:var(--a-mat)}
+.selo.gh{color:var(--a-gh)}     .selo.cie{color:var(--a-cie)}
+.q-cab .top{font-size:12.5px;color:var(--muted)}
+.q-cab .dir{margin-left:auto;font-size:12px;color:var(--muted);font-family:"IBM Plex Mono",monospace}
+.enunciado{font-family:"IBM Plex Serif",Georgia,serif;font-size:16.5px;line-height:1.62;
+  padding:18px 20px 4px;white-space:pre-wrap;max-width:68ch}
+.texto-base{margin:18px 20px 0;padding:12px 16px;border-left:3px solid var(--line);background:var(--surface-2);
+  font-family:"IBM Plex Serif",Georgia,serif;font-size:15px;line-height:1.6;white-space:pre-wrap;max-width:68ch}
+.texto-base cite{display:block;margin-top:8px;font-style:normal;font-size:12px;color:var(--muted);white-space:normal}
+.alts{display:flex;flex-direction:column;gap:7px;padding:14px 20px 18px}
+.alt{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:start;width:100%;text-align:left;
+  padding:10px 12px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);
+  font-family:"IBM Plex Serif",Georgia,serif;font-size:15.5px;line-height:1.5;transition:border-color .12s,background .12s}
+.alt:hover:not(:disabled){border-color:var(--cobre);background:var(--cobre-fraco)}
+.alt .letra{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:13px;color:var(--muted);
+  border:1px solid var(--line);border-radius:2px;text-align:center;padding:1px 0;margin-top:1px}
+.alt:disabled{cursor:default}
+.alt.certa{border-color:var(--verde);background:var(--verde-fraco)}
+.alt.certa .letra{background:var(--verde);color:var(--surface);border-color:var(--verde)}
+.alt.errada{border-color:var(--rubro);background:var(--rubro-fraco)}
+.alt.errada .letra{background:var(--rubro);color:var(--surface);border-color:var(--rubro)}
+.alt.marcada{border-color:var(--cobre);background:var(--cobre-fraco)}
+.porque{margin:0 20px 18px;padding:14px 16px;border-left:3px solid var(--cobre);
+  background:var(--surface-2);border-radius:0 var(--r) var(--r) 0;
+  font-family:"IBM Plex Serif",Georgia,serif;font-size:14.5px;line-height:1.62;white-space:pre-wrap}
+.porque .rotulo{margin-bottom:5px;font-family:"IBM Plex Sans Condensed",sans-serif}
+
+/* ---------- botões ---------- */
+.acoes{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.btn{padding:8px 15px;border-radius:var(--r);font-weight:600;font-size:14px;
+  border:1px solid var(--line);background:var(--surface);transition:background .12s,border-color .12s}
+.btn:hover{background:var(--surface-2);border-color:var(--muted)}
+.btn.pri{background:var(--cobre);border-color:var(--cobre);color:var(--sobre-cobre)}
+.btn.pri:hover{background:var(--cobre-forte);border-color:var(--cobre-forte)}
+.btn.peq{padding:5px 10px;font-size:13px}
+.btn[aria-pressed="true"]{background:var(--cobre-fraco);border-color:var(--cobre);color:var(--cobre-forte)}
+
+/* ---------- tabelas e listas ---------- */
+.rolagem{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+  font-weight:600;padding:8px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.num{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.chip{display:inline-block;font-size:11px;font-weight:600;padding:1px 7px;border-radius:99px;white-space:nowrap}
+.chip.alta{background:var(--rubro-fraco);color:var(--rubro)}
+.chip.media{background:var(--ambar-fraco);color:var(--ambar)}
+.chip.ok{background:var(--verde-fraco);color:var(--verde)}
+.chip.neutro{background:var(--surface-2);color:var(--muted);border:1px solid var(--line-soft)}
+ul.limpa{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--ink-2)}
+ul.limpa li::marker{color:var(--cobre)}
+
+/* ---------- semana / plano ---------- */
+.semana{display:grid;grid-template-columns:78px 1fr;gap:0;border-bottom:1px solid var(--line-soft)}
+.semana:last-child{border-bottom:0}
+.semana>div{padding:11px 14px}
+.semana .per{border-right:1px solid var(--line-soft);background:var(--surface-2)}
+.semana .per b{display:block;font-size:13px}
+.semana .per span{font-size:11px;color:var(--muted);font-family:"IBM Plex Mono",monospace}
+.semana.agora .per{background:var(--cobre-fraco)}
+.semana.agora .per b{color:var(--cobre-forte)}
+.semana .foco{font-size:14px;color:var(--ink-2)}
+
+/* ---------- simulado ---------- */
+.barra-fixa{position:sticky;top:0;z-index:5;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r-lg);padding:10px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  box-shadow:var(--sombra)}
+.crono{font-family:"IBM Plex Mono",monospace;font-size:20px;font-weight:600;font-variant-numeric:tabular-nums}
+.crono.urgente{color:var(--rubro)}
+.mini-grade{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:3px;flex:1;min-width:220px}
+.mini-grade button{aspect-ratio:1;border:1px solid var(--line);border-radius:2px;background:var(--surface-2);
+  font-size:9.5px;font-family:"IBM Plex Mono",monospace;color:var(--muted);padding:0}
+.mini-grade button.resp{background:var(--cobre);border-color:var(--cobre);color:var(--sobre-cobre)}
+.mini-grade button.atual{outline:2px solid var(--ink);outline-offset:1px}
+
+/* ---------- dossiê ---------- */
+.camada{display:flex;flex-direction:column;gap:6px;margin-top:10px;padding-bottom:2px;
+  border-bottom:1px solid var(--line)}
+.camada:first-of-type{margin-top:0}
+.camada-cab{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.camada-cab .chip{font-size:12px;padding:2px 10px}
+.camada-reg{font-size:13px;color:var(--ink-2);font-weight:600}
+.camada-ordem{margin:0 0 8px;font-size:13.5px;color:var(--muted);max-width:66ch}
+.dossie{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+.dossie.feito{border-color:var(--verde);background:var(--surface)}
+.dossie.feito .dossie-cab{background:var(--verde-fraco)}
+.dossie-cab{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:10px 16px;border-bottom:1px solid var(--line-soft);background:var(--surface-2)}
+.dossie-cab h3{font-size:15.5px;flex:1;min-width:180px}
+.dossie-cab .marca{margin-left:auto;white-space:nowrap}
+.dossie-corpo{padding:14px 18px 16px;display:flex;flex-direction:column;gap:12px}
+.dossie .freq{margin:0;font-size:13px;color:var(--muted)}
+.dossie .freq b{color:var(--ink-2)}
+.bloco-saber .rotulo{margin-bottom:7px}
+.bloco-saber ul.limpa{font-family:"IBM Plex Serif",Georgia,serif;font-size:14.5px;line-height:1.6;max-width:70ch}
+.bloco-saber code{font-family:"IBM Plex Mono",monospace;font-size:13px;background:var(--surface-2);
+  border:1px solid var(--line-soft);border-radius:2px;padding:0 4px;white-space:nowrap}
+.nota{padding:11px 14px;border-radius:0 var(--r) var(--r) 0;font-size:14px;line-height:1.55;max-width:70ch}
+.nota .rotulo{display:block;margin-bottom:4px}
+.nota.armadilha{border-left:3px solid var(--rubro);background:var(--rubro-fraco)}
+.nota.armadilha .rotulo{color:var(--rubro)}
+.nota.fogo{border-left:3px solid var(--cobre);background:var(--surface-2);
+  font-family:"IBM Plex Serif",Georgia,serif;font-style:italic}
+.recado{margin:12px 0 0;font-size:13.5px;color:var(--ink-2)}
+
+.tema.sair{color:var(--cobre);font-weight:600}
+details.certas{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:12px 16px;
+  display:flex;flex-direction:column;gap:12px}
+details.certas summary{font-weight:600;cursor:pointer;color:var(--ink-2)}
+details.certas[open] summary{margin-bottom:12px}
+details.certas .questao{margin-top:12px}
+.vazio{padding:30px 18px;text-align:center;color:var(--muted);font-size:14px}
+.oculto{display:none!important}
+@media print{body{display:none}}
+.aviso{display:flex;gap:10px;padding:12px 15px;border-radius:var(--r-lg);
+  background:var(--ambar-fraco);border:1px solid var(--ambar);font-size:13.5px;color:var(--ink)}
+.aviso b{color:var(--ambar)}
+@media (max-width:760px){
+  .app{grid-template-columns:1fr}
+  .rail{position:static;height:auto;flex-direction:row;align-items:center;gap:8px;overflow-x:auto;padding:10px 12px;
+    border-right:0;border-bottom:1px solid var(--line)}
+  .marca{display:none} .rodape-rail{margin:0}
+  .nav{flex-direction:row;gap:4px}
+  .nav button{white-space:nowrap;padding:6px 10px}
+  main{padding:18px 16px 60px}
+  .dlinha{grid-template-columns:94px 1fr 50px}
+  .grade-prova{grid-template-columns:repeat(7,1fr)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="app">
+  <nav class="rail">
+    <div class="marca"><b>Bancada</b><span class="mono">EXAME IFSC · TÉCNICO INTEGRADO</span><span>Olá, <b id="quem" style="font-size:inherit"></b></span></div>
+    <div class="nav" id="nav"></div>
+    <div class="rodape-rail">
+      <button class="tema sair" id="btn-sair">Sair da conta</button>
+      <button class="tema" id="btn-tema">Alternar tema</button>
+      <button class="tema" id="btn-zerar">Zerar progresso</button>
+      <span class="tema" style="font-size:10.5px">Material independente, sem vínculo com o IFSC.</span>
+    </div>
+  </nav>
+  <main><div class="faixa" id="tela"><div class="vazio" id="carregando">Carregando sua conta…</div></div></main>
+</div>
+
+<script src="dados/banco.js"></script>
+<script src="dados/gerador.js"></script>
+<script src="dados/dominio.js"></script>
+<script src="app.js"></script>
+<script>
+/* boot: só inicia com conta válida; sem ela, volta para /entrar com o motivo */
+window.bancadaSaiu = function (motivo) { location.href = "/entrar?motivo=" + encodeURIComponent(motivo || ""); };
+(async function () {
+  try {
+    const r1 = await fetch("/api/eu", {cache: "no-store"});
+    const eu = await r1.json();
+    if (!r1.ok) return window.bancadaSaiu(eu.motivo);
+    const prog = await (await fetch("/api/progresso", {cache: "no-store"})).json();
+    window.iniciarBancada(eu, prog);
+  } catch (e) {
+    document.getElementById("carregando").textContent = "Sem conexão com o servidor. Confira a internet e recarregue a página.";
+  }
+})();
+</script>

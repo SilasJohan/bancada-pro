@@ -1,0 +1,13 @@
+# sudo cp deploy/bancada-pro.service /etc/systemd/system/ && sudo systemctl enable --now bancada-pro
+[Unit]
+Description=Bancada (produto) - servidor de contas
+After=network.target
+
+[Service]
+User=www-data
+WorkingDirectory=/var/www/bancada-pro/servidor
+ExecStart=/var/www/bancada-pro/servidor/.venv/bin/gunicorn -b 127.0.0.1:8811 -w 3 app:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Comprar acesso · Bancada</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/estilo.css">
+<style>
+main{max-width:480px;margin:0 auto;padding:40px 16px 64px;display:flex;flex-direction:column;gap:18px}
+.topo a{text-decoration:none;color:var(--ink);font-weight:700;font-size:22px}
+.caixa{padding:20px;display:flex;flex-direction:column;gap:14px}
+.passos{display:flex;gap:6px;font-size:12px;font-weight:700;color:var(--muted)}
+.passos span{flex:1;padding-top:6px;border-top:3px solid var(--line)}
+.passos span.on{color:var(--cobre-forte);border-top-color:var(--cobre)}
+.valor{font-family:"IBM Plex Mono",monospace;font-size:34px;font-weight:600;line-height:1}
+.qr-area{display:flex;flex-direction:column;align-items:center;gap:8px;padding:6px 0}
+.qr{width:min(260px,100%);aspect-ratio:1;background:#fff;border-radius:10px;border:1px solid var(--line);
+  box-shadow:0 1px 2px rgba(22,33,27,.06),0 6px 18px -10px rgba(22,33,27,.25);overflow:hidden}
+.qr svg{display:block;width:100%;height:100%}
+.qr-area .dica{text-align:center}
+.copia{font-family:"IBM Plex Mono",monospace;font-size:11.5px;word-break:break-all;background:var(--surface-2);
+  border:1px solid var(--line-soft);border-radius:var(--r);padding:10px;max-height:84px;overflow:auto}
+.codigo{font-family:"IBM Plex Mono",monospace;font-size:28px;font-weight:600;letter-spacing:.06em;text-align:center;
+  padding:16px;background:var(--verde-fraco);color:var(--verde);border-radius:var(--r-lg)}
+.espera{display:flex;gap:10px;align-items:center;font-size:14px;color:var(--ink-2)}
+.ponto{width:10px;height:10px;border-radius:50%;background:var(--cobre);animation:pulsa 1.4s infinite}
+@keyframes pulsa{50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.ponto{animation:none}}
+.dica{font-size:13px;color:var(--muted);margin:0}
+ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:15px}
+.btn{text-align:center}
+.alerta-pix{border:2px solid var(--ambar,#96690A);background:#F3E9D2;color:#16211B;border-radius:var(--r-lg);padding:14px 16px;
+  display:flex;flex-direction:column;gap:6px;font-size:15px;line-height:1.45}
+.alerta-pix b.t{font-size:17px}
+.alerta-pix .num{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:18px;white-space:nowrap}
+@media (prefers-color-scheme: dark){.alerta-pix{background:#2E2712;color:#E4EBE2;border-color:#C9A44B}}
+.btn.whats{background:#1B6E47;border-color:#1B6E47;color:#fff;font-size:17px;padding:14px 20px}
+.btn.whats:hover{background:#155a3a}
+</style>
+<main>
+  <div class="topo"><a href="/">Bancada</a></div>
+  <div class="passos"><span id="p1" class="on">1 · Seus dados</span><span id="p2">2 · Pix</span><span id="p3">3 · Seu código</span></div>
+
+  <!-- 1. dados -->
+  <form id="f-pedido" class="caixa">
+    <div><span class="rotulo">Acesso individual até a prova</span><div class="valor" id="preco">—</div></div>
+    <label>Nome de quem vai estudar <input name="nome" autocomplete="name" required></label>
+    <label>E-mail <input name="email" type="email" autocomplete="email" required></label>
+    <label>Nome do titular da conta que vai pagar o Pix
+      <input name="pagador" placeholder="Se for outra pessoa (pai, mãe…)"></label>
+    <label>WhatsApp (opcional) <input name="whatsapp" type="tel" autocomplete="tel" placeholder="(48) 9…"></label>
+    <div class="msg erro oculto"></div>
+    <button class="btn pri">Gerar Pix</button>
+    <p class="dica"><b>Importante:</b> a liberação não é automática. Depois de pagar, você precisa mandar mensagem
+      no WhatsApp <b id="num1">(48) 99212-6727</b> para receber o código.</p>
+    <p class="dica">O nome do titular serve para conferirmos o pagamento no extrato. Seus dados não são compartilhados.</p>
+  </form>
+
+  <!-- 2. pix -->
+  <div id="v-pix" class="caixa oculto">
+    <div><span class="rotulo">Pedido <b class="mono" id="pid"></b></span><div class="valor" id="valor"></div></div>
+    <div class="alerta-pix" role="alert">
+      <b class="t">⚠ O pagamento NÃO é confirmado automaticamente</b>
+      <span>Depois de pagar, mande mensagem no WhatsApp <span class="num">(48) 99212-6727</span> com o número do
+        pedido <b class="mono" id="pid2"></b>. <b>Sem essa mensagem, seu código não é liberado.</b></span>
+    </div>
+    <div class="qr-area">
+      <div class="qr" id="qr" role="img" aria-label="QR Code do Pix"></div>
+      <p class="dica">Escaneie no app do banco ou use o código abaixo</p>
+    </div>
+    <div class="copia" id="copia"></div>
+    <button class="btn pri" id="b-copiar">Copiar código Pix</button>
+    <ol>
+      <li>No app do seu banco, escolha <b>Pix → Copia e cola</b> (ou leia o QR Code).</li>
+      <li>Confira o valor e pague.</li>
+      <li><b>Obrigatório:</b> toque no botão verde abaixo e envie a mensagem no WhatsApp. Ela já vai pronta com o número do pedido.</li>
+    </ol>
+    <a class="btn whats" id="b-avisar" target="_blank" rel="noopener">Já paguei → enviar mensagem no WhatsApp</a>
+    <div class="espera"><span class="ponto"></span><span>Aguardando a confirmação. Assim que conferirmos o Pix após a sua mensagem, o código aparece aqui sozinho.</span></div>
+    <p class="dica">A confirmação é feita por uma pessoa, conferindo o extrato do banco — em geral em poucos minutos,
+      em horário comercial um pouco mais rápido. Pode fechar a página: volte por <a id="link-volta" href="#">este link</a>
+      (ele também fica salvo neste aparelho).</p>
+  </div>
+
+  <!-- 3. código -->
+  <div id="v-codigo" class="caixa oculto">
+    <span class="rotulo">Pagamento confirmado</span>
+    <p style="margin:0">Pronto, <b id="nome-ok"></b>! Este é o seu código de acesso:</p>
+    <div class="codigo" id="codigo"></div>
+    <a class="btn pri" id="b-ativar">Ativar minha conta agora</a>
+    <p class="dica">O código vale para <b>uma única conta</b>. Depois de ativado, ele não funciona para mais ninguém.
+      Comprando para outra pessoa? <a href="#" id="b-outro">Fazer outro pedido</a>.</p>
+  </div>
+
+  <!-- fim triste -->
+  <div id="v-fim" class="caixa oculto">
+    <p style="margin:0" id="fim-txt"></p>
+    <button class="btn pri" id="b-novo">Fazer um novo pedido</button>
+  </div>
+
+  <p class="dica">Dúvidas? <a id="suporte" target="_blank" rel="noopener">Fale com o suporte no WhatsApp</a>.</p>
+</main>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const CHAVE = "bancada-pedido";
+let SUPORTE = "", timer = null;
+
+fetch("/api/publico").then(r => r.json()).then(c => {
+  $("preco").textContent = "R$ " + (c.precos.individual || "—");
+  SUPORTE = c.suporte; $("suporte").href = SUPORTE;
+}).catch(() => {});
+
+function passo(n) { [1, 2, 3].forEach(i => $("p" + i).classList.toggle("on", i <= n)); }
+function mostrar(id) { ["f-pedido", "v-pix", "v-codigo", "v-fim"].forEach(v => $(v).classList.toggle("oculto", v !== id)); }
+function guardar(t) { try { localStorage.setItem(CHAVE, t); } catch (e) {} }
+function lembrado() { try { return localStorage.getItem(CHAVE); } catch (e) { return null; } }
+function esquecer() { try { localStorage.removeItem(CHAVE); } catch (e) {} }
+
+function render(p, token) {
+  clearTimeout(timer);
+  const volta = location.origin + "/comprar#t=" + token;
+  if (p.status === "pago") {
+    passo(3); mostrar("v-codigo");
+    $("nome-ok").textContent = p.nome.split(" ")[0];
+    $("codigo").textContent = p.codigo;
+    $("b-ativar").href = "/entrar#ativar=" + encodeURIComponent(p.codigo);
+    return;
+  }
+  if (p.status !== "pendente") {
+    passo(1); mostrar("v-fim"); esquecer();
+    $("fim-txt").textContent = p.status === "expirado"
+      ? "Este pedido expirou sem confirmação de pagamento. Se você pagou, fale com o suporte informando o pedido " + p.id + "."
+      : "Este pedido foi cancelado. Se acha que foi engano, fale com o suporte informando o pedido " + p.id + ".";
+    return;
+  }
+  passo(2); mostrar("v-pix");
+  $("pid").textContent = p.id; $("pid2").textContent = p.id; $("valor").textContent = p.valor;
+  $("qr").innerHTML = p.qr;                     // SVG gerado no nosso servidor
+  $("copia").textContent = p.pix;
+  $("b-copiar").onclick = async () => {
+    try { await navigator.clipboard.writeText(p.pix); } catch (e) {
+      const r = document.createRange(); r.selectNodeContents($("copia")); getSelection().removeAllRanges(); getSelection().addRange(r); document.execCommand("copy"); }
+    $("b-copiar").textContent = "Copiado ✓"; setTimeout(() => $("b-copiar").textContent = "Copiar código Pix", 2000);
+  };
+  const msg = "Olá! Paguei o Pix do pedido " + p.id + " (" + p.valor + ") da Bancada.\nTitular: " + p.pagador + "\nE-mail: " + p.email;
+  $("b-avisar").href = (SUPORTE || "https://wa.me/5548992126727") + "?text=" + encodeURIComponent(msg);
+  $("link-volta").href = volta;
+  timer = setTimeout(() => acompanhar(token), 8000);
+}
+
+async function acompanhar(token) {
+  try {
+    const r = await fetch("/api/pedido/estado?t=" + encodeURIComponent(token), {cache: "no-store"});
+    if (r.status === 404) { esquecer(); passo(1); mostrar("f-pedido"); return; }
+    const j = await r.json();
+    if (j.suporte) { SUPORTE = j.suporte; $("suporte").href = SUPORTE; }
+    render(j, token);
+  } catch (e) { timer = setTimeout(() => acompanhar(token), 15000); }   // sem internet: tenta de novo
+}
+
+$("f-pedido").onsubmit = async e => {
+  e.preventDefault();
+  const f = e.target, msg = f.querySelector(".msg"), btn = f.querySelector("button");
+  msg.classList.add("oculto"); btn.disabled = true;
+  try {
+    const r = await fetch("/api/pedido", {method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(Object.fromEntries(new FormData(f)))});
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.erro);
+    guardar(j.token);
+    history.replaceState(null, "", "#t=" + j.token);
+    render(j, j.token);
+  } catch (err) { msg.textContent = err.message || "Sem conexão. Tente de novo."; msg.classList.remove("oculto"); }
+  btn.disabled = false;
+};
+$("b-outro").onclick = e => { e.preventDefault(); esquecer(); $("b-novo").onclick(); };
+$("b-novo").onclick = () => { history.replaceState(null, "", "/comprar"); passo(1); mostrar("f-pedido"); };
+
+/* volta para um pedido em andamento: pelo link (#t=…) ou pelo que ficou salvo aqui */
+const doLink = (location.hash.match(/^#t=([\w-]+)/) || [])[1];
+const token = doLink || lembrado();
+if (token) { guardar(token); acompanhar(token); }
+</script>
+</html>

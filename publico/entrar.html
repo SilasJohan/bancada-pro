@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrar · Bancada</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/estilo.css">
+<style>
+main{max-width:420px;margin:0 auto;padding:48px 16px 64px;display:flex;flex-direction:column;gap:18px}
+.topo{display:flex;flex-direction:column;gap:2px}
+.topo a{text-decoration:none;color:var(--ink);font-weight:700;font-size:22px}
+.abas{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
+.abas button{font:inherit;font-weight:700;padding:12px;border:0;background:none;color:var(--muted);cursor:pointer;
+  border-bottom:2px solid transparent}
+.abas button[aria-selected="true"]{color:var(--cobre-forte);border-bottom-color:var(--cobre)}
+form{display:flex;flex-direction:column;gap:14px;padding:20px}
+.dica{font-size:13px;color:var(--muted);margin:0}
+</style>
+<main>
+  <div class="topo"><a href="/">Bancada</a><span class="rotulo">Treino para o exame do IFSC</span></div>
+  <div id="aviso" class="msg info oculto"></div>
+
+  <div class="caixa">
+    <div class="abas" role="tablist">
+      <button role="tab" id="t-entrar" aria-selected="true">Entrar</button>
+      <button role="tab" id="t-ativar" aria-selected="false">Ativar código</button>
+    </div>
+
+    <form id="f-entrar">
+      <label>E-mail <input name="email" type="email" autocomplete="email" required></label>
+      <label>Senha <input name="senha" type="password" autocomplete="current-password" required></label>
+      <div class="msg erro oculto"></div>
+      <button class="btn pri">Entrar</button>
+      <p class="dica">Esqueceu a senha? Fale com o suporte pelo mesmo canal em que comprou.</p>
+    </form>
+
+    <form id="f-ativar" class="oculto">
+      <label>Código de acesso <input name="codigo" class="mono" placeholder="XXXX-XXXX-XXXX" autocomplete="off" required
+        style="text-transform:uppercase;letter-spacing:.08em"></label>
+      <label>Seu nome <input name="nome" autocomplete="name" required></label>
+      <label>E-mail <input name="email" type="email" autocomplete="email" required></label>
+      <label>Crie uma senha <input name="senha" type="password" autocomplete="new-password" minlength="8" required></label>
+      <div class="msg erro oculto"></div>
+      <button class="btn pri">Ativar e começar</button>
+      <p class="dica">O código vale para <b>uma conta</b>. Depois de ativado, ele não serve para mais ninguém.</p>
+    </form>
+
+    <form id="f-renovar" class="oculto">
+      <p style="margin:0">Seu acesso do ciclo anterior venceu. Seu histórico continua guardado — ative um código novo
+        para continuar de onde parou.</p>
+      <label>Código novo <input name="codigo" class="mono" placeholder="XXXX-XXXX-XXXX" autocomplete="off" required
+        style="text-transform:uppercase;letter-spacing:.08em"></label>
+      <div class="msg erro oculto"></div>
+      <button class="btn pri">Renovar acesso</button>
+    </form>
+  </div>
+  <p class="dica">Ainda não tem código? <a href="/#comprar">Veja como garantir o seu</a>.</p>
+</main>
+<script>
+const MOTIVOS = {
+  limite: "Sua conta foi aberta em outro aparelho e esta sessão foi encerrada. O acesso é individual.",
+  vencida: "Seu acesso venceu.",
+  bloqueada: "Esta conta foi suspensa. Fale com o suporte.",
+  expirou: "Sua sessão expirou. Entre de novo.",
+  admin: "Sua sessão foi encerrada. Entre de novo."
+};
+const motivo = new URLSearchParams(location.search).get("motivo");
+const aviso = document.getElementById("aviso");
+if (MOTIVOS[motivo]) { aviso.textContent = MOTIVOS[motivo]; aviso.classList.remove("oculto"); }
+
+const forms = {entrar: f("f-entrar"), ativar: f("f-ativar"), renovar: f("f-renovar")};
+function f(id) { return document.getElementById(id); }
+function aba(k) {
+  Object.entries(forms).forEach(([n, el]) => el.classList.toggle("oculto", n !== k));
+  f("t-entrar").setAttribute("aria-selected", String(k === "entrar"));
+  f("t-ativar").setAttribute("aria-selected", String(k === "ativar"));
+}
+f("t-entrar").onclick = () => aba("entrar");
+f("t-ativar").onclick = () => aba("ativar");
+const porHash = () => {
+  const m = location.hash.match(/^#ativar(?:=(.+))?$/);
+  if (!m) return;
+  aba("ativar");
+  if (m[1]) { forms.ativar.codigo.value = decodeURIComponent(m[1]); forms.ativar.nome.focus(); }
+};
+porHash(); addEventListener("hashchange", porHash);
+// já entrou neste aparelho e não veio ativar um código novo? vai direto para o app
+if (!motivo && !location.hash.startsWith("#ativar"))
+  fetch("/api/eu", {cache: "no-store"}).then(r => { if (r.ok) location.replace("/app/"); }).catch(() => {});
+if (motivo === "vencida") aba("renovar");
+
+async function enviar(form, url) {
+  const msg = form.querySelector(".msg"), btn = form.querySelector("button");
+  msg.classList.add("oculto"); btn.disabled = true;
+  try {
+    const r = await fetch(url, {method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(Object.fromEntries(new FormData(form)))});
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) return j;
+    msg.textContent = j.erro || "Algo deu errado. Tente de novo.";
+  } catch (e) { msg.textContent = "Sem conexão. Confira a internet."; }
+  msg.classList.remove("oculto"); btn.disabled = false;
+  return null;
+}
+forms.entrar.onsubmit = async e => {
+  e.preventDefault();
+  if (!await enviar(forms.entrar, "/api/entrar")) return;
+  const r = await fetch("/api/eu", {cache: "no-store"});
+  if (r.ok) location.href = "/app/";
+  else { const j = await r.json(); if (j.motivo === "vencida") { aba("renovar"); aviso.textContent = MOTIVOS.vencida; aviso.classList.remove("oculto"); } }
+};
+forms.ativar.onsubmit = async e => { e.preventDefault(); if (await enviar(forms.ativar, "/api/cadastro")) location.href = "/app/"; };
+forms.renovar.onsubmit = async e => { e.preventDefault(); if (await enviar(forms.renovar, "/api/renovar")) location.href = "/app/"; };
+</script>
+</html>

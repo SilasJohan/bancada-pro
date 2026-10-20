@@ -1,0 +1,37 @@
+:root{
+  --ground:#EAEEE9; --surface:#FDFEFC; --surface-2:#F2F5F0; --line:#CBD4CA; --line-soft:#DEE5DC;
+  --ink:#16211B; --ink-2:#3D4F45; --muted:#66786C;
+  --cobre:#A85E31; --cobre-forte:#8C4B24; --cobre-fraco:#F0E2D8;
+  --verde:#1B6E47; --verde-fraco:#DDEBE2; --rubro:#A32B22; --rubro-fraco:#F5DEDB;
+  --a-port:#6B4E9E; --a-mat:#A85E31; --a-gh:#1B6E47; --a-cie:#1D6C86;
+  --sobre-cobre:#FFFFFF; --r:3px; --r-lg:6px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --ground:#11150F; --surface:#181D18; --surface-2:#1F2620; --line:#333D34; --line-soft:#272F28;
+  --ink:#E4EBE2; --ink-2:#B4C1B6; --muted:#87958A;
+  --cobre:#D08B5A; --cobre-forte:#E2A377; --cobre-fraco:#33251C;
+  --verde:#4FB483; --verde-fraco:#15301F; --rubro:#E08076; --rubro-fraco:#32191A;
+  --a-port:#A48BD4; --a-mat:#D08B5A; --a-gh:#4FB483; --a-cie:#5FAECB; --sobre-cobre:#11150F;
+}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:"IBM Plex Sans Condensed","Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-.01em}
+a{color:var(--cobre)}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+.rotulo{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.btn{display:inline-block;padding:11px 20px;border-radius:var(--r);font:inherit;font-weight:700;font-size:15px;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;text-decoration:none}
+.btn.pri{background:var(--cobre);border-color:var(--cobre);color:var(--sobre-cobre)}
+.btn.pri:hover{background:var(--cobre-forte)}
+.btn:disabled{opacity:.6;cursor:wait}
+.caixa{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg)}
+label{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:600;color:var(--ink-2)}
+input{font:inherit;font-size:16px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r);
+  background:var(--surface-2);color:var(--ink)}
+input:focus{outline:2px solid var(--cobre);outline-offset:0;border-color:transparent}
+.msg{padding:10px 12px;border-radius:var(--r);font-size:14px}
+.msg.erro{background:var(--rubro-fraco);color:var(--rubro)}
+.msg.info{background:var(--cobre-fraco);color:var(--cobre-forte)}
+.oculto{display:none!important}

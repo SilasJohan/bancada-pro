@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Painel · Bancada</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/estilo.css">
+<style>
+body{font-size:15px}
+.casca{max-width:1100px;margin:0 auto;padding:18px 16px 60px;display:flex;flex-direction:column;gap:16px}
+.cab{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.cab b{font-size:19px}
+.cab .rotulo{margin-right:auto}
+nav.abas{display:flex;gap:2px;border-bottom:1px solid var(--line);overflow-x:auto}
+nav.abas button{font:inherit;font-weight:700;padding:10px 14px;border:0;background:none;color:var(--muted);cursor:pointer;
+  border-bottom:2px solid transparent;white-space:nowrap}
+nav.abas button[aria-current="true"]{color:var(--cobre-forte);border-bottom-color:var(--cobre)}
+.caixa{padding:16px}
+.caixa h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.cartoes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.cartoes .caixa .v{font-family:"IBM Plex Mono",monospace;font-size:28px;font-weight:600;line-height:1.1}
+.cartoes .caixa .u{font-size:12.5px;color:var(--muted)}
+.cartoes .caixa.alerta{border-color:var(--rubro)} .cartoes .caixa.alerta .v{color:var(--rubro)}
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;align-items:end}
+.btn.peq{padding:6px 11px;font-size:13px}
+.btn.perigo{color:var(--rubro);border-color:var(--rubro)}
+.acoes{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.rolagem{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;
+  padding:7px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:8px 10px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+tr.clicavel{cursor:pointer} tr.clicavel:hover td{background:var(--surface-2)}
+td.num{font-family:"IBM Plex Mono",monospace;text-align:right;white-space:nowrap}
+.chip{display:inline-block;font-size:11.5px;font-weight:600;padding:1px 8px;border-radius:99px;white-space:nowrap}
+.chip.ok{background:var(--verde-fraco);color:var(--verde)}
+.chip.mal{background:var(--rubro-fraco);color:var(--rubro)}
+.chip.neutro{background:var(--surface-2);color:var(--muted);border:1px solid var(--line-soft)}
+.codigos{font-family:"IBM Plex Mono",monospace;font-size:15px;display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:6px}
+.codigos span{padding:6px 9px;background:var(--surface-2);border:1px solid var(--line-soft);border-radius:var(--r)}
+.codigos span.usado{text-decoration:line-through;color:var(--muted)}
+.dica{font-size:13px;color:var(--muted);margin:8px 0 0}
+dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:0;font-size:14px}
+dt{color:var(--muted)} dd{margin:0}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--ground);
+  padding:9px 16px;border-radius:var(--r-lg);font-size:14px;font-weight:600;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9}
+#toast.on{opacity:1}
+.entrar{max-width:360px;margin:12vh auto 0;display:flex;flex-direction:column;gap:14px}
+textarea{font:inherit;font-size:14px;width:100%;min-height:90px;padding:10px;border:1px solid var(--line);border-radius:var(--r);
+  background:var(--surface-2);color:var(--ink)}
+</style>
+
+<div id="tela-login" class="entrar oculto">
+  <b style="font-size:22px">Painel da Bancada</b>
+  <form id="f-login" class="caixa" style="display:flex;flex-direction:column;gap:12px">
+    <label>Senha de administrador <input type="password" name="senha" autocomplete="current-password" required autofocus></label>
+    <div class="msg erro oculto"></div>
+    <button class="btn pri">Entrar</button>
+  </form>
+  <p class="dica" id="sem-senha" hidden>Nenhuma senha definida ainda. No servidor, rode:<br>
+    <code>sudo -u www-data /var/www/bancada-pro/servidor/.venv/bin/python /var/www/bancada-pro/servidor/admin.py senha-admin</code></p>
+</div>
+
+<div id="tela-painel" class="casca oculto">
+  <div class="cab">
+    <b>Painel</b><span class="rotulo" id="ciclo"></span>
+    <a class="btn peq" href="/" target="_blank">Ver site</a>
+    <button class="btn peq" id="sair">Sair</button>
+  </div>
+  <nav class="abas" id="abas"></nav>
+  <div id="conteudo" style="display:flex;flex-direction:column;gap:16px"></div>
+</div>
+<div id="toast"></div>
+
+<script>
+"use strict";
+/* ---------- utilidades ---------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => "&#" + c.charCodeAt(0) + ";");
+const dt = t => t ? new Date(t * 1000).toLocaleString("pt-BR", {day:"2-digit", month:"2-digit", year:"2-digit", hour:"2-digit", minute:"2-digit"}) : "—";
+const dBR = iso => iso ? iso.slice(0, 10).split("-").reverse().join("/") : "—";
+function toast(m) { const t = $("toast"); t.textContent = m; t.classList.add("on"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("on"), 2200); }
+async function api(caminho, corpo) {
+  const r = await fetch("/api/admin/" + caminho, corpo === undefined ? {cache: "no-store"} :
+    {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(corpo)});
+  const j = await r.json().catch(() => ({erro: "Resposta inválida do servidor."}));
+  if (r.status === 401 && caminho !== "entrar") { mostrarLogin(); throw new Error("sem login"); }
+  if (!r.ok) { toast(j.erro || "Erro"); throw new Error(j.erro); }
+  return j;
+}
+async function copiar(txt, msg) {
+  try { await navigator.clipboard.writeText(txt); }
+  catch (e) { const a = Object.assign(document.createElement("textarea"), {value: txt}); document.body.append(a); a.select(); document.execCommand("copy"); a.remove(); }
+  toast(msg || "Copiado");
+}
+function el(html) { const d = document.createElement("div"); d.innerHTML = html.trim(); return d.firstElementChild; }
+const C = $("conteudo");
+let CFG = {};
+
+/* mensagem pronta para mandar ao aluno pelo WhatsApp */
+const mensagem = cod => "Olá! Seu acesso à Bancada está liberado.\n\n" +
+  "1. Abra " + location.origin + "/entrar#ativar\n2. Digite o código: " + cod +
+  "\n3. Crie sua conta com seu nome, e-mail e uma senha.\n\n" +
+  "O código vale para uma única conta e até 2 aparelhos. Bons estudos!";
+
+/* ---------- login ---------- */
+function mostrarLogin() { $("tela-painel").classList.add("oculto"); $("tela-login").classList.remove("oculto"); }
+$("f-login").onsubmit = async e => {
+  e.preventDefault();
+  const msg = e.target.querySelector(".msg");
+  const r = await fetch("/api/admin/entrar", {method: "POST", headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({senha: e.target.senha.value})});
+  if (r.ok) { e.target.reset(); iniciar(); return; }
+  msg.textContent = (await r.json().catch(() => ({}))).erro || "Erro"; msg.classList.remove("oculto");
+};
+$("sair").onclick = async () => { await api("sair", {}); mostrarLogin(); };
+
+/* ---------- abas ---------- */
+const ABAS = {resumo: "Resumo", pedidos: "Pedidos Pix", codigos: "Gerar códigos", contas: "Contas", suspeitos: "Suspeitos", config: "Configuração"};
+let abaAtual = "resumo";
+Object.entries(ABAS).forEach(([k, r]) => {
+  const b = el(`<button>${r}</button>`); b.onclick = () => ir(k); $("abas").append(b);
+});
+function ir(k, arg) {
+  abaAtual = k;
+  [...$("abas").children].forEach((b, i) => b.setAttribute("aria-current", String(Object.keys(ABAS)[i] === k)));
+  C.replaceChildren();
+  ({resumo: telaResumo, pedidos: telaPedidos, codigos: telaCodigos, contas: telaContas, suspeitos: telaSuspeitos, config: telaConfig, conta: telaConta})[k](arg);
+}
+
+/* ---------- resumo ---------- */
+async function telaResumo() {
+  const r = await api("resumo"); CFG = r.config;
+  $("ciclo").textContent = "ciclo " + CFG.ciclo + " · prova " + dBR(CFG.prova);
+  atualizarSelo(r.pedidos_pendentes);
+  const cart = [["Pedidos aguardando", r.pedidos_pendentes, "Pix para conferir", r.pedidos_pendentes > 0, "pedidos"],
+    ["Contas ativas", r.ativas, "de " + r.contas + " no total"],
+    ["Estudaram (7 dias)", r.estudaram_7d, "contas com acesso na semana"],
+    ["Novas (7 dias)", r.novas_7d, "ativações na semana"],
+    ["Códigos livres", r.codigos_livres, "gerados e ainda não usados"],
+    ["Suspeitas", r.suspeitos, "possível compartilhamento", r.suspeitos > 0],
+    ["Bloqueadas", r.bloqueadas, "contas suspensas"]];
+  const cards = el(`<div class="cartoes">${cart.map(([a, v, u, al, ir_]) =>
+    `<div class="caixa${al ? " alerta" : ""}"${ir_ ? ` data-ir="${ir_}" style="cursor:pointer"` : ""}><div class="rotulo">${a}</div><div class="v">${v}</div><div class="u">${u}</div></div>`).join("")}</div>`);
+  cards.querySelectorAll("[data-ir]").forEach(d => d.onclick = () => ir(d.dataset.ir));
+  C.append(cards);
+  const at = el(`<div class="caixa"><h2>Atalhos</h2><div class="acoes"></div></div>`);
+  [["Gerar 1 código (venda avulsa)", () => ir("codigos", {n: 1, lote: "venda-" + new Date().toISOString().slice(0, 10)})],
+   ["Gerar lote para turma", () => ir("codigos", {n: 30, lote: "turma-"})],
+   ["Ver suspeitos", () => ir("suspeitos")]].forEach(([t, f]) => {
+    const b = el(`<button class="btn">${t}</button>`); b.onclick = f; at.lastChild.append(b);
+  });
+  C.append(at);
+  await listaLotes();
+}
+
+async function listaLotes() {
+  const {lotes} = await api("lotes");
+  const box = el(`<div class="caixa"><h2>Lotes de códigos</h2><div class="rolagem"></div></div>`);
+  if (!lotes.length) box.lastChild.innerHTML = "<p class='dica'>Nenhum código gerado ainda.</p>";
+  else {
+    box.lastChild.innerHTML = `<table><thead><tr><th>Lote</th><th>Acesso até</th><th>Aparelhos</th><th>Usados</th><th>Criado</th></tr></thead><tbody></tbody></table>`;
+    lotes.forEach(l => {
+      const tr = el(`<table><tr class="clicavel"><td>${esc(l.lote)}</td><td>${dBR(l.expira)}</td><td class="num">${l.max_aparelhos}</td>
+        <td class="num">${l.usados}/${l.n}</td><td>${dt(l.criado)}</td></tr></table>`).querySelector("tr");
+      tr.onclick = () => verLote(l.lote);
+      box.querySelector("tbody").append(tr);
+    });
+  }
+  C.append(box);
+}
+
+async function verLote(lote) {
+  const {codigos} = await api("lote?lote=" + encodeURIComponent(lote));
+  const livres = codigos.filter(k => !k.usado_em).map(k => k.codigo);
+  const box = el(`<div class="caixa"><h2>Lote ${esc(lote)}</h2>
+    <div class="acoes" style="margin-bottom:10px"><button class="btn peq">Copiar ${livres.length} livres</button></div>
+    <div class="rolagem"><table><thead><tr><th>Código</th><th>Situação</th><th></th></tr></thead><tbody></tbody></table></div></div>`);
+  box.querySelector("button").onclick = () => copiar(livres.join("\n"), livres.length + " códigos copiados");
+  codigos.forEach(k => {
+    const tr = el(`<table><tr><td class="mono">${k.codigo}</td><td>${k.usado_em
+      ? `<span class="chip neutro">usado ${dt(k.usado_em)}</span> <a href="#">${esc(k.email)}</a>` : `<span class="chip ok">livre</span>`}</td>
+      <td>${k.usado_em ? "" : `<button class="btn peq">Copiar mensagem</button>`}</td></tr></table>`).querySelector("tr");
+    const a = tr.querySelector("a"); if (a) a.onclick = e => { e.preventDefault(); ir("conta", k.email); };
+    const b = tr.querySelector("button"); if (b) b.onclick = () => copiar(mensagem(k.codigo), "Mensagem copiada — cole no WhatsApp");
+    box.querySelector("tbody").append(tr);
+  });
+  C.prepend(box);
+  box.scrollIntoView({behavior: "smooth"});
+}
+
+/* ---------- pedidos Pix ---------- */
+function atualizarSelo(n) {
+  const b = [...$("abas").children][Object.keys(ABAS).indexOf("pedidos")];
+  b.textContent = "Pedidos Pix" + (n ? " (" + n + ")" : "");
+}
+async function telaPedidos(modo) {
+  modo = modo || "pendente";
+  const {pedidos} = await api("pedidos?status=" + modo);
+  const box = el(`<div class="caixa"><h2>${modo === "pendente" ? "Aguardando confirmação" : "Resolvidos"}</h2>
+    <div class="acoes" style="margin-bottom:12px"><button class="btn peq" aria-pressed="${modo === "pendente"}">Aguardando</button>
+    <button class="btn peq" aria-pressed="${modo !== "pendente"}">Resolvidos</button><button class="btn peq">Atualizar</button></div>
+    <div class="lista" style="display:flex;flex-direction:column;gap:10px"></div>
+    <p class="dica">Só confirme depois de ver o dinheiro <b>no app do seu banco</b>, com o valor certo e o nome do titular.
+    Comprovante enviado no WhatsApp não é prova — print se edita.</p></div>`);
+  const [b1, b2, b3] = box.querySelectorAll(".acoes button");
+  b1.onclick = () => ir("pedidos", "pendente"); b2.onclick = () => ir("pedidos", "resolvidos"); b3.onclick = () => ir("pedidos", modo);
+  const lista = box.querySelector(".lista");
+  if (!pedidos.length) lista.innerHTML = "<p class='dica'>" + (modo === "pendente" ? "Nenhum pedido aguardando." : "Nada por aqui ainda.") + "</p>";
+  pedidos.forEach(p => {
+    const chip = {pendente: "<span class='chip neutro'>aguardando</span>", expirado: "<span class='chip neutro'>expirado</span>",
+                  pago: "<span class='chip ok'>pago</span>", cancelado: "<span class='chip mal'>cancelado</span>"}[p.status];
+    const whats = p.whatsapp ? ` · <a href="https://wa.me/${p.whatsapp.length <= 11 ? "55" : ""}${esc(p.whatsapp)}" target="_blank" rel="noopener">WhatsApp</a>` : "";
+    const card = el(`<div style="border:1px solid var(--line);border-radius:var(--r-lg);padding:12px 14px;display:flex;flex-direction:column;gap:8px">
+      <div class="acoes" style="justify-content:space-between"><span><b class="mono">${p.id}</b> ${chip}</span>
+        <span class="mono" style="font-size:20px;font-weight:600">${p.valor}</span></div>
+      <dl><dt>Titular do Pix</dt><dd><b>${esc(p.pagador)}</b></dd>
+        <dt>Aluno</dt><dd>${esc(p.nome)} · ${esc(p.email)}${whats}</dd>
+        <dt>Pedido em</dt><dd>${dt(p.criado)}${p.resolvido ? " · resolvido " + dt(p.resolvido) : ""}</dd>
+        ${p.codigo ? `<dt>Código</dt><dd class="mono">${p.codigo}</dd>` : ""}</dl>
+      <div class="acoes"></div></div>`);
+    const ac = card.querySelector(".acoes:last-child");
+    if (p.status === "pendente" || p.status === "expirado") {
+      const ok = el(`<button class="btn pri">Confirmar pagamento</button>`);
+      ok.onclick = async () => {
+        if (!confirm("Você viu " + p.valor + " de " + p.pagador + " no extrato do seu banco?\n\nAo confirmar, o código é liberado na hora para o aluno.")) return;
+        const r = await api("pedidos/confirmar", {id: p.id});
+        toast("Pago! Código " + r.codigo + " liberado na página do aluno");
+        ir("pedidos", modo);
+      };
+      const no = el(`<button class="btn perigo">Cancelar pedido</button>`);
+      no.onclick = async () => { if (!confirm("Cancelar o pedido " + p.id + "?")) return; await api("pedidos/cancelar", {id: p.id}); ir("pedidos", modo); };
+      ac.append(ok, no);
+    } else if (p.codigo) {
+      const cp = el(`<button class="btn peq">Copiar mensagem com o código</button>`);
+      cp.onclick = () => copiar(mensagem(p.codigo), "Mensagem copiada — cole no WhatsApp");
+      ac.append(cp);
+    }
+    lista.append(card);
+  });
+  C.append(box);
+}
+setInterval(async () => {                      // selo de pedidos novos, mesmo em outra aba
+  if ($("tela-painel").classList.contains("oculto")) return;
+  try { atualizarSelo((await api("resumo")).pedidos_pendentes); } catch (e) {}
+}, 30000);
+
+/* ---------- gerar códigos ---------- */
+async function telaCodigos(pre) {
+  pre = pre || {};
+  if (!CFG.acesso_ate) CFG = (await api("resumo")).config;
+  const f = el(`<form class="caixa"><h2>Gerar códigos</h2><div class="form">
+    <label>Nome do lote <input name="lote" required placeholder="venda-pix, turma-prof-joao…"></label>
+    <label>Quantidade <input name="n" type="number" min="1" max="500" value="1" required></label>
+    <label>Aparelhos por conta <input name="aparelhos" type="number" min="1" max="5" value="2" required></label>
+    <label>Acesso até <input name="expira" type="date" required></label>
+    <button class="btn pri">Gerar</button></div>
+    <p class="dica">O nome do lote serve para você saber depois de onde veio cada aluno (venda avulsa, turma de um professor, cortesia).</p></form>`);
+  f.lote.value = pre.lote || ""; f.n.value = pre.n || 1; f.expira.value = CFG.acesso_ate;
+  f.onsubmit = async e => {
+    e.preventDefault();
+    const r = await api("codigos", {lote: f.lote.value, n: +f.n.value, aparelhos: +f.aparelhos.value, expira: f.expira.value});
+    const res = el(`<div class="caixa"><h2>${r.codigos.length} código(s) · lote ${esc(r.lote)} · até ${dBR(r.expira)}</h2>
+      <div class="acoes" style="margin-bottom:12px"></div><div class="codigos"></div></div>`);
+    const ac = res.querySelector(".acoes");
+    const b1 = el(`<button class="btn pri">${r.codigos.length === 1 ? "Copiar mensagem para o aluno" : "Copiar todos"}</button>`);
+    b1.onclick = () => r.codigos.length === 1 ? copiar(mensagem(r.codigos[0]), "Mensagem copiada — cole no WhatsApp") : copiar(r.codigos.join("\n"), "Códigos copiados");
+    ac.append(b1);
+    if (r.codigos.length === 1) { const b2 = el(`<button class="btn">Copiar só o código</button>`); b2.onclick = () => copiar(r.codigos[0]); ac.append(b2); }
+    else { const b2 = el(`<button class="btn">Baixar lista (.txt)</button>`);
+      b2.onclick = () => { const a = Object.assign(document.createElement("a"), {href: URL.createObjectURL(new Blob([r.codigos.join("\n") + "\n"])), download: r.lote + ".txt"}); a.click(); };
+      ac.append(b2); }
+    res.lastChild.innerHTML = r.codigos.map(k => `<span>${k}</span>`).join("");
+    f.after(res);
+    toast(r.codigos.length + " código(s) gerado(s)");
+  };
+  C.append(f);
+  if (pre.lote) f.lote.focus();
+}
+
+/* ---------- contas ---------- */
+async function telaContas() {
+  const box = el(`<div class="caixa"><h2>Contas</h2><input type="search" placeholder="Buscar por nome ou e-mail" style="width:100%;margin-bottom:12px"><div class="rolagem"></div></div>`);
+  C.append(box);
+  const busca = box.querySelector("input");
+  let h;
+  busca.oninput = () => { clearTimeout(h); h = setTimeout(carregar, 250); };
+  async function carregar() {
+    const {contas, hoje} = await api("contas?q=" + encodeURIComponent(busca.value));
+    if (!contas.length) { box.lastChild.innerHTML = "<p class='dica'>Nenhuma conta.</p>"; return; }
+    box.lastChild.innerHTML = `<table><thead><tr><th>Nome</th><th>E-mail</th><th>Situação</th><th>Lote</th><th>Último acesso</th></tr></thead><tbody></tbody></table>`;
+    contas.forEach(c => {
+      const sit = c.bloqueada ? `<span class="chip mal">bloqueada</span>` : c.expira < hoje ? `<span class="chip neutro">vencida</span>` : `<span class="chip ok">até ${dBR(c.expira)}</span>`;
+      const tr = el(`<table><tr class="clicavel"><td>${esc(c.nome)}</td><td>${esc(c.email)}</td><td>${sit}</td><td>${esc(c.lote || "—")}</td><td>${dt(c.ultimo)}</td></tr></table>`).querySelector("tr");
+      tr.onclick = () => ir("conta", c.email);
+      box.querySelector("tbody").append(tr);
+    });
+  }
+  carregar(); busca.focus();
+}
+
+async function telaConta(email) {
+  [...$("abas").children].forEach((b, i) => b.setAttribute("aria-current", String(Object.keys(ABAS)[i] === "contas")));
+  const r = await api("conta?email=" + encodeURIComponent(email));
+  const c = r.conta, e = r.estudo;
+  const volta = el(`<div><button class="btn peq">← Contas</button></div>`); volta.firstChild.onclick = () => ir("contas"); C.append(volta);
+  const info = el(`<div class="caixa"><h2>${esc(c.nome)}</h2><dl>
+    <dt>E-mail</dt><dd>${esc(c.email)}</dd>
+    <dt>Situação</dt><dd>${c.bloqueada ? `<span class="chip mal">bloqueada</span>` : `<span class="chip ok">ativa</span>`} acesso até ${dBR(c.expira)}</dd>
+    <dt>Criada</dt><dd>${dt(c.criada)}</dd>
+    <dt>Aparelhos</dt><dd>até ${c.max_aparelhos}</dd>
+    <dt>Código(s)</dt><dd>${r.codigos.map(k => esc(k.lote)).join(", ") || "—"}</dd>
+    <dt>Estudo</dt><dd>${e ? `${e.questoes} questões vistas · ${e.dias} dias de estudo · simulados: ${e.simulados.length ? e.simulados.join(", ") + " /28" : "nenhum"}` : "ainda não estudou"}</dd>
+  </dl></div>`);
+  C.append(info);
+
+  const ac = el(`<div class="caixa"><h2>Ações</h2><div class="acoes"></div><div id="resultado-acao"></div></div>`);
+  const fazer = async (acao, extra, confirmar) => {
+    if (confirmar && !confirm(confirmar)) return;
+    const res = await api("conta/acao", Object.assign({email: c.email, acao}, extra || {}));
+    if (res.senha) {
+      C.replaceChildren(); await telaConta(c.email);
+      const box = $("resultado-acao");
+      box.innerHTML = `<p style="margin:12px 0 6px">Senha temporária: <b class="mono" style="font-size:18px">${res.senha}</b></p>
+        <button class="btn peq">Copiar mensagem para o aluno</button>
+        <p class="dica">Ela só aparece agora. Peça para o aluno entrar com ela.</p>`;
+      box.querySelector("button").onclick = () => copiar("Sua senha da Bancada foi redefinida.\nE-mail: " + c.email + "\nSenha: " + res.senha + "\nEntre em " + location.origin + "/entrar", "Mensagem copiada");
+      return;
+    }
+    toast("Feito"); C.replaceChildren(); telaConta(c.email);
+  };
+  const botoes = [
+    ["Nova senha", () => fazer("senha", null, "Gerar uma senha nova para " + c.email + "? A senha antiga deixa de funcionar e todos os aparelhos saem.")],
+    ["Desconectar aparelhos", () => fazer("derrubar", null, "Desconectar todos os aparelhos desta conta?")],
+    c.bloqueada ? ["Desbloquear", () => fazer("desbloquear")]
+                : ["Bloquear", () => fazer("bloquear", null, "Bloquear " + c.email + "? O aluno perde o acesso na hora."), "perigo"]];
+  botoes.forEach(([t, f, cls]) => { const b = el(`<button class="btn ${cls || ""}">${t}</button>`); b.onclick = f; ac.querySelector(".acoes").append(b); });
+  const ext = el(`<span class="acoes"><input type="date" value="${c.expira}"><button class="btn">Mudar vencimento</button></span>`);
+  ext.lastChild.onclick = () => fazer("estender", {data: ext.firstChild.value});
+  const apa = el(`<span class="acoes"><input type="number" min="1" max="5" value="${c.max_aparelhos}" style="width:70px"><button class="btn">Mudar aparelhos</button></span>`);
+  apa.lastChild.onclick = () => fazer("aparelhos", {n: +apa.firstChild.value});
+  ac.querySelector(".acoes").append(ext, apa);
+  C.append(ac);
+
+  const ses = el(`<div class="caixa"><h2>Sessões</h2><div class="rolagem"><table><thead><tr><th>Aparelho</th><th>IP</th><th>Entrou</th><th>Último uso</th><th>Estado</th></tr></thead><tbody>
+    ${r.sessoes.map(s => `<tr><td>${esc(s.aparelho)}</td><td class="mono">${esc(s.ip)}</td><td>${dt(s.criada)}</td><td>${dt(s.vista)}</td>
+      <td>${s.revogada ? `<span class="chip neutro">saiu (${esc(s.motivo)})</span>` : `<span class="chip ok">ativa</span>`}</td></tr>`).join("")}
+  </tbody></table></div></div>`);
+  C.append(ses);
+  const ace = el(`<div class="caixa"><h2>Últimos acessos</h2><div class="rolagem"><table><thead><tr><th>Quando</th><th>Evento</th><th>IP</th><th>Aparelho</th></tr></thead><tbody>
+    ${r.acessos.map(a => `<tr><td>${dt(a.quando)}</td><td>${esc(a.evento)}</td><td class="mono">${esc(a.ip)}</td><td>${esc(a.aparelho)}</td></tr>`).join("")}
+  </tbody></table></div><p class="dica">Muitos IPs e aparelhos diferentes em pouco tempo, ou sessões que "saíram (limite)", indicam conta dividida.</p></div>`);
+  C.append(ace);
+}
+
+/* ---------- suspeitos ---------- */
+async function telaSuspeitos() {
+  const {suspeitos} = await api("suspeitos?dias=7");
+  const box = el(`<div class="caixa"><h2>Possível compartilhamento · últimos 7 dias</h2><div class="rolagem"></div>
+    <p class="dica">Pontos sobem com logins demais, muitos IPs ou aparelhos diferentes e aparelhos derrubados pelo limite.
+    Abra a conta antes de bloquear: um aluno que estuda na escola, em casa e no celular pode somar alguns pontos sem estar dividindo.</p></div>`);
+  if (!suspeitos.length) box.querySelector(".rolagem").innerHTML = "<p class='dica'>Nenhuma conta suspeita. 👍</p>";
+  else {
+    box.querySelector(".rolagem").innerHTML = `<table><thead><tr><th>Pontos</th><th>Conta</th><th>Logins</th><th>IPs</th><th>Aparelhos</th><th>Derrubadas</th></tr></thead><tbody>
+      ${suspeitos.map(s => `<tr class="clicavel" data-email="${esc(s.email)}"><td class="num"><span class="chip mal">${s.pontos}</span></td>
+        <td>${esc(s.nome)}<br><span class="dica">${esc(s.email)}${s.bloqueada ? " · bloqueada" : ""}</span></td>
+        <td class="num">${s.logins}</td><td class="num">${s.ips}</td><td class="num">${s.aparelhos}</td><td class="num">${s.derrubadas}</td></tr>`).join("")}</tbody></table>`;
+    box.querySelectorAll("tr[data-email]").forEach(tr => tr.onclick = () => ir("conta", tr.dataset.email));
+  }
+  C.append(box);
+}
+
+/* ---------- configuração ---------- */
+async function telaConfig() {
+  CFG = (await api("resumo")).config;
+  const dataHora = iso => iso ? iso.slice(0, 16) : "";
+  const f = el(`<form class="caixa"><h2>Ciclo atual</h2><div class="form">
+    <label>Nome do ciclo <input name="ciclo" required></label>
+    <label>Dia e hora da prova <input name="prova" type="datetime-local" required></label>
+    <label>Fim das inscrições <input name="fim_inscricao" type="datetime-local" required></label>
+    <label>Acesso dos novos códigos até <input name="acesso_ate" type="date" required></label>
+    </div>
+    <h2 style="margin-top:20px">Venda</h2><div class="form">
+    <label>Preço individual (R$) <input name="preco" placeholder="49,90"></label>
+    <label style="grid-column:span 2">Link do botão "Comprar" <input name="link_compra"></label>
+    <label>Link de suporte (WhatsApp) <input name="suporte" type="url"></label>
+    </div>
+    <h2 style="margin-top:20px">Pix</h2><div class="form">
+    <label style="grid-column:span 2">Chave Pix <input name="pix_chave" required></label>
+    <label>Nome do recebedor (aparece no app do banco) <input name="pix_nome" maxlength="25"></label>
+    <label>Cidade <input name="pix_cidade" maxlength="15"></label>
+    </div>
+    <div class="acoes" style="margin-top:16px"><button class="btn pri">Salvar</button></div>
+    <p class="dica">O app e a página de vendas leem daqui: contagem regressiva, aviso de inscrição e plano de estudos se ajustam sozinhos.
+    Mudar "acesso até" vale para os códigos gerados depois; contas existentes mantêm o vencimento delas.</p></form>`);
+  f.ciclo.value = CFG.ciclo; f.prova.value = dataHora(CFG.prova); f.fim_inscricao.value = dataHora(CFG.fim_inscricao);
+  f.acesso_ate.value = CFG.acesso_ate; f.preco.value = (CFG.precos || {}).individual || "";
+  f.link_compra.value = CFG.link_compra; f.suporte.value = CFG.suporte;
+  f.pix_chave.value = CFG.pix_chave || ""; f.pix_nome.value = CFG.pix_nome || ""; f.pix_cidade.value = CFG.pix_cidade || "";
+  f.onsubmit = async e => {
+    e.preventDefault();
+    const fuso = s => s.length === 16 ? s + ":00-03:00" : s;   // horário de Brasília
+    await api("config", {ciclo: f.ciclo.value, prova: fuso(f.prova.value), fim_inscricao: fuso(f.fim_inscricao.value),
+      acesso_ate: f.acesso_ate.value, preco: f.preco.value, link_compra: f.link_compra.value, suporte: f.suporte.value,
+      pix_chave: f.pix_chave.value, pix_nome: f.pix_nome.value, pix_cidade: f.pix_cidade.value});
+    toast("Configuração salva");
+  };
+  C.append(f);
+}
+
+/* ---------- início ---------- */
+async function iniciar() {
+  const r = await (await fetch("/api/admin/estado", {cache: "no-store"})).json();
+  if (!r.logado) { $("sem-senha").hidden = r.configurado; mostrarLogin(); return; }
+  $("tela-login").classList.add("oculto"); $("tela-painel").classList.remove("oculto");
+  ir(abaAtual);
+}
+iniciar();
+</script>
+</html>
