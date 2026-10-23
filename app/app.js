@@ -83,6 +83,7 @@ function registrar(q, acertou) {
   c.box = acertou ? Math.min(5, c.box + 1) : 1;
   c.venc = somaDias(INTERVALOS[c.box]);
   c[acertou ? "acertos" : "erros"]++;
+  if (!acertou) delete c.dispensado;          // errou de novo: não era só bobeira, volta ao caderno
   c.visto = hojeISO();
   c.area = q.area; c.topico = q.topico;
   const d = S.dias[hojeISO()] || (S.dias[hojeISO()] = {n:0, a:0});
@@ -711,18 +712,37 @@ function telaErros() {
   tela.append(topo("Caderno de erro",
     "Sua prova de verdade não são as 28 questões do dia " + PROVA_DM + " — são as questões que você erra até lá. Ordenadas pelo que mais te derrubou."));
 
-  const itens = Object.entries(S.cards).filter(([, c]) => c.erros > 0)
+  const itens = Object.entries(S.cards).filter(([, c]) => c.erros > 0 && !c.dispensado)
     .sort((a, b) => (b[1].erros - b[1].acertos) - (a[1].erros - a[1].acertos));
+  const dispensados = Object.values(S.cards).filter(c => c.erros > 0 && c.dispensado);
+
+  /* erro por bobeira ou pressa: o aluno tira do caderno, mas a questão segue no Treino
+     pela caixa de Leitner e, se for errada de novo, volta sozinha (ver registrar()) */
+  function marcar(cs, valor) {
+    cs.forEach(c => { if (valor) c.dispensado = true; else delete c.dispensado; });
+    salvar(); atualizarContadores(); telaErros();
+  }
+  function painelDispensados() {
+    if (!dispensados.length) return;
+    const p = painel(null);
+    const ac = el("div", "acoes");
+    ac.append(el("span", null, dispensados.length + (dispensados.length === 1 ? " erro tirado" : " erros tirados") + " do caderno por bobeira."));
+    const b = el("button", "btn peq", "Trazer de volta");
+    b.onclick = () => marcar(dispensados, false);
+    ac.append(b); p.corpo.append(ac); tela.append(p);
+  }
 
   if (!itens.length) {
     const p = painel(null);
-    p.corpo.append(html("div", "vazio", "Nada aqui ainda. Faça um Treino do dia — e não tenha medo de errar: este caderno é o ativo mais valioso do método."));
-    tela.append(p); return;
+    p.corpo.append(html("div", "vazio", dispensados.length
+      ? "Caderno limpo. Os que você tirou continuam aparecendo no Treino do dia — se errar de novo, voltam para cá."
+      : "Nada aqui ainda. Faça um Treino do dia — e não tenha medo de errar: este caderno é o ativo mais valioso do método."));
+    tela.append(p); painelDispensados(); return;
   }
 
   const p = painel("Tópicos por prejuízo", html("span", "rotulo", itens.length + " itens"));
   const tb = el("table");
-  tb.innerHTML = "<thead><tr><th>Tópico</th><th>Área</th><th>Erros</th><th>Acertos</th><th>Caixa</th><th>Volta em</th></tr></thead>";
+  tb.innerHTML = "<thead><tr><th>Tópico</th><th>Área</th><th>Erros</th><th>Acertos</th><th>Caixa</th><th>Volta em</th><th></th></tr></thead>";
   const tbody = el("tbody");
   itens.forEach(([k, c]) => {
     const tr = el("tr");
@@ -735,6 +755,11 @@ function telaErros() {
     tr.append(td);
     const d = Math.max(0, Math.ceil((new Date(c.venc + "T00:00") - new Date()) / 86400000));
     tr.append(el("td", "num", d <= 0 ? "hoje" : d + "d"));
+    const tdx = el("td");
+    const bx = el("button", "btn peq", "Tirar");
+    bx.title = "Errei por bobeira, já sei o conteúdo. Se errar de novo, volta para o caderno.";
+    bx.onclick = () => marcar([c], true);
+    tdx.append(bx); tr.append(tdx);
     tbody.append(tr);
   });
   tb.append(tbody);
@@ -747,6 +772,7 @@ function telaErros() {
   b.onclick = () => sessaoErros(itens);
   ac.append(b); q.corpo.append(ac);
   tela.append(q);
+  painelDispensados();
 
   function sessaoErros(lista) {
     const fila = lista.slice(0, 10).map(([k]) => {
@@ -1141,7 +1167,7 @@ function atualizarContadores() {
   const v = vencidos().length;
   botoesNav["treino:ct"].textContent = v || "";
   botoesNav["treino:ct"].style.display = v ? "" : "none";
-  const e = Object.values(S.cards).filter(c => c.erros > 0 && c.box < 3).length;
+  const e = Object.values(S.cards).filter(c => c.erros > 0 && c.box < 3 && !c.dispensado).length;
   botoesNav["erros:ct"].textContent = e || "";
   botoesNav["erros:ct"].style.display = e ? "" : "none";
 }

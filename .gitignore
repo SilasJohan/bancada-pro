@@ -1,3 +1,4 @@
 servidor/.venv/
 dados-privados/
 __pycache__/
+audio/

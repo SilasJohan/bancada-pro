@@ -1,0 +1,17 @@
+{
+  "name": "Bancada · Treino IFSC",
+  "short_name": "Bancada",
+  "description": "Treino diário e simulados para o Exame de Classificação do IFSC.",
+  "lang": "pt-BR",
+  "id": "/app/",
+  "start_url": "/app/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#EAEEE9",
+  "theme_color": "#A85E31",
+  "icons": [
+    { "src": "/icone-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

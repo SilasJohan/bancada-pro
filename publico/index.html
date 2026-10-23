@@ -2,6 +2,14 @@
 <html lang="pt-BR">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- app instalável no celular: manifesto + service worker (ver publico/sw.js) -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#A85E31">
+<link rel="icon" href="/icone-192.png">
+<link rel="apple-touch-icon" href="/icone-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Bancada">
+<script>if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('/sw.js'))</script>
 <title>Bancada · Treino para o exame do IFSC</title>
 <meta name="description" content="Treino diário, simulados de 28 questões na ordem oficial e o edital ordenado pelo que mais cai no Exame de Classificação do IFSC (Técnico Integrado).">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap">
