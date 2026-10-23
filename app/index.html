@@ -95,6 +95,13 @@ main{padding:28px 32px 72px;min-width:0}
   font-size:30px;font-weight:600;line-height:1.05;letter-spacing:-.02em}
 .cartao .u{font-size:12px;color:var(--muted)}
 
+/* ---------- atividades: lista de conteúdos ---------- */
+.grade-ativ{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.ativ{display:flex;flex-direction:column;gap:6px;align-items:flex-start;text-align:left;padding:12px 14px;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg)}
+.ativ:hover{border-color:var(--cobre);background:var(--cobre-fraco)}
+.ativ b{font-size:14.5px}
+
 /* ---------- grade de respostas (réplica do caderno) ---------- */
 .grade-prova{display:grid;grid-template-columns:repeat(14,1fr);gap:4px}
 .qc{aspect-ratio:1;border-radius:2px;border:1px solid var(--line);background:var(--surface-2);
@@ -269,6 +276,10 @@ details.certas .questao{margin-top:12px}
 <script src="dados/banco.js"></script>
 <script src="dados/gerador.js"></script>
 <script src="dados/dominio.js"></script>
+<script src="dados/atividades.js"></script>
+<script src="dados/atividades-port.js"></script>
+<script src="dados/atividades-gh.js"></script>
+<script src="dados/atividades-cie.js"></script>
 <script src="app.js"></script>
 <script>
 /* boot: só inicia com conta válida; sem ela, volta para /entrar com o motivo */

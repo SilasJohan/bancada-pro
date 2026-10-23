@@ -63,8 +63,10 @@ Rode como `www-data` para o banco continuar com o dono certo.
 1. Edite `dados-privados/config.json`: `ciclo`, `prova`, `fim_inscricao`, `acesso_ate`, `precos`.
 2. Atualize `app/app.js` → `PROVAS_PDF` com a prova mais recente, e `MAPA` se o edital mudou.
 3. Acrescente questões em `app/dados/banco.js` (o mesmo formato do site pessoal), com `nivel` 1–3.
-   Os simulados nunca repetem questão do banco na mesma conta: com 7 por área, Português
-   (a área com menos questões) limita quantos simulados inéditos cada aluno tem.
+   O banco é repartido: as marcadas `uso:"simulado"` só caem no Simulado, as outras só no
+   Treino do dia. Os simulados nunca repetem questão na mesma conta: com 7 por área, a reserva
+   de 35 por área (15 em matemática, que usa 3 por simulado) dá 5 simulados inéditos. Questão
+   nova entra no treino; marque como simulado só para repor essa reserva.
 4. `sudo systemctl restart bancada-pro`.
 
 O plano de estudos se recalcula sozinho a partir da data da prova.

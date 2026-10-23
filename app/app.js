@@ -27,7 +27,7 @@ let S = carregar();
 let META = S.meta || 20;                                // acertos-alvo em 28, o aluno escolhe
 
 function vazio() {
-  return {cards:{}, dias:{}, simulados:[], dossie:{}, ultimaTela:"painel", tema:null, meta:20, nivel:1};
+  return {cards:{}, dias:{}, simulados:[], dossie:{}, atividades:{}, ultimaTela:"painel", tema:null, meta:20, nivel:1};
 }
 function carregar() {
   let local = null;
@@ -94,7 +94,7 @@ function registrar(q, acertou) {
 /* ============================ métricas ============================ */
 function vencidos() {
   const h = hojeISO();
-  return Object.entries(S.cards).filter(([, c]) => c.venc <= h && c.box > 0).map(([k]) => k);
+  return Object.entries(S.cards).filter(([k, c]) => c.venc <= h && c.box > 0 && !DO_SIMULADO.has(k)).map(([k]) => k);
 }
 function dominio(area) {
   // 0..1 — média da caixa de Leitner, amortecida pela cobertura do banco da área
@@ -143,8 +143,13 @@ function seletorNivel(aoMudar) {
   return p;
 }
 
-/* ============================ seleção de questões ============================ */
-function bancoPorArea(a) { return BANCO.filter(q => q.area === a); }
+/* ============================ seleção de questões ============================
+   O banco é repartido: uso:"simulado" só cai no Simulado; o resto só no Treino do dia.
+   Assim o simulado é sempre material que o aluno nunca viu, nem no treino. O erro de
+   simulado vai para o Caderno de erro, mas não volta pelo Treino do dia.             */
+const DO_SIMULADO = new Set(BANCO.filter(q => q.uso === "simulado").map(q => q.id));
+const BANCO_TREINO = BANCO.filter(q => !DO_SIMULADO.has(q.id));
+function bancoPorArea(a) { return BANCO.filter(q => q.area === a && DO_SIMULADO.has(q.id)); }   // usado só pelo simulado
 
 function embaralhar(v) {
   const a = v.slice();
@@ -190,10 +195,10 @@ function sessao(n) {
     .forEach(([k]) => {
       if (fila.length >= n) return;
       if (k.startsWith("GEN:")) { const g = GERADORES.findIndex(f => f.name === k.split(":")[1]); if (g >= 0) { fila.push(gerarQuestao(g, NIVEL)); usados.add(k); } }
-      else { const q = BANCO.find(x => x.id === k); if (q) { fila.push(q); usados.add(k); } }
+      else { const q = BANCO_TREINO.find(x => x.id === k); if (q) { fila.push(q); usados.add(k); } }
     });
   // 2) completa com material novo, equilibrando as quatro áreas, na dificuldade escolhida
-  const novos = BANCO.filter(q => !S.cards[q.id]);
+  const novos = BANCO_TREINO.filter(q => !S.cards[q.id]);
   let volta = 0;
   while (fila.length < n && volta < 60) {
     const area = ORDEM[fila.length % 4];
@@ -392,6 +397,7 @@ function telaPainel() {
   const b1 = el("button", "btn pri", venc ? "Treino do dia · " + venc + " para revisar" : "Treino do dia · 10 questões");
   b1.onclick = () => ir("treino"); ac.append(b1);
   const b2 = el("button", "btn", "Drill de matemática"); b2.onclick = () => ir("drill"); ac.append(b2);
+  const b4 = el("button", "btn", "Atividades por conteúdo"); b4.onclick = () => ir("atividades"); ac.append(b4);
   const b3 = el("button", "btn", "Simulado completo"); b3.onclick = () => ir("simulado"); ac.append(b3);
   pa.corpo.append(ac);
   tela.append(pa);
@@ -412,7 +418,8 @@ function telaPainel() {
       tr.append(td); tbody.append(tr);
     });
     tb.append(tbody);
-    ps.corpo.append(html("div", "rolagem")).lastChild.append(tb);
+    const rolagem = html("div", "rolagem"); rolagem.append(tb);   // append() não devolve o elemento
+    ps.corpo.append(rolagem);
     tela.append(ps);
   }
 }
@@ -534,6 +541,105 @@ function telaDrill() {
     });
     palco.append(cartao);
   }
+  nova();
+}
+
+/* ============================ TELA: atividades por conteúdo ============================
+   Treino sem fim de um assunto só (figuras de linguagem, biomas, organelas, frações), fora
+   do formato da prova. Fica de fora da repetição espaçada e da projeção de propósito: é
+   material para entender o conteúdo, e acertar aqui não diz quanto se acerta no IFSC.
+   O conteúdo e o motor estão em dados/atividades*.js.                                    */
+let areaAtiv = "port";
+function contarAtividade(atv, acertou) {
+  const t = S.atividades || (S.atividades = {});
+  const a = t[atv.id] || (t[atv.id] = {n:0, a:0, visto:null});
+  a.n++; if (acertou) a.a++;
+  a.visto = hojeISO();
+  const d = S.dias[hojeISO()] || (S.dias[hojeISO()] = {n:0, a:0});   // conta para a ofensiva
+  d.n++; if (acertou) d.a++;
+  salvar();
+}
+function chipAtividade(st) {
+  if (!st || !st.n) return html("span", "chip neutro", "nunca feita");
+  const p = st.a / st.n;
+  return html("span", "chip " + (p >= 0.8 ? "ok" : p >= 0.5 ? "media" : "alta"),
+    st.n + (st.n === 1 ? " feita" : " feitas") + " · " + Math.round(p * 100) + "%");
+}
+function telaAtividades() {
+  limpar();
+  tela.append(topo("Atividades",
+    "Como o drill de matemática, só que para todas as matérias: escolha um conteúdo e treine questão atrás de questão até dominar — reconhecer a figura de linguagem, saber o que faz a mitocôndria, situar a Lei Áurea. Cada clique sorteia uma combinação nova, e nenhuma delas aparece no Treino do dia ou no Simulado."));
+
+  const pa = painel("Matéria");
+  const ac = el("div", "acoes");
+  ORDEM.forEach(a => {
+    const b = el("button", "btn peq", AREAS[a].curto);
+    b.setAttribute("aria-pressed", String(a === areaAtiv));
+    b.onclick = () => { areaAtiv = a; telaAtividades(); };
+    ac.append(b);
+  });
+  pa.corpo.append(ac);
+  tela.append(pa);
+
+  const lista = ATIVIDADES.filter(x => x.area === areaAtiv);
+  const pl = painel("Conteúdos de " + AREAS[areaAtiv].curto, html("span", "rotulo", lista.length + " atividades"));
+  const g = el("div", "grade-ativ");
+  lista.forEach(atv => {
+    const b = el("button", "ativ");
+    b.append(el("b", null, atv.topico), chipAtividade(S.atividades[atv.id]));
+    b.onclick = () => praticarAtividade(atv);
+    g.append(b);
+  });
+  pl.corpo.append(g);
+  if (areaAtiv === "mat") pl.corpo.append(html("p", "recado",
+    "Aqui ficam as bases. Os problemas no estilo da prova do IFSC estão no <b>Drill de matemática</b>."));
+  tela.append(pl);
+}
+function praticarAtividade(atv) {
+  limpar();
+  window.scrollTo({top: 0, behavior: "instant"});
+  tela.append(topo(atv.topico, AREAS[atv.area].nome + " · treino sem fim deste conteúdo"));
+
+  const status = painel(null);
+  status.corpo.style.display = "flex";
+  status.corpo.style.justifyContent = "space-between";
+  status.corpo.style.alignItems = "center";
+  status.corpo.style.gap = "12px";
+  const voltar = el("button", "btn peq", "← Todos os conteúdos");
+  voltar.onclick = telaAtividades;
+  const placar = el("div", "mono", "");
+  placar.style.fontSize = "15px";
+  status.corpo.append(voltar, placar);
+  tela.append(status);
+
+  const palco = el("div");
+  palco.style.display = "flex"; palco.style.flexDirection = "column"; palco.style.gap = "14px";
+  tela.append(palco);
+
+  /* não repetir o mesmo trecho logo em seguida: guarda metade do conjunto como "recente" */
+  const tamanho = (atv.itens || atv.certas || []).length;
+  const recentes = [], limite = Math.max(1, Math.floor(tamanho / 2));
+  let feitas = 0, acertos = 0;
+  function nova() {
+    palco.replaceChildren();
+    const q = gerarAtividade(atv, new Set(recentes));
+    recentes.push(q.chave); if (recentes.length > limite) recentes.shift();
+    const cartao = renderQuestao(q, {
+      rotulo: "sorteada agora",
+      aoResponder: certo => {
+        feitas++; if (certo) acertos++;
+        contarAtividade(atv, certo);
+        placar.textContent = acertos + " / " + feitas + " nesta sessão";
+        const nav = el("div", "acoes"); nav.style.padding = "0 20px 18px";
+        const b = el("button", "btn pri", "Próxima"); b.onclick = nova;
+        nav.append(b);
+        nav.append(html("span", "chip " + (certo ? "ok" : "alta"), certo ? "acertou" : "errou — leia a explicação e siga"));
+        cartao.append(nav); b.focus();
+      }
+    });
+    palco.append(cartao);
+  }
+  placar.textContent = "0 / 0 nesta sessão";
   nova();
 }
 
@@ -1140,6 +1246,7 @@ const TELAS = {
   painel:   {rot:"Painel",          ico:"◉", fn: telaPainel},
   treino:   {rot:"Treino do dia",   ico:"▶", fn: telaTreino},
   drill:    {rot:"Drill de mat.",   ico:"∑", fn: telaDrill},
+  atividades:{rot:"Atividades",     ico:"✎", fn: telaAtividades},
   simulado: {rot:"Simulado",        ico:"⏱", fn: telaSimulado},
   erros:    {rot:"Caderno de erro", ico:"✕", fn: telaErros},
   edital:   {rot:"Mapa do edital",  ico:"☰", fn: telaEdital},
@@ -1196,7 +1303,8 @@ function juntar(local, vindo) {
     cards: Object.assign({}, local.cards),
     dias: Object.assign({}, local.dias),
     simulados: (local.simulados || []).slice(),
-    dossie: Object.assign({}, local.dossie)
+    dossie: Object.assign({}, local.dossie),
+    atividades: Object.assign({}, local.atividades)
   });
   for (const [k, c] of Object.entries(vindo.cards || {})) {
     const meu = r.cards[k];
@@ -1213,6 +1321,8 @@ function juntar(local, vindo) {
   r.simulados.sort((a, b) => a.data - b.data);
   for (const [k, dia] of Object.entries(vindo.dossie || {}))
     if (!r.dossie[k] || dia < r.dossie[k]) r.dossie[k] = dia;   // vale a primeira vez que foi marcado
+  for (const [k, a] of Object.entries(vindo.atividades || {}))
+    if (!r.atividades[k] || a.n > r.atividades[k].n) r.atividades[k] = a;   // contador: fica o que andou mais
   return r;
 }
 

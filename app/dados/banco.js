@@ -7,11 +7,14 @@
    folga — é o vício que entrega a resposta. Conferir com node ferramentas/checa-banco.js
    As alternativas são embaralhadas a cada exibição: no porque, cite a letra ORIGINAL
    entre chaves ({A}…{E}) para que ela seja trocada pela letra que aparece na tela.
-   area: mat | cie | gh | port                                                  */
+   area: mat | cie | gh | port
+   uso:"simulado" — reservada ao Simulado: nunca cai no Treino do dia (ver app.js, seleção).
+   Sem o campo, a questão é do treino. Questão nova entra sem o campo, a não ser que o
+   estoque de simulados inéditos esteja acabando (35 por área = 5 simulados; mat usa 3).  */
 window.BANCO = [
 
 /* ===================== MATEMÁTICA ===================== */
-{id:"M01",area:"mat",topico:"Conjuntos numéricos",nivel:2,
+{id:"M01",area:"mat",uso:"simulado",topico:"Conjuntos numéricos",nivel:2,
  enunciado:"Ana e Bia criaram um jogo: cada uma sorteia um número e vence quem tirar um número IRRACIONAL. Qual dos números abaixo é irracional?",
  alts:["√9","22/7","0,333… (dízima periódica)","√2","1,25"],correta:3,
  porque:"√2 = 1,41421356… não tem fim nem período, logo não pode ser escrito como fração de inteiros. √9 = 3 (inteiro), 22/7 é fração, 0,333… = 1/3 e 1,25 = 5/4 são todos racionais. Regra prática: raiz que não é exata → irracional."},
@@ -36,12 +39,12 @@ window.BANCO = [
  alts:["12%","20%","28%","30%","33%"],correta:3,
  porque:"P = casos favoráveis / casos possíveis = 12/40 = 0,30 = 30%. Cuidado com a pegadinha de responder 12% (confundir a quantidade com a porcentagem)."},
 
-{id:"M06",area:"mat",topico:"Princípio multiplicativo",nivel:1,
+{id:"M06",area:"mat",uso:"simulado",topico:"Princípio multiplicativo",nivel:1,
  enunciado:"Para o primeiro dia de aula no IFSC, João separou 4 camisetas, 3 calças e 2 pares de tênis. De quantas maneiras diferentes ele pode se vestir?",
  alts:["9","12","18","24","36"],correta:3,
  porque:"Princípio multiplicativo: escolhas independentes se multiplicam. 4 × 3 × 2 = 24. Somar (4+3+2 = 9) é o erro clássico — some só quando as opções forem alternativas excludentes (‘ou’), multiplique quando forem etapas (‘e’)."},
 
-{id:"M07",area:"mat",topico:"Pitágoras",nivel:1,
+{id:"M07",area:"mat",uso:"simulado",topico:"Pitágoras",nivel:1,
  enunciado:"Uma escada de 5 m está apoiada numa parede vertical, com o pé afastado 3 m da base da parede. A que altura da parede está o topo da escada?",
  alts:["2 m","3,5 m","4 m","4,5 m","8 m"],correta:2,
  porque:"A escada é a hipotenusa: 5² = 3² + h² → 25 − 9 = 16 → h = 4 m. O trio 3-4-5 é o mais cobrado de todos; decore também 5-12-13 e 6-8-10."},
@@ -56,7 +59,7 @@ window.BANCO = [
  alts:["R$ 1.224,00","R$ 1.260,00","R$ 1.320,00","R$ 1.332,00","R$ 1.440,00"],correta:2,
  porque:"Juros simples: J = C·i·t = 1200 × 0,02 × 5 = R$ 120,00. Montante = 1200 + 120 = R$ 1.320,00. Em juros simples a base nunca muda; se o enunciado disser ‘juros compostos’, aí sim cada mês incide sobre o saldo novo."},
 
-{id:"M10",area:"mat",topico:"Escala e cartografia",nivel:2,
+{id:"M10",area:"mat",uso:"simulado",topico:"Escala e cartografia",nivel:2,
  enunciado:"Num mapa de escala 1:50.000, a distância entre dois pontos é de 4 cm. Qual a distância real entre eles?",
  alts:["200 m","500 m","2 km","5 km","20 km"],correta:2,
  porque:"1 cm no mapa = 50.000 cm reais = 500 m. Então 4 cm = 4 × 500 = 2.000 m = 2 km. O passo que derruba a maioria é esquecer de converter cm para m (divide por 100)."},
@@ -66,7 +69,7 @@ window.BANCO = [
  alts:["450 L","1.500 L","4.500 L","9.000 L","18.000 L"],correta:2,
  porque:"Raio = diâmetro/2 = 1 m. V = π·r²·h = 3 × 1² × 1,5 = 4,5 m³. Como 1 m³ = 1.000 L, temos 4.500 L. Duas pegadinhas numa questão só: usar o diâmetro como raio, e esquecer que 1 m³ = 1.000 L."},
 
-{id:"M12",area:"mat",topico:"Expressões numéricas",nivel:2,
+{id:"M12",area:"mat",uso:"simulado",topico:"Expressões numéricas",nivel:2,
  enunciado:"Qual o valor da expressão 2³ + √36 − 5 × 2 ?",
  alts:["−2","0","4","8","14"],correta:2,
  porque:"Ordem das operações: primeiro potências e raízes (2³ = 8, √36 = 6), depois multiplicação (5×2 = 10), por último soma e subtração: 8 + 6 − 10 = 4."},
@@ -92,12 +95,12 @@ window.BANCO = [
  alts:["R$ 22,00","R$ 33,00","R$ 44,00","R$ 55,00","R$ 88,00"],correta:2,
  porque:"Potência em kW: 5.500 W = 5,5 kW. Tempo: 20 min = 1/3 h, em 30 dias = 10 h. Energia = 5,5 × 10 = 55 kWh. Custo = 55 × 0,80 = R$ 44,00. A alternativa {D} é o consumo em kWh confundido com reais. A fórmula que resolve toda questão de conta de luz: E(kWh) = P(kW) × t(h)."},
 
-{id:"C02",area:"cie",topico:"Eletricidade",nivel:2,
+{id:"C02",area:"cie",uso:"simulado",topico:"Eletricidade",nivel:2,
  enunciado:"Em um circuito, duas lâmpadas idênticas estão ligadas em SÉRIE a uma bateria. Se uma delas queimar, o que acontece com a outra?",
  alts:["Continua acesa, com o mesmo brilho de antes.","Continua acesa, porém com brilho mais forte.","Apaga, porque o único caminho da corrente se abre.","Continua acesa, porém com brilho mais fraco.","Pisca, até a bateria redistribuir a corrente."],correta:2,
  porque:"Em série há um único caminho para a corrente. Queimando uma lâmpada, o caminho abre e a corrente cessa em todo o circuito — a outra apaga. A alternativa {A} descreve o que aconteceria em PARALELO, onde cada lâmpada tem seu próprio caminho. A {B} é a pegadinha de quem pensa que ‘sobra corrente’ para a outra. Essa distinção série/paralelo é cobrada quase todo ano."},
 
-{id:"C03",area:"cie",topico:"Propagação de calor",nivel:2,
+{id:"C03",area:"cie",uso:"simulado",topico:"Propagação de calor",nivel:2,
  enunciado:"Uma caixa térmica de isopor mantém o lanche quente por horas. O principal princípio físico envolvido é que:",
  alts:["o isopor produz calor por atrito do ar preso nas suas bolhas.","o isopor torna lenta a troca de calor com o ambiente.","o isopor impede totalmente a irradiação, e o calor nunca sai.","o ar preso no isopor é bom condutor e espalha o calor por igual.","o isopor guarda o calor do lanche e o devolve aos poucos."],correta:1,
  porque:"Isolante térmico não cria nem armazena calor: ele apenas dificulta a transferência (o ar parado nas bolhas conduz mal e não forma correntes de convecção), tornando-a lenta. Por isso a mesma caixa conserva o quente e o frio. A {C} erra no ‘totalmente’ e ‘nunca’ — com tempo suficiente o equilíbrio térmico sempre chega. A {E} parece razoável, mas é o lanche que guarda o calor, não o isopor. A {D} inverte: o ar é mau condutor."},
@@ -107,7 +110,7 @@ window.BANCO = [
  alts:["Condução","Convecção","Irradiação","Sublimação","Evaporação"],correta:1,
  porque:"Convecção = transporte de calor pelo MOVIMENTO do próprio fluido (líquido ou gás), porque o mais quente fica menos denso e sobe. Condução é por contato sem transporte de matéria (colher de metal esquentando); irradiação é por ondas eletromagnéticas e é a única que funciona no vácuo (o calor do Sol)."},
 
-{id:"C05",area:"cie",topico:"Transformação de energia",nivel:2,
+{id:"C05",area:"cie",uso:"simulado",topico:"Transformação de energia",nivel:2,
  enunciado:"Em uma usina hidrelétrica, qual é a sequência CORRETA de transformações de energia?",
  alts:["Química → térmica → elétrica","Potencial gravitacional → cinética → elétrica","Cinética → potencial gravitacional → elétrica","Térmica → cinética → elétrica","Potencial elástica → cinética → elétrica"],correta:1,
  porque:"A água represada no alto tem energia potencial gravitacional; ao cair ela vira energia cinética; a turbina e o gerador convertem essa energia cinética em elétrica. A {C} inverte a ordem (a água não ‘sobe’ para gerar). A {A} descreve uma termelétrica a combustível e a {D}, o miolo de qualquer termelétrica, inclusive a nuclear: calor → vapor movendo turbina → eletricidade."},
@@ -117,7 +120,7 @@ window.BANCO = [
  alts:["Apenas I","Apenas I e III","Apenas II e III","Apenas III","I, II e III"],correta:1,
  porque:"I é correta. II é falsa: carvão mineral leva milhões de anos para se formar, é fóssil e não renovável. III é correta: apesar do crescimento de eólica e solar, a hidrelétrica ainda é a maior parcela da matriz ELÉTRICA brasileira. Atenção: matriz elétrica (só eletricidade) ≠ matriz energética (inclui combustível de transporte, onde o petróleo pesa muito)."},
 
-{id:"C07",area:"cie",topico:"Estrutura atômica",nivel:2,
+{id:"C07",area:"cie",uso:"simulado",topico:"Estrutura atômica",nivel:2,
  enunciado:"Um átomo neutro possui número atômico Z = 17 e número de massa A = 35. Quantos prótons, nêutrons e elétrons ele possui, respectivamente?",
  alts:["17, 35 e 17","17, 18 e 17","35, 17 e 35","18, 17 e 18","17, 17 e 18"],correta:1,
  porque:"Z = número de prótons = 17. A = prótons + nêutrons, então nêutrons = A − Z = 35 − 17 = 18. Átomo NEUTRO tem elétrons = prótons = 17. A {A} usa o número de massa como se fosse o de nêutrons. Se o enunciado dissesse íon, aí sim mudaria: cátion perdeu elétron, ânion ganhou."},
@@ -127,12 +130,12 @@ window.BANCO = [
  alts:["ganhou 2 prótons e tem 22 prótons.","perdeu 2 elétrons e tem 18 elétrons.","ganhou 2 elétrons e tem 22 elétrons.","perdeu 2 prótons e tem 18 prótons.","perdeu 2 elétrons e tem 18 prótons."],correta:1,
  porque:"Carga positiva significa falta de elétrons (o número de prótons NUNCA muda numa reação química — se mudasse, viraria outro elemento). Ca²⁺ perdeu 2 elétrons: 20 − 2 = 18 elétrons, com os mesmos 20 prótons. A {E} acerta o que aconteceu, mas erra a consequência: quem passou a 18 foram os elétrons. Regra: sinal + = cátion = perdeu elétron; sinal − = ânion = ganhou elétron."},
 
-{id:"C09",area:"cie",topico:"Misturas e separação",nivel:2,
+{id:"C09",area:"cie",uso:"simulado",topico:"Misturas e separação",nivel:2,
  enunciado:"Para separar uma mistura de areia e água salgada, e depois obter a água pura sem sal dissolvido, os processos mais adequados são, nessa ordem:",
  alts:["Decantação e filtração","Filtração e destilação","Destilação e filtração","Filtração e decantação","Centrifugação e filtração"],correta:1,
  porque:"Areia é insolúvel → filtração (ou decantação) a separa. Já o sal está DISSOLVIDO, formando mistura homogênea: nenhum filtro, decantador ou centrífuga o segura; é preciso destilação (evaporar a água e condensá-la de volta). A {C} tem os processos certos na ordem errada. Regra: heterogênea → métodos mecânicos; homogênea → mudança de estado."},
 
-{id:"C10",area:"cie",topico:"Transformações químicas",nivel:2,
+{id:"C10",area:"cie",uso:"simulado",topico:"Transformações químicas",nivel:2,
  enunciado:"Qual das transformações abaixo é uma transformação QUÍMICA?",
  alts:["Derretimento de um cubo de gelo","Evaporação da água de uma poça","Enferrujamento de um portão de ferro","Dissolução de açúcar na água","Amassamento de uma lata de alumínio"],correta:2,
  porque:"Transformação química cria substâncias NOVAS, com propriedades diferentes. A ferrugem (óxido de ferro) não é ferro: é substância nova → química. As demais são físicas, pois a substância continua a mesma, só muda de estado, de forma ou de dispersão — o açúcar dissolvido volta a aparecer se a água evaporar. Indícios de reação química: mudança de cor permanente, liberação de gás, formação de precipitado, variação de calor."},
@@ -152,12 +155,12 @@ window.BANCO = [
  alts:["a planta consome oxigênio e libera gás carbônico.","a energia da luz fica armazenada na glicose.","o processo ocorre principalmente nas mitocôndrias.","o oxigênio liberado vem do gás carbônico absorvido.","a glicose produzida é liberada para a atmosfera."],correta:1,
  porque:"A fotossíntese é uma conversão de energia luminosa em energia química (ligações da glicose), realizada nos cloroplastos. A {A} inverte com a respiração celular. A {C} confunde cloroplasto (fotossíntese) com mitocôndria (respiração). A {D} é a pegadinha de nível alto: experimentos com oxigênio marcado mostraram que o O₂ liberado vem da QUEBRA DA ÁGUA, não do CO₂ — o carbono e o oxigênio do CO₂ vão para a glicose."},
 
-{id:"C14",area:"cie",topico:"Respiração celular",nivel:2,
+{id:"C14",area:"cie",uso:"simulado",topico:"Respiração celular",nivel:2,
  enunciado:"Considere o esquema: glicose + oxigênio → gás carbônico + água + ATP. Sobre esse processo, assinale a afirmativa CORRETA:",
  alts:["Ocorre só em animais, pois as plantas fazem fotossíntese.","É a respiração aeróbica, feita sobretudo nas mitocôndrias.","Ocorre nos cloroplastos e tem o oxigênio como produto.","Nas plantas, ocorre apenas à noite, quando não há luz.","É a fermentação, pois produz gás carbônico e energia."],correta:1,
  porque:"Esse é o resumo da respiração celular aeróbica, cuja maior parte ocorre nas mitocôndrias, produzindo ATP. Ela acontece em praticamente todos os seres vivos, inclusive nas plantas — que fazem fotossíntese DE DIA e respiram o tempo todo, dia e noite; por isso {A} e {D} estão erradas. O oxigênio aqui é reagente, não produto. A {E} confunde: fermentação também libera CO₂ (na alcoólica), mas não usa oxigênio e rende muito menos ATP."},
 
-{id:"C15",area:"cie",topico:"Vírus e imunidade",nivel:2,
+{id:"C15",area:"cie",uso:"simulado",topico:"Vírus e imunidade",nivel:2,
  enunciado:"Por que uma vacina gera imunidade duradoura, enquanto um medicamento antiviral não?",
  alts:["Porque a vacina elimina os vírus que circulam no ambiente.","Porque a vacina induz anticorpos e células de memória.","Porque a vacina é um antibiótico de efeito prolongado.","Porque a vacina injeta anticorpos prontos que duram anos.","Porque o antiviral age só nas células já infectadas."],correta:1,
  porque:"A vacina é imunização ATIVA: ela treina o sistema imune com antígenos (vírus inativado, atenuado, proteína ou mRNA que codifica a proteína), e o próprio corpo produz anticorpos e sobretudo LINFÓCITOS DE MEMÓRIA — por isso a proteção dura. A {D} descreve o SORO (imunização passiva), que age rápido mas não deixa memória. A {E} tem algo de verdade sobre antivirais, mas não explica a diferença de duração. Antibiótico não age em vírus: só em bactérias."},
@@ -172,12 +175,12 @@ window.BANCO = [
  alts:["0%","25%","50%","75%","100%"],correta:1,
  porque:"Quadro de Punnett de Vv × Vv: VV, Vv, vV, vv → 3 amarelas : 1 verde. A verde é o fenótipo recessivo, que só aparece em homozigose (vv) = 1 em 4 = 25%. A {D} é a proporção de AMARELAS — erro de ler a pergunta. Decore essa proporção 3:1 — é a 1ª Lei de Mendel e é a forma mais cobrada dela."},
 
-{id:"C18",area:"cie",topico:"Evolução",nivel:2,
+{id:"C18",area:"cie",uso:"simulado",topico:"Evolução",nivel:2,
  enunciado:"Sobre as teorias evolutivas, assinale a alternativa CORRETA:",
  alts:["Para Lamarck, o ambiente seleciona variações que surgiram ao acaso.","Para Darwin, o uso e o desuso criam traços que passam aos filhos.","Para Darwin, o ambiente favorece os mais adaptados de uma população variada.","A Teoria Sintética descartou a seleção natural proposta por Darwin.","Para Darwin, as espécies evoluem rumo a uma forma mais perfeita."],correta:2,
  porque:"As alternativas {A} e {B} trocaram os autores de lugar — é a pegadinha padrão. Lamarck: uso e desuso + herança dos caracteres adquiridos (refutada). Darwin: variabilidade preexistente + seleção natural — os mais adaptados deixam mais descendentes. A Teoria Sintética (neodarwinismo) SOMOU genética e mutação ao darwinismo, não o descartou. E evolução não tem finalidade nem direção — é adaptação ao ambiente atual."},
 
-{id:"C19",area:"cie",topico:"Astronomia",nivel:2,
+{id:"C19",area:"cie",uso:"simulado",topico:"Astronomia",nivel:2,
  enunciado:"Um astronauta de 80 kg vai à Lua, onde a gravidade é cerca de 1/6 da terrestre. Sobre sua massa e seu peso, é correto afirmar:",
  alts:["A massa cai para cerca de 13 kg e o peso não muda.","A massa continua 80 kg e o peso cai para cerca de 1/6.","Massa e peso caem para cerca de 1/6 do valor na Terra.","Massa e peso continuam iguais aos medidos na Terra.","A massa continua 80 kg e o peso cai a zero no espaço."],correta:1,
  porque:"Massa é a quantidade de matéria — é a mesma em qualquer lugar do universo, medida em kg. Peso é uma FORÇA (P = m·g), medida em newtons, e depende da gravidade local. Na Lua g ≈ 1,6 m/s² (cerca de 1/6 dos 9,8 m/s² da Terra), então o peso cai para 1/6 e a massa continua 80 kg. A {E} erra porque a Lua tem gravidade: o astronauta pesa lá, só que menos. Essa distinção cai com altíssima frequência."},
@@ -187,7 +190,7 @@ window.BANCO = [
  alts:["Apenas I","Apenas II","Apenas III","Apenas II e III","I, II e III"],correta:1,
  porque:"I é falsa: a Lua apenas REFLETE a luz do Sol. II é verdadeira — chama-se rotação sincronizada, e é por isso que existe um ‘lado oculto’. III é falsa e é o erro mais comum do país: as fases resultam da POSIÇÃO relativa Sol-Terra-Lua, que faz enxergarmos porções diferentes da metade iluminada. Sombra da Terra sobre a Lua é ECLIPSE lunar, que é raro; as fases acontecem todo mês."},
 
-{id:"C21",area:"cie",topico:"Astronomia",nivel:1,
+{id:"C21",area:"cie",uso:"simulado",topico:"Astronomia",nivel:1,
  enunciado:"A sucessão dos dias e das noites e a sucessão das estações do ano são causadas, respectivamente, por:",
  alts:["translação da Terra; rotação da Terra.","rotação da Terra; translação e inclinação do eixo.","rotação da Terra; variação da distância ao Sol.","rotação da Lua; translação da Lua.","translação da Terra; inclinação do eixo terrestre."],correta:1,
  porque:"Rotação (~24 h em torno do próprio eixo) → dia e noite. Translação (~365 dias ao redor do Sol) + inclinação de 23,5° do eixo → estações. A {C} é a pegadinha mais tentadora: NÃO é a distância ao Sol que causa as estações — a órbita é quase circular, e o Brasil está no verão justamente quando a Terra passa mais perto do Sol, em janeiro, enquanto o hemisfério Norte está no inverno na mesma data."},
@@ -197,12 +200,12 @@ window.BANCO = [
  alts:["é um fenômeno criado pela ação humana a partir da Revolução Industrial.","é natural e necessário, mas foi intensificado pela ação humana.","é causado pela entrada de raios UV pelo buraco na camada de ozônio.","ocorre porque o CO₂ liberado destrói a camada de ozônio.","é natural e não sofre influência dos combustíveis fósseis."],correta:1,
  porque:"Sem efeito estufa natural a temperatura média da Terra seria cerca de −18 °C. O problema é a INTENSIFICAÇÃO por CO₂, metano e óxido nitroso de origem humana, que causa o aquecimento global. A {A} erra ao dizer que foi criado — ele sempre existiu. E cuidado com a confusão mais cobrada da prova, nas alternativas {C} e {D}: efeito estufa (gases retêm calor) e buraco na camada de ozônio (CFCs destroem O₃ e deixam passar radiação UV) são problemas DIFERENTES, com causas diferentes."},
 
-{id:"C23",area:"cie",topico:"Ecologia",nivel:2,
+{id:"C23",area:"cie",uso:"simulado",topico:"Ecologia",nivel:2,
  enunciado:"Numa cadeia alimentar: capim → gafanhoto → sapo → cobra → gavião. O sapo ocupa a posição de:",
  alts:["Produtor","Consumidor primário","Consumidor secundário","Consumidor terciário","Consumidor quaternário"],correta:2,
  porque:"Produtor = capim (faz fotossíntese). Consumidor primário = gafanhoto (come o produtor). Consumidor secundário = sapo. Terciário = cobra. Quaternário = gavião ({E}). Quem marca {D} contou o capim como primeiro consumidor: conte sempre a partir do produtor, que não é consumidor."},
 
-{id:"C24",area:"cie",topico:"Mecânica",nivel:2,
+{id:"C24",area:"cie",uso:"simulado",topico:"Mecânica",nivel:2,
  enunciado:"Uma alavanca é usada para levantar uma pedra. Aplicando a força a 1,2 m do apoio para erguer uma pedra que está a 0,3 m do apoio do outro lado, a força aplicada em relação ao peso da pedra é:",
  alts:["4 vezes maior","4 vezes menor","a mesma","2 vezes maior","2 vezes menor"],correta:1,
  porque:"Equilíbrio de alavanca: F₁ × d₁ = F₂ × d₂. Com d da força = 1,2 m e d da carga = 0,3 m, a razão é 4. Quanto maior o braço da força, menor a força necessária: F = P × 0,3/1,2 = P/4, ou seja, 4 vezes menor. A {A} inverte a relação. Esse é o princípio de todas as máquinas simples — elas reduzem a força, mas nunca o trabalho total."},
@@ -222,7 +225,7 @@ window.BANCO = [
  alts:["Fusão","Vaporização","Condensação","Sublimação","Solidificação"],correta:3,
  porque:"Sublimação: sólido → gasoso direto (naftalina, gelo-seco). O caminho inverso (gasoso → sólido) é chamado de ressublimação ou sublimação inversa. Os demais: fusão = sólido→líquido; vaporização = líquido→gasoso; condensação = gasoso→líquido; solidificação = líquido→sólido."},
 
-{id:"C28",area:"cie",topico:"Equilíbrio térmico",nivel:2,
+{id:"C28",area:"cie",uso:"simulado",topico:"Equilíbrio térmico",nivel:2,
  enunciado:"Ao segurar uma barra de metal e um pedaço de madeira, ambos à mesma temperatura ambiente de 20 °C, o metal parece mais frio. Isso acontece porque:",
  alts:["o metal está, de fato, a uma temperatura menor.","o metal tira calor da mão mais depressa.","o metal transmite frio para a pele da mão.","a madeira gera um pouco de calor próprio.","a madeira conduz melhor o calor da mão."],correta:1,
  porque:"Os dois estão a 20 °C — o termômetro confirmaria. O que a pele sente não é temperatura, e sim a TAXA com que o calor sai dela. O metal, bom condutor, puxa calor rápido e a sensação é de frio; a madeira, isolante, puxa devagar. A {C} é o erro conceitual clássico: ‘frio’ não é algo que se transmite, só calor flui, sempre do mais quente para o mais frio. A {E} inverte quem é o bom condutor."},
@@ -234,12 +237,12 @@ window.BANCO = [
  alts:["Apenas os itens I e III estão corretos.","Apenas os itens I, III e IV estão corretos.","Apenas os itens II e IV estão corretos.","Apenas os itens I, II e III estão corretos.","Todos os itens estão corretos."],correta:1,
  porque:"I, III e IV estão corretos. O item II é a armadilha: juntar dinheiro (pecúlio) e comprar a liberdade era arrancar do senhor algo que ele não queria dar — é resistência, só que dentro das regras do sistema. A historiografia atual insiste no protagonismo negro e na pluralidade das formas de luta: quilombos (Palmares), revoltas urbanas (Malês, 1835), resistência cultural (capoeira, candomblé, irmandades), sabotagem e ações de liberdade na Justiça. Quem marcou {A} acertou o raciocínio mas esqueceu os Malês; quem marcou {E} caiu no item II."},
 
-{id:"G02",area:"gh",topico:"Escravidão e resistência",nivel:3,
+{id:"G02",area:"gh",uso:"simulado",topico:"Escravidão e resistência",nivel:3,
  enunciado:"Sobre o Quilombo dos Palmares, assinale a alternativa INCORRETA.",
  alts:["Ficava na Serra da Barriga, na região da atual Alagoas, então parte da capitania de Pernambuco.","Resistiu durante quase todo o século XVII, reunindo milhares de pessoas em vários mocambos.","Abrigava africanos, mas também nascidos no Brasil, indígenas e brancos pobres em fuga.","Foi destruído depois que Zumbi assinou um acordo de paz com o governo de Pernambuco.","Zumbi foi morto em 20 de novembro de 1695, data lembrada hoje como Dia da Consciência Negra."],correta:3,
  porque:"A incorreta é {D}, e a pegadinha é fina: houve, sim, um acordo de paz (Cucaú, 1678), mas quem o assinou foi Ganga Zumba — e Zumbi o REJEITOU, assumindo a liderança e mantendo a guerra. Palmares só caiu pela força, com a expedição do bandeirante Domingos Jorge Velho (1694), e Zumbi foi morto em 1695. As demais estão certas: Serra da Barriga (AL), quase cem anos de existência, população diversa. Gancho: Ganga Zumba negociou, Zumbi resistiu."},
 
-{id:"G03",area:"gh",topico:"Abolicionismo",nivel:2,
+{id:"G03",area:"gh",uso:"simulado",topico:"Abolicionismo",nivel:2,
  texto:"Art. 1º — É declarada extincta, desde a data desta lei, a escravidão no Brazil.\nArt. 2º — Revogam-se as disposições em contrário.",
  fonte:"Lei nº 3.353, de 13 de maio de 1888 (Lei Áurea), grafia original.",
  enunciado:"O texto reproduz, na íntegra, a Lei Áurea. Com base no texto e em seus conhecimentos sobre o processo de abolição no Brasil, é correto afirmar que:",
@@ -252,7 +255,7 @@ window.BANCO = [
  alts:["Apenas os itens I e II estão corretos.","Apenas os itens I, II e IV estão corretos.","Apenas os itens III e IV estão corretos.","Apenas os itens I, III e IV estão corretos.","Todos os itens estão corretos."],correta:1,
  porque:"Só o item III é falso: o Contestado foi esmagado pelo Exército e pelas forças estaduais, com uso pioneiro de aviões em combate no Brasil e milhares de mortos — nada de negociação nem distribuição de terras. Elementos que caem: (a) disputa de limites SC × PR, fechada em 1916; (b) ferrovia da Brazil Railway, que recebeu terras às margens dos trilhos; (c) a Lumber, que explorava araucária; (d) messianismo dos monges e os ‘redutos’. Quem marcou {A} esqueceu que o messianismo é o traço mais conhecido do movimento."},
 
-{id:"G05",area:"gh",topico:"Santa Catarina",nivel:2,
+{id:"G05",area:"gh",uso:"simulado",topico:"Santa Catarina",nivel:2,
  enunciado:"Sobre a formação da população de Santa Catarina, assinale a alternativa INCORRETA.",
  alts:["Antes dos europeus, o território já era ocupado por povos como os Guarani, os Kaingang e os Xokleng.","A partir de 1748, casais açorianos foram assentados no litoral, em lugares como a Ilha de Santa Catarina.","No século XIX, imigrantes alemães fundaram colônias como Blumenau, no Vale do Itajaí, e Joinville, no Norte.","A escravidão africana não existiu no território catarinense, onde predominava a pequena propriedade.","O Oeste foi ocupado no século XX, em boa parte por descendentes de italianos e alemães vindos do RS."],correta:3,
  porque:"A incorreta é {D}: houve escravidão negra em SC — nas armações baleeiras, na lavoura e no serviço urbano do litoral, inclusive em Desterro (Florianópolis). A pequena propriedade predominou nas colônias de imigrantes, mas isso não apaga a presença africana. Linha para memorizar: povos originários (e sambaquianos) → açorianos no litoral (1748) → alemães no Vale e no Norte (Blumenau 1850, Joinville 1851) → italianos no Sul → ocupação do Oeste por ‘gaúchos’ descendentes de europeus no século XX."},
@@ -268,7 +271,7 @@ window.BANCO = [
  alts:["Apenas os itens I e II estão corretos.","Apenas os itens I, II e III estão corretos.","Apenas os itens II e IV estão corretos.","Apenas os itens I, III e IV estão corretos.","Todos os itens estão corretos."],correta:1,
  porque:"I, II e III corretos. O paradoxo que a prova adora: a democracia foi derrotada ‘por dentro’, usando suas próprias regras. O golpe de 1923 fracassou e levou Hitler à prisão; dali ele mudou de estratégia. O item IV inverte a história: a DIVISÃO entre socialdemocratas e comunistas, que se recusaram a formar frente comum, é que facilitou a ascensão nazista — e ambos foram perseguidos logo em 1933. Fatores para lembrar: humilhação de Versalhes, hiperinflação de 1923, crise de 1929, anticomunismo e antissemitismo."},
 
-{id:"G08",area:"gh",topico:"Era Vargas",nivel:2,
+{id:"G08",area:"gh",uso:"simulado",topico:"Era Vargas",nivel:2,
  enunciado:"Sobre a Era Vargas (1930–1945), assinale a alternativa CORRETA.",
  alts:["Vargas chegou ao poder em 1930 por eleição direta, derrotando Júlio Prestes nas urnas.","O Estado Novo fechou o Congresso, impôs censura por meio do DIP e criou a CLT em 1943.","O voto feminino só foi conquistado no fim do Estado Novo, como concessão às sufragistas.","O governo manteve a política do café com leite, alternando paulistas e mineiros no poder.","A CLT foi aprovada pelo Congresso em 1946, depois que Vargas foi deposto pelos militares."],correta:1,
  porque:"{B} resume a dupla face do período: direitos trabalhistas (CLT, salário mínimo, carteira de trabalho) concedidos por um regime autoritário (golpe de 1937, Congresso fechado, DIP na censura e propaganda). {A} inverte o fato: Júlio Prestes VENCEU a eleição de 1930 e Vargas tomou o poder pela Revolução de 1930. {C} erra a data: o voto feminino é de 1932. {D} descreve exatamente o que 1930 derrubou. {E} erra a data e o autor: a CLT é de 1943, um decreto de Vargas."},
@@ -280,14 +283,14 @@ window.BANCO = [
  alts:["suspendeu garantias individuais e marcou o endurecimento do regime, nos chamados anos de chumbo.","foi revogado logo após ser editado, pela pressão das Diretas Já, que exigiam eleição para presidente.","concedeu anistia aos presos políticos e abriu caminho para a volta dos exilados ao Brasil.","restabeleceu o pluripartidarismo e extinguiu o sistema de dois partidos, Arena e MDB.","garantiu habeas corpus aos presos políticos e limitou a ação dos órgãos de repressão do regime."],correta:0,
  porque:"Sem habeas corpus, o preso político não tinha a quem recorrer — é a porta aberta para a tortura sistemática dos anos de chumbo (1969–1974). O AI-5 também fechou o Congresso e instituiu a censura prévia. {E} contradiz o próprio texto. As outras trocam datas: as Diretas Já são de 1984 ({B}), e a anistia ({C}) e a volta do pluripartidarismo ({D}) são de 1979, quando o AI-5 já tinha sido revogado (fim de 1978). Linha mínima: 1964 golpe · 1968 AI-5 · 1979 anistia · 1984 Diretas Já · 1985 fim · 1988 Constituição."},
 
-{id:"G10",area:"gh",topico:"Guerra Fria",nivel:2,
+{id:"G10",area:"gh",uso:"simulado",topico:"Guerra Fria",nivel:2,
  texto:"De Stettin, no Báltico, a Trieste, no Adriático, uma cortina de ferro desceu sobre o continente.",
  fonte:"Winston Churchill, discurso em Fulton (EUA), março de 1946.",
  enunciado:"A expressão “cortina de ferro”, usada por Churchill no texto, tornou-se símbolo do início da Guerra Fria. Ela se refere à:",
  alts:["divisão da Europa entre a área de influência soviética, a leste, e a área ligada aos EUA, a oeste.","construção do Muro de Berlim, erguido pelos soviéticos logo depois do fim da Segunda Guerra.","aliança entre EUA e URSS contra o nazismo, formalizada na criação da Organização das Nações Unidas.","barreira naval imposta pelos EUA a Cuba durante a crise dos mísseis instalados pelos soviéticos.","divisão da Coreia no paralelo 38, que separou o norte socialista do sul capitalista da península."],correta:0,
  porque:"Stettin e Trieste são as pontas de uma linha que corta a Europa de norte a sul: a leste, os países ocupados pelo Exército Vermelho, que viraram regimes socialistas sob influência de Moscou. {B} é tentadora, mas o muro é de 1961 — 15 anos depois do discurso; {D} é de 1962. {E} é um fato real da Guerra Fria, só que na Ásia, não no Báltico e no Adriático. Marcos: 1947 Doutrina Truman e Plano Marshall · 1949 OTAN · 1955 Pacto de Varsóvia · 1961 Muro · 1962 Cuba · 1989 queda do Muro · 1991 fim da URSS."},
 
-{id:"G11",area:"gh",topico:"Globalização",nivel:2,
+{id:"G11",area:"gh",uso:"simulado",topico:"Globalização",nivel:2,
  enunciado:"Sobre a globalização no mundo atual, analise as afirmações abaixo.\nI. Ela intensificou os fluxos de mercadorias, capitais e informações, mas de forma desigual entre países e regiões.\nII. A circulação de capitais costuma ser mais livre do que a circulação de pessoas, que ainda enfrenta fronteiras e muros.\nIII. Os blocos econômicos, como o Mercosul, eliminaram as fronteiras políticas entre os países-membros.\nIV. As empresas transnacionais perderam importância, pois a globalização fortaleceu as empresas locais.\nAssinale a alternativa CORRETA.",
  alts:["Apenas os itens I e II estão corretos.","Apenas os itens I e III estão corretos.","Apenas os itens II e IV estão corretos.","Apenas os itens I, II e III estão corretos.","Todos os itens estão corretos."],correta:0,
  porque:"I e II corretos. A globalização é seletiva (Milton Santos falava em ‘globalização perversa’): o dinheiro atravessa fronteiras em segundos, enquanto o migrante pobre encontra muro — foi esse o contraste cobrado na prova de 2025.1, com o muro EUA–México. III é falso: bloco econômico reduz tarifa e integra mercado, mas os Estados continuam soberanos — nem a União Europeia, a integração mais profunda, apagou fronteiras políticas. IV inverte: as transnacionais são as grandes protagonistas da globalização."},
@@ -316,13 +319,13 @@ window.BANCO = [
  alts:["os direitos indígenas sobre as terras são anteriores ao próprio Estado, que apenas os reconhece.","as terras indígenas pertencem aos estados, que podem vendê-las se a comunidade deixar de ocupá-las.","os direitos valem só para povos que preservam a língua original e não tiveram contato com não indígenas.","a demarcação cabe às próprias comunidades indígenas, sem participação da União no processo.","os povos indígenas do Brasil formam um só povo, com língua e tradições comuns a todos eles."],correta:0,
  porque:"‘Originário’ quer dizer que o direito vem da ocupação tradicional, anterior à formação do Brasil — a Constituição não DÁ a terra, RECONHECE um direito que já existia. {D} contradiz o texto (‘competindo à União demarcá-las’). {C} cria uma condição que o texto não põe: o artigo protege organização social e costumes, não exige isolamento. {E} nega a diversidade — são mais de 250 povos e cerca de 150 línguas. Em SC vivem os Guarani, os Kaingang e os Xokleng (Laklãnõ)."},
 
-{id:"G16",area:"gh",topico:"Direitos humanos",nivel:2,
+{id:"G16",area:"gh",uso:"simulado",topico:"Direitos humanos",nivel:2,
  texto:"Em vigor desde 2006, a Lei nº 11.340, conhecida como Lei Maria da Penha, leva o nome de uma farmacêutica cearense que ficou paraplégica após ser atacada pelo marido e lutou por quase duas décadas para vê-lo punido.",
  enunciado:"Com base no texto e em seus conhecimentos sobre a Lei Maria da Penha, assinale a alternativa CORRETA.",
  alts:["A lei reconhece formas de violência como a física, a psicológica, a sexual, a patrimonial e a moral.","A lei trata só da violência física, já que as demais formas são vistas como questões da vida privada.","A lei protege apenas mulheres casadas no civil, deixando namoradas e ex-companheiras de fora.","A lei foi aprovada em 1988, junto com a Constituição, como parte dos direitos e garantias individuais.","A lei transfere o combate à violência para a família, sem prever medidas protetivas por parte do Estado."],correta:0,
  porque:"O artigo 7º da lei define cinco formas de violência doméstica e familiar: física, psicológica, sexual, patrimonial (reter documentos, destruir bens) e moral (calúnia, difamação, injúria) — e elas podem ocorrer ao mesmo tempo. Foi exatamente essa a resposta certa na prova de 2026.2. {C} é falsa: a lei vale para qualquer relação íntima de afeto, com ou sem coabitação. {D} erra a data (2006). {E} inverte: a lei criou as medidas protetivas de urgência, como o afastamento do agressor."},
 
-{id:"G17",area:"gh",topico:"Cartografia",nivel:2,
+{id:"G17",area:"gh",uso:"simulado",topico:"Cartografia",nivel:2,
  enunciado:"Numa carta topográfica, curvas de nível muito próximas umas das outras indicam:",
  alts:["uma encosta íngreme, pois a altitude varia muito em pouca distância horizontal.","um terreno plano, pois curvas próximas indicam altitudes praticamente iguais.","o curso de um rio, pois as curvas de nível acompanham sempre o fundo dos vales.","uma área de baixa altitude, pois curvas próximas surgem perto do nível do mar.","um erro de escala, pois curvas de nível devem manter entre si distância constante."],correta:0,
  porque:"Curva de nível une pontos de mesma altitude, e entre duas curvas vizinhas a diferença de altitude é sempre a mesma (a equidistância). Se elas se apertam no papel, essa diferença acontece numa distância horizontal curta → declive forte. Curvas espaçadas → relevo suave. {B} inverte a lógica. {D} confunde declividade com altitude: uma serra a 1.500 m pode ter curvas espaçadas num topo plano. Curvas fechadas concêntricas indicam topo de morro."},
@@ -366,7 +369,7 @@ window.BANCO = [
  alts:["a forte participação de produtos primários, de menor valor agregado, na pauta de exportações do país.","a liderança brasileira na venda de bens industriais de alta tecnologia, como chips e equipamentos.","o abandono da agropecuária pelo país, que foi substituída pela indústria nas exportações recentes.","a autossuficiência do Brasil em fertilizantes, pois a soja dispensa insumos importados para crescer.","o fim da dependência externa, porque as commodities têm preço estável e garantido no mercado mundial."],correta:0,
  porque:"Soja, petróleo cru e minério são commodities: matéria-prima vendida com pouco processamento, de preço definido lá fora e que oscila muito — o que derruba {E}. Isso se chama reprimarização da pauta exportadora. {D} é falsa e é um dado que vale guardar: o Brasil importa a maior parte dos fertilizantes que usa. A prova de 2026.2 tocou no mesmo ponto com as terras raras: o desafio do país é deixar de ser ‘apenas exportador de mais uma matéria-prima’."},
 
-{id:"G25",area:"gh",topico:"Formação do Brasil",nivel:2,
+{id:"G25",area:"gh",uso:"simulado",topico:"Formação do Brasil",nivel:2,
  enunciado:"Sobre a Primeira República no Brasil (1889–1930), assinale a alternativa CORRETA.",
  alts:["O voto aberto facilitava o controle dos eleitores pelos coronéis, prática chamada de voto de cabresto.","O voto era secreto e permitido a homens e mulheres alfabetizados desde a Constituição de 1891.","A política do café com leite alternava no poder políticos do Rio Grande do Sul e da Bahia.","Os analfabetos podiam votar, o que garantia a participação política da maioria da população.","Os coronéis eram oficiais do Exército nomeados pelo presidente para administrar os municípios."],correta:0,
  porque:"Sem voto secreto, o coronel sabia em quem cada eleitor votava e cobrava lealdade em troca de favores ou ameaças — o voto de cabresto. O voto secreto e o feminino só chegam em 1932, o que derruba {B}. {C} troca os estados: café com leite é São Paulo (café) e Minas Gerais (leite). {D} inverte: a Constituição de 1891 PROIBIA o voto dos analfabetos, a maioria do país. {E}: o título de ‘coronel’ vinha da antiga Guarda Nacional e indicava o grande proprietário local, não um militar do Exército."},
@@ -383,7 +386,7 @@ window.BANCO = [
  alts:["13h","14h","15h","17h","18h"],correta:1,
  porque:"O Acre está 2 horas ATRÁS de Brasília (−5 contra −3), então 16h − 2h = 14h. Regra para não errar: a Terra gira para leste, então quem está a oeste vê o sol nascer depois e tem horário mais cedo. O Brasil tem quatro fusos: UTC−2 (Fernando de Noronha), UTC−3 (Brasília, inclusive SC), UTC−4 (Amazonas, MT, MS, RO, RR) e UTC−5 (Acre). Quem marcou {E} somou as horas em vez de subtrair."},
 
-{id:"G28",area:"gh",topico:"População e migrações",nivel:2,
+{id:"G28",area:"gh",uso:"simulado",topico:"População e migrações",nivel:2,
  enunciado:"Sobre as migrações internacionais recentes para o Brasil e para Santa Catarina, analise as afirmações abaixo.\nI. A Operação Acolhida levou migrantes venezuelanos de Roraima para outros estados, entre eles Santa Catarina.\nII. Migrantes haitianos chegaram em número expressivo ao Brasil após o terremoto que atingiu o Haiti em 2010.\nIII. A agroindústria do Oeste catarinense está entre os setores que mais empregam trabalhadores imigrantes no estado.\nIV. A Lei de Migração, de 2017, substituiu o Estatuto do Estrangeiro, criado durante a Ditadura Militar.\nAssinale a alternativa CORRETA.",
  alts:["Apenas os itens I e IV estão corretos.","Apenas os itens I, II e III estão corretos.","Apenas os itens II e III estão corretos.","Apenas os itens I, III e IV estão corretos.","Todos os itens estão corretos."],correta:4,
  porque:"Todos corretos. SC é um dos estados que mais receberam venezuelanos interiorizados pela Operação Acolhida e tem grandes comunidades haitianas, sobretudo nos frigoríficos de Chapecó e região. A Lei de Migração (2017) trocou a lógica do Estatuto do Estrangeiro (1980), que tratava o migrante como ameaça à segurança nacional, pela lógica de direitos: documento, trabalho com carteira, acesso a saúde e escola. A Lei do Refúgio (1997) já garantia carteira de trabalho a refugiados e solicitantes. Quem marcou {B} desconfiou do item IV — mas é o marco legal mais importante do tema."},
@@ -393,13 +396,13 @@ window.BANCO = [
  alts:["Ela reserva vagas em universidades e institutos federais para quem estudou em escola pública.","Ela vale apenas para universidades particulares, que recebem incentivo fiscal do governo federal.","Ela foi declarada inconstitucional pelo STF, que a considerou contrária ao princípio da igualdade.","Ela reserva vagas só por critério racial, sem levar em conta a escola em que o aluno estudou.","Ela foi criada junto com a Lei Áurea de 1888, como reparação aos libertos e aos seus filhos."],correta:0,
  porque:"A Lei de Cotas reserva metade das vagas das instituições federais — inclusive o próprio IFSC — para egressos de escola pública, com subcotas por renda e para pretos, pardos, indígenas e pessoas com deficiência, na proporção da população de cada estado. {D} inverte: o critério de base é a escola pública, o racial é subcota dentro dela. {C} é falsa: o STF declarou as cotas raciais constitucionais em 2012. {B} confunde com o ProUni. {E}: a Lei Áurea não previu reparação nenhuma — é justamente por isso que as ações afirmativas existem."},
 
-{id:"G30",area:"gh",topico:"Questões ambientais",nivel:3,
+{id:"G30",area:"gh",uso:"simulado",topico:"Questões ambientais",nivel:3,
  enunciado:"Sobre as mudanças climáticas, analise as afirmações abaixo.\nI. O efeito estufa é natural e necessário à vida, mas vem sendo intensificado pela emissão de gases como CO₂ e metano.\nII. O buraco na camada de ozônio é a principal causa do aquecimento global observado nas últimas décadas.\nIII. No Brasil, o desmatamento e a mudança no uso da terra estão entre as maiores fontes de emissão de gases estufa.\nIV. O Acordo de Paris (2015) tem como meta limitar o aumento da temperatura média global a bem menos de 2 °C.\nAssinale a alternativa CORRETA.",
  alts:["Apenas os itens I e II estão corretos.","Apenas os itens I, III e IV estão corretos.","Apenas os itens II e III estão corretos.","Apenas os itens I, II e IV estão corretos.","Todos os itens estão corretos."],correta:1,
  porque:"I, III e IV corretos. II é a confusão clássica que a banca explora: camada de ozônio filtra radiação ultravioleta, e seu buraco (causado pelos CFCs, hoje controlados pelo Protocolo de Montreal) aumenta o risco de câncer de pele — não é o motor do aquecimento. Aquecimento é efeito estufa intensificado. Diferente dos países ricos, cuja maior emissão vem da queima de combustíveis, no Brasil o desmatamento pesa muito. O tema ainda liga com a dengue avançando para o Sul (prova de 2026.1)."},
 
 /* ---------- História Geral: Antiguidade ---------- */
-{id:"H01",area:"gh",topico:"Antiguidade",nivel:2,
+{id:"H01",area:"gh",uso:"simulado",topico:"Antiguidade",nivel:2,
  texto:"§ 196 – Se um homem livre destruiu o olho de outro homem livre, destruirão o seu olho.\n§ 198 – Se destruiu o olho de um muskênum (homem dependente), pagará uma mina de prata.\n§ 199 – Se destruiu o olho do escravo de um homem livre, pagará a metade do preço do escravo.",
  fonte:"Código de Hamurábi (Babilônia, c. 1750 a.C.), §§ 196, 198 e 199.",
  enunciado:"Com base no texto e em seus conhecimentos sobre as primeiras sociedades da Mesopotâmia, é correto afirmar que o Código de Hamurábi:",
@@ -445,7 +448,7 @@ window.BANCO = [
  alts:["Apenas os itens I e II estão corretos.","Apenas os itens I, III e IV estão corretos.","Apenas os itens II e IV estão corretos.","Apenas os itens III e IV estão corretos.","Todos os itens estão corretos."],correta:1,
  porque:"Só II é falsa: o Cisma de 1054 fez o contrário — separou a Igreja Católica Romana da Igreja Ortodoxa, com sede em Constantinopla. I é verdadeira (mosteiros copistas; a universidade de Paris saiu da escola da catedral). III também: a Primeira Cruzada foi convocada pelo papa Urbano II em 1095. IV é o motivo de a burguesia medieval entrar em choque com a moral da Igreja. Gancho: cisma = separação, nunca união."},
 
-{id:"H06",area:"gh",topico:"Idade Média e expansão islâmica",nivel:2,
+{id:"H06",area:"gh",uso:"simulado",topico:"Idade Média e expansão islâmica",nivel:2,
  texto:"Em 622, Maomé deixou Meca e seguiu para Medina — a Hégira, que marca o início do calendário islâmico. Em pouco mais de um século, o domínio muçulmano se estendeu da Península Ibérica à Ásia Central. Em cidades como Bagdá e Córdoba, sábios traduziram obras gregas, persas e indianas e desenvolveram a matemática, a medicina e a astronomia.",
  enunciado:"Com base no texto e em seus conhecimentos, assinale a alternativa CORRETA sobre a expansão islâmica.",
  alts:["Os algarismos que usamos, criados na Índia, chegaram à Europa por meio dos árabes, assim como a álgebra.",
@@ -485,7 +488,7 @@ window.BANCO = [
   "mostrar que, antes do Estado, os homens viviam em harmonia, até a propriedade os corromper."],correta:0,
  porque:"Para Hobbes, sem Estado há a “guerra de todos contra todos”; por isso os homens fazem um contrato e entregam o poder a um soberano absoluto — o Leviatã. Todos os distratores são de pensadores reais, e é isso que a banca explora: {B} é Locke (direito de resistência, base liberal), {C} é Bossuet (direito divino dos reis — Hobbes justifica o absolutismo pela razão, não por Deus), {D} é Montesquieu e {E} é Rousseau. Gancho: Hobbes = medo → segurança → Estado absoluto."},
 
-{id:"H10",area:"gh",topico:"Estados Nacionais e absolutismo",nivel:2,
+{id:"H10",area:"gh",uso:"simulado",topico:"Estados Nacionais e absolutismo",nivel:2,
  texto:"Entre os séculos XIV e XVII, reis de Portugal, Espanha, França e Inglaterra concentraram poderes antes dispersos entre senhores feudais: criaram exércitos permanentes, burocracia, impostos e moeda únicos. A frase “O Estado sou eu”, atribuída a Luís XIV, tornou-se símbolo desse poder.",
  enunciado:"Com base no texto e em seus conhecimentos sobre a formação dos Estados Nacionais, analise as afirmações.\nI. A burguesia mercantil apoiou a centralização, interessada em moeda única, pesos e medidas padronizados e proteção ao comércio.\nII. O mercantilismo defendia balança comercial favorável, acúmulo de metais preciosos e controle das colônias.\nIII. Portugal é considerado um dos primeiros Estados nacionais, com a centralização consolidada após a Revolução de Avis (1383–1385).\nIV. No absolutismo, a nobreza perdeu todos os seus privilégios e passou a pagar os mesmos impostos que os camponeses.\nAssinale a alternativa CORRETA.",
  alts:["Apenas os itens I e II estão corretos.","Apenas os itens I, II e III estão corretos.","Apenas os itens II e IV estão corretos.","Apenas os itens I, III e IV estão corretos.","Todos os itens estão corretos."],correta:1,
@@ -508,7 +511,7 @@ window.BANCO = [
  alts:["1, 2, 3","2, 3, 1","3, 1, 2","2, 1, 3","3, 2, 1"],correta:1,
  porque:"2, 3, 1. Calvino (Genebra) pregou a predestinação; o sociólogo Max Weber, em A ética protestante e o espírito do capitalismo (1905), argumentou que essa ética do trabalho e da poupança favoreceu o capitalismo. O anglicanismo nasceu de uma decisão política: Henrique VIII queria anular o casamento e o papa negou. O luteranismo é a matriz: fé, Bíblia e tradução para o alemão. Comece pela característica de que tem certeza — aqui, o anglicanismo é a mais fácil — e elimine."},
 
-{id:"H13",area:"gh",topico:"Reforma e Contrarreforma",nivel:3,
+{id:"H13",area:"gh",uso:"simulado",topico:"Reforma e Contrarreforma",nivel:3,
  texto:"Em 1549, chegaram à Bahia, com o governador-geral Tomé de Sousa, os primeiros jesuítas, liderados por Manuel da Nóbrega. Pouco depois, José de Anchieta escreveria uma gramática da língua tupi.",
  enunciado:"A chegada dos jesuítas ao Brasil está ligada à Contrarreforma católica. Sobre esse movimento, assinale a alternativa INCORRETA.",
  alts:["O Concílio de Trento (1545–1563) reafirmou os sete sacramentos e a autoridade do papa e da tradição.",
@@ -525,7 +528,7 @@ window.BANCO = [
  alts:["Apenas os itens I e II estão corretos.","Apenas os itens II e IV estão corretos.","Apenas os itens II e III estão corretos.","Apenas os itens I, III e IV estão corretos.","Todos os itens estão corretos."],correta:1,
  porque:"II e IV estão corretas. I é falsa: Portugal era um reino pequeno e pouco populoso; seu pioneirismo vem da centralização precoce (Revolução de Avis), da posição atlântica, do apoio da burguesia mercantil e da experiência pesqueira. III é falsa: a expansão juntou lucro e fé — o papado concedeu bulas a Portugal, e a conversão dos povos encontrados era objetivo declarado. A tomada de Constantinopla pelos otomanos (1453) costuma ser citada como agravante da busca por rotas, mas Portugal já navegava desde 1415."},
 
-{id:"H15",area:"gh",topico:"Expansão marítima e colonização da América",nivel:2,
+{id:"H15",area:"gh",uso:"simulado",topico:"Expansão marítima e colonização da América",nivel:2,
  texto:"Em 1494, Portugal e Espanha assinaram o Tratado de Tordesilhas, que dividia as terras “descobertas e por descobrir” por um meridiano traçado 370 léguas a oeste do arquipélago de Cabo Verde.",
  enunciado:"Com base no texto e em seus conhecimentos, assinale a alternativa CORRETA.",
  alts:["O tratado ignorou os povos que viviam na América e foi contestado por reinos excluídos, como a França.",
@@ -564,7 +567,7 @@ window.BANCO = [
   "o voto obrigatório para todos os brasileiros alfabetizados com mais de dezesseis anos."],correta:0,
  porque:"“O poder freie o poder” é a teoria da separação dos poderes: dividir o Estado em Legislativo, Executivo e Judiciário, cada um fiscalizando os outros (freios e contrapesos). {D} é verdadeira na Constituição, mas não é a ideia do trecho — leia o que o enunciado pede. {B} lembra Rousseau, mas a soberania é exercida sobretudo pelo voto em representantes. {C} distorce Locke. {E} erra a idade: o voto é obrigatório dos 18 aos 70 anos e facultativo aos 16 e 17. Gancho: Montesquieu = três poderes; Rousseau = vontade geral; Locke = vida, liberdade, propriedade; Voltaire = tolerância."},
 
-{id:"H19",area:"gh",topico:"Iluminismo e revoluções burguesas",nivel:2,
+{id:"H19",area:"gh",uso:"simulado",topico:"Iluminismo e revoluções burguesas",nivel:2,
  texto:"Que é ilegal a pretensa faculdade de suspender as leis, ou a execução das leis, pela autoridade real, sem o consentimento do Parlamento. [...] Que a cobrança de impostos para uso da Coroa [...] sem autorização do Parlamento [...] é ilegal.",
  fonte:"Declaração de Direitos (Bill of Rights), Inglaterra, 1689.",
  enunciado:"O documento foi aprovado logo após a Revolução Gloriosa (1688). Com base nele e em seus conhecimentos, é correto afirmar que ele:",
@@ -599,7 +602,7 @@ window.BANCO = [
   "levou o Brasil a abolir o tráfico negreiro logo em 1804, por medo de uma revolta semelhante."],correta:0,
  porque:"O Haiti é o único caso em que pessoas escravizadas derrubaram o sistema escravista e fundaram um país — liderados por Toussaint Louverture e, depois, Jean-Jacques Dessalines. {B} troca os protagonistas. {C} é falsa: os EUA só aboliram a escravidão em 1865 e demoraram décadas para reconhecer o Haiti. {D} inverte: São Domingos era a colônia mais lucrativa do mundo, maior produtora de açúcar e café. {E} erra a consequência: o “haitianismo” — o medo de um novo Haiti — fez as elites do Brasil endurecerem a repressão; o tráfico só foi proibido de fato em 1850. Liga direto com o bloco de resistência escrava, o mais cobrado da prova."},
 
-{id:"H23",area:"gh",topico:"Independências na América",nivel:3,
+{id:"H23",area:"gh",uso:"simulado",topico:"Independências na América",nivel:3,
  texto:"É uma ideia grandiosa pretender formar de todo o Novo Mundo uma só nação, com um só vínculo que ligue suas partes entre si e com o todo. [...] Mas não é possível, porque climas remotos, situações diversas, interesses opostos e caracteres dessemelhantes dividem a América.",
  fonte:"BOLÍVAR, Simón. Carta da Jamaica (1815).",
  enunciado:"Com base no texto e em seus conhecimentos sobre as independências da América espanhola, analise as afirmações.\nI. Foram lideradas principalmente pelos criollos, descendentes de espanhóis nascidos na América, excluídos dos cargos mais altos da administração colonial.\nII. A invasão da Espanha por Napoleão (1808) e a prisão do rei Fernando VII abriram espaço para a formação de juntas de governo na América.\nIII. Como Bolívar desejava, a América espanhola formou uma única república depois da independência.\nIV. A independência, em geral, não acabou com a concentração de terras nem melhorou de imediato a vida de indígenas e escravizados.\nAssinale a alternativa CORRETA.",
@@ -617,7 +620,7 @@ window.BANCO = [
  porque:"Com a Corte no Rio desde 1808, o Brasil já tinha um centro de poder; as elites agrárias apoiaram um príncipe português porque a monarquia garantia ordem, unidade e — principalmente — a continuidade da escravidão. {B} é falsa: a escravidão durou até 1888. {C} inverte o texto: a América espanhola virou repúblicas. {D} é a pegadinha mais comum: houve guerra na Bahia (vitória em 2 de julho de 1823), no Pará, no Maranhão e na Cisplatina. {E} contradiz o texto. Gancho: independência brasileira = continuidade (monarquia, unidade, escravidão, latifúndio)."},
 
 /* ---------- Revolução Industrial ---------- */
-{id:"H25",area:"gh",topico:"Revolução Industrial",nivel:2,
+{id:"H25",area:"gh",uso:"simulado",topico:"Revolução Industrial",nivel:2,
  texto:"Entre os séculos XVI e XVIII, os cercamentos (enclosures) transformaram terras de uso comum em propriedades privadas cercadas, destinadas sobretudo à criação de ovelhas. Milhares de famílias camponesas perderam o acesso à terra e migraram para as cidades. Ao mesmo tempo, a Inglaterra acumulava capitais com o comércio colonial e o tráfico de escravizados e dispunha de grandes jazidas de carvão e ferro.",
  enunciado:"Com base no texto e em seus conhecimentos, analise as afirmações sobre o pioneirismo inglês na Revolução Industrial.\nI. Os cercamentos ajudaram a formar uma mão de obra disponível e barata nas cidades.\nII. Capitais acumulados com o comércio colonial e o tráfico financiaram parte da industrialização.\nIII. A Inglaterra foi pioneira porque era a monarquia absolutista mais forte da Europa no século XVIII.\nIV. A disponibilidade de carvão e ferro favoreceu o uso da máquina a vapor e a produção de máquinas.\nAssinale a alternativa CORRETA.",
  alts:["Apenas os itens I e II estão corretos.","Apenas os itens I, II e IV estão corretos.","Apenas os itens II, III e IV estão corretos.","Apenas os itens III e IV estão corretos.","Todos os itens estão corretos."],correta:1,
@@ -636,7 +639,7 @@ window.BANCO = [
  porque:"A INCORRETA é {D}: a linha de montagem fez o contrário — dividiu o trabalho em tarefas mínimas e repetitivas, e o operário perdeu o controle e o conhecimento do processo inteiro (é a crítica de “Tempos Modernos”, de Chaplin). As demais estão certas: a Segunda Revolução (a partir de c. 1870) é a da eletricidade, do petróleo e do aço; Taylor criou a administração científica com cronômetro; Ford somou a isso a produção em massa. Gancho: Taylor mede o tempo, Ford põe a esteira."},
 
 /* ---------- Imperialismo na África e Ásia ---------- */
-{id:"H28",area:"gh",topico:"Imperialismo na África e Ásia",nivel:2,
+{id:"H28",area:"gh",uso:"simulado",topico:"Imperialismo na África e Ásia",nivel:2,
  texto:"Tomai o fardo do Homem Branco —\nEnviai vossos melhores filhos —\nIde, condenai vossos filhos ao exílio\nPara servirem aos vossos cativos.",
  fonte:"KIPLING, Rudyard. The White Man’s Burden, 1899 (tradução livre).",
  enunciado:"O poema de Kipling foi publicado no auge do imperialismo europeu e norte-americano. Com base nele e em seus conhecimentos, a ideia de “fardo do Homem Branco” servia para:",
@@ -662,7 +665,7 @@ window.BANCO = [
  alts:["a guerra começou de fato por uma disputa religiosa entre católicos e ortodoxos.","o atentado foi organizado pela Alemanha para justificar a invasão da França.","já existiam tensões imperialistas, nacionalismos e um sistema de alianças rivais.","os Estados Unidos já tinham declarado guerra à Áustria-Hungria antes de 1914.","a Rússia havia saído da Tríplice Entente e se aliado aos impérios centrais."],correta:2,
  porque:"O assassinato apenas acendeu um barril de pólvora montado antes: disputa imperialista por colônias e mercados, nacionalismos (revanchismo francês pela Alsácia-Lorena, pan-eslavismo nos Bálcãs), corrida armamentista e duas alianças — Tríplice Entente (Reino Unido, França, Rússia) e Tríplice Aliança (Alemanha, Áustria-Hungria, Itália). {D} erra: os EUA só entraram em 1917. {E} erra: a Rússia lutou pela Entente e saiu da guerra em 1918, após a Revolução. Gancho: causa é a pólvora, estopim é o fósforo."},
 
-{id:"H32",area:"gh",topico:"Primeira Guerra e entreguerras",nivel:3,
+{id:"H32",area:"gh",uso:"simulado",topico:"Primeira Guerra e entreguerras",nivel:3,
  texto:"Os Governos Aliados e Associados afirmam, e a Alemanha aceita, a responsabilidade da Alemanha e de seus aliados por terem causado todas as perdas e danos a que os Governos Aliados e Associados e seus nacionais foram submetidos em consequência da guerra.",
  fonte:"Tratado de Versalhes, 1919, artigo 231.",
  enunciado:"Com base no texto e em seus conhecimentos, assinale a alternativa INCORRETA sobre o Tratado de Versalhes.",
@@ -684,7 +687,7 @@ window.BANCO = [
  alts:["O fascismo defendia a autonomia dos sindicatos frente ao governo e aos patrões.","Mussolini chegou ao poder após vencer a eleição direta para presidente em 1918.","O fascismo pregava o internacionalismo e a união dos trabalhadores do mundo.","O regime garantia a liberdade de imprensa, desde que a crítica fosse moderada.","O fascismo subordinava indivíduo, sindicatos e imprensa ao Estado e ao líder."],correta:4,
  porque:"A frase é a definição de totalitarismo: nada pode existir fora do controle estatal. O fascismo usou o corporativismo (sindicatos atrelados ao Estado — o contrário de {A}), o partido único, a censura e o culto ao Duce. {B} erra duas vezes: a Itália era monarquia e Mussolini foi nomeado primeiro-ministro pelo rei após a Marcha sobre Roma (1922). {C} descreve o socialismo, inimigo declarado do fascismo, que era ultranacionalista. Gancho: fascismo = nação acima de tudo, Estado acima de todos."},
 
-{id:"H35",area:"gh",topico:"Totalitarismos",nivel:3,
+{id:"H35",area:"gh",uso:"simulado",topico:"Totalitarismos",nivel:3,
  texto:"A partir de 1928, Stalin lançou os Planos Quinquenais, que priorizaram a indústria pesada, e impôs a coletivização forçada do campo. Na década de 1930, os Grandes Expurgos levaram à prisão, ao fuzilamento ou aos campos de trabalho forçado (gulags) centenas de milhares de pessoas, incluindo antigos líderes revolucionários.",
  enunciado:"Com base no texto e em seus conhecimentos, o regime stalinista é classificado como totalitário, ao lado do nazismo, porque:",
  alts:["defendia a mesma ideologia racial e o mesmo projeto de expansão do nazismo.","combinava partido único, terror policial, culto ao líder e controle da sociedade.","foi o único regime do século XX a utilizar campos de trabalho contra opositores.","manteve eleições livres, mas restringiu a economia ao planejamento estatal.","surgiu como reação à Crise de 1929, que atingiu duramente a economia soviética."],correta:1,
@@ -698,7 +701,7 @@ window.BANCO = [
  porque:"A INCORRETA é {E}: a perseguição foi gradual. Em 1933 vieram boicotes e exclusões; em 1935, as Leis de Nuremberg; em 1938, a Noite dos Cristais; o extermínio sistemático em campos de morte, como Auschwitz-Birkenau, é dos anos da guerra, organizado após Wannsee (janeiro de 1942). As outras são fatos. A distinção de Arendt também cai em prova: autoritarismo cala a oposição; totalitarismo quer moldar a pessoa inteira. Gancho: do boicote ao campo, em escada."},
 
 /* ---------- Segunda Guerra Mundial ---------- */
-{id:"H37",area:"gh",topico:"Segunda Guerra Mundial",nivel:2,
+{id:"H37",area:"gh",uso:"simulado",topico:"Segunda Guerra Mundial",nivel:2,
  texto:"Nós, os povos das Nações Unidas, resolvidos a preservar as gerações vindouras do flagelo da guerra, que por duas vezes, no espaço da nossa vida, trouxe sofrimentos indizíveis à humanidade [...]",
  fonte:"Carta das Nações Unidas, São Francisco, 1945 (preâmbulo).",
  enunciado:"Coloque em ordem cronológica os acontecimentos da Segunda Guerra Mundial e do seu desfecho:\n1. Ataque japonês a Pearl Harbor\n2. Invasão da Polônia pela Alemanha\n3. Bombas atômicas sobre Hiroshima e Nagasaki\n4. Desembarque aliado na Normandia (Dia D)",
@@ -718,7 +721,7 @@ window.BANCO = [
  alts:["A Revolução Cubana de 1959 foi apoiada pelos EUA para derrubar a ditadura de Fidel.","A crise terminou com a invasão da ilha por tropas norte-americanas na Baía dos Porcos.","A URSS retirou os mísseis, e os EUA prometeram não invadir Cuba.","Cuba foi expulsa do bloco soviético por ter instalado mísseis sem autorização.","O acordo final determinou a reunificação de Cuba aos Estados Unidos."],correta:2,
  porque:"Kennedy decretou um bloqueio naval; Kruschev aceitou retirar os mísseis em troca do compromisso dos EUA de não invadir Cuba (e, em segredo, da retirada de mísseis americanos da Turquia). {A} inverte os papéis: Fidel Castro e Che Guevara DERRUBARAM em 1959 o ditador Fulgencio Batista, aliado dos EUA. {B} troca a ordem: a fracassada invasão da Baía dos Porcos foi em 1961, antes da crise. Depois de 1962 criou-se a “linha direta” entre Washington e Moscou. Gancho: 59 revolução, 61 Baía dos Porcos, 62 mísseis."},
 
-{id:"H40",area:"gh",topico:"Guerra Fria",nivel:3,
+{id:"H40",area:"gh",uso:"simulado",topico:"Guerra Fria",nivel:3,
  texto:"Ao assumir o comando da União Soviética em 1985, Mikhail Gorbachev lançou duas políticas: a glasnost e a perestroika. Em novembro de 1989, a abertura das passagens do Muro de Berlim tornou-se o símbolo da derrocada dos regimes socialistas do Leste Europeu.",
  enunciado:"Com base no texto e em seus conhecimentos, analise as afirmações.\nI. Glasnost significa transparência, com mais liberdade de expressão e menos censura.\nII. Perestroika foi a reestruturação da economia, com abertura a mecanismos de mercado.\nIII. Logo após a queda do Muro, em 1989, a URSS foi dissolvida no mesmo mês.\nIV. A Alemanha foi reunificada em 1990, e a URSS deixou de existir em dezembro de 1991.\nAssinale a alternativa CORRETA.",
  alts:["Apenas os itens I e III estão corretos.","Apenas os itens II e III estão corretos.","Apenas os itens I, II e III estão corretos.","Apenas os itens I, II e IV estão corretos.","Todos os itens estão corretos."],correta:3,
@@ -737,7 +740,7 @@ window.BANCO = [
  alts:["Apenas os itens I e II estão corretos.","Apenas os itens II e IV estão corretos.","Apenas os itens I, II e III estão corretos.","Apenas os itens I, III e IV estão corretos.","Todos os itens estão corretos."],correta:3,
  porque:"I, III e IV corretos. O II é falso — e o próprio texto avisa: Portugal travava guerras coloniais desde 1961 contra movimentos como MPLA (Angola), FRELIMO (Moçambique) e PAIGC (Guiné-Bissau e Cabo Verde). O desgaste dessas guerras ajudou a derrubar a ditadura, e o novo governo negociou as independências (1974–1975). A Argélia lutou contra a França de 1954 a 1962, com a FLN (Frente de Libertação Nacional). Em Angola, a guerra civil opôs grupos apoiados por EUA, URSS, Cuba e África do Sul. Gancho: a África derrubou a ditadura em Lisboa."},
 
-{id:"H43",area:"gh",topico:"Independências na África e Ásia",nivel:3,
+{id:"H43",area:"gh",uso:"simulado",topico:"Independências na África e Ásia",nivel:3,
  texto:"Eu tenho acalentado o ideal de uma sociedade democrática e livre, na qual todas as pessoas vivam juntas em harmonia e com iguais oportunidades. É um ideal pelo qual espero viver e que espero alcançar. Mas, se for preciso, é um ideal pelo qual estou preparado para morrer.",
  fonte:"MANDELA, Nelson. Declaração no Julgamento de Rivonia, 1964 (tradução livre).",
  enunciado:"Com base no texto e em seus conhecimentos, assinale a alternativa INCORRETA sobre a luta contra o apartheid na África do Sul.",
@@ -745,7 +748,7 @@ window.BANCO = [
  porque:"A INCORRETA é {D}: houve discriminação desde a colonização, mas o APARTHEID como sistema legal foi implantado em 1948, pelo Partido Nacional. Ele classificava a população por raça e separava bairros, escolas, transportes e casamentos; negros não votavam. Mandela, líder do Congresso Nacional Africano, foi condenado à prisão perpétua em 1964, libertado em 1990 e eleito em 1994; dividiu o Nobel da Paz de 1993 com De Klerk. Gancho: 48 apartheid, 64 prisão, 90 liberdade, 94 presidente."},
 
 /* ---------- Imperialismos dos séculos XX e XXI e resistências ---------- */
-{id:"H44",area:"gh",topico:"Imperialismos dos séculos XX e XXI e resistências",nivel:2,
+{id:"H44",area:"gh",uso:"simulado",topico:"Imperialismos dos séculos XX e XXI e resistências",nivel:2,
  texto:"Derrotados pelos vietnamitas em Dien Bien Phu (1954), os franceses deixaram a Indochina. O Vietnã foi dividido em Norte, comunista, e Sul, apoiado pelos Estados Unidos. A partir de 1965, Washington enviou centenas de milhares de soldados para impedir a reunificação sob o governo do Norte.",
  enunciado:"Com base no texto e em seus conhecimentos sobre a Guerra do Vietnã, assinale a alternativa CORRETA.",
  alts:["Os EUA venceram a guerra e garantiram um Vietnã do Sul capitalista até hoje.","A URSS enviou tropas para combater diretamente o exército norte-americano.","A guerra foi breve e teve pouca repercussão na opinião pública dos EUA.","O conflito começou como guerra de independência contra a Inglaterra.","A teoria do dominó temia que a vitória comunista se espalhasse pela região."],correta:4,
@@ -764,14 +767,14 @@ window.BANCO = [
  alts:["a volta das tropas europeias às antigas colônias para governá-las diretamente.","a dominação econômica que limita a soberania de países formalmente independentes.","a cooperação entre ex-colônias para romper sua dependência das antigas metrópoles.","o processo de independência negociado sem guerra entre colônia e metrópole.","a colonização de terras desabitadas por imigrantes vindos dos países ricos."],correta:1,
  porque:"Para Nkrumah, a bandeira, o hino e a cadeira na ONU não bastam: dívida externa, dependência de exportar matéria-prima barata e importar produtos industrializados, e o poder de empresas estrangeiras mantêm a ex-colônia subordinada. {A} descreve o colonialismo clássico, não o “neo”. {C} descreve o oposto — a resistência ao neocolonialismo, como o pan-africanismo e os não alinhados. É a mesma lógica da questão das terras raras de 2026.2: exportar só matéria-prima perpetua a dependência. Gancho: independente no papel, dependente no bolso."},
 
-{id:"H47",area:"gh",topico:"Imperialismos dos séculos XX e XXI e resistências",nivel:3,
+{id:"H47",area:"gh",uso:"simulado",topico:"Imperialismos dos séculos XX e XXI e resistências",nivel:3,
  texto:"Em 2014, a Rússia anexou a península da Crimeia, que pertencia à Ucrânia. Em 24 de fevereiro de 2022, iniciou uma invasão em larga escala do território ucraniano. O governo russo alegou, entre outros motivos, a ameaça representada pela expansão da OTAN para o leste europeu.",
  enunciado:"Com base no texto e em seus conhecimentos, analise as afirmações.\nI. A expansão da OTAN incorporou, após 1991, países que haviam feito parte do bloco soviético.\nII. Em março de 2022, a Assembleia Geral da ONU aprovou resolução condenando a invasão.\nIII. A Ucrânia era membro pleno da OTAN quando foi invadida em 2022.\nIV. A guerra afetou o mercado mundial de energia e de alimentos, como o trigo.\nAssinale a alternativa CORRETA.",
  alts:["Apenas os itens I e III estão corretos.","Apenas os itens II e III estão corretos.","Apenas os itens I, II e IV estão corretos.","Apenas os itens II, III e IV estão corretos.","Todos os itens estão corretos."],correta:2,
  porque:"I, II e IV corretos. O III é falso: a Ucrânia NÃO era membro da OTAN — se fosse, o tratado obrigaria os aliados a defendê-la militarmente (artigo 5º). Desde 1999 entraram na aliança ex-membros do Pacto de Varsóvia e ex-repúblicas soviéticas, como Polônia e os países bálticos; a Rússia vê isso como ameaça, e a Ucrânia e outros países veem a invasão como violação da soberania. Rússia e Ucrânia são grandes exportadores de grãos, e a Rússia, de gás e petróleo. Gancho: na prova, separe o fato (quem invadiu, quando) do argumento de cada lado."},
 
 /* ---------- Contracultura e direitos humanos ---------- */
-{id:"H48",area:"gh",topico:"Contracultura e direitos humanos",nivel:2,
+{id:"H48",area:"gh",uso:"simulado",topico:"Contracultura e direitos humanos",nivel:2,
  texto:"Nos anos 1960, jovens nos Estados Unidos e na Europa passaram a questionar o consumismo, a moral tradicional e a Guerra do Vietnã. Em maio de 1968, estudantes e operários paralisaram a França. No Brasil, a canção “É proibido proibir”, de Caetano Veloso, retomava um lema escrito nos muros de Paris.",
  enunciado:"Com base no texto e em seus conhecimentos sobre a contracultura, assinale a alternativa CORRETA.",
  alts:["O movimento hippie defendia o serviço militar e o apoio à guerra no Vietnã.","A Tropicália foi apoiada pela ditadura como modelo de música patriótica.","O Festival de Woodstock (1969) reuniu multidões em torno do rock e do pacifismo.","A contracultura defendia o retorno aos valores familiares e religiosos tradicionais.","O Maio de 68 foi um golpe militar que derrubou o governo do general De Gaulle."],correta:2,
@@ -798,7 +801,7 @@ window.BANCO = [
  alts:["metáfora, pois compara a cidade a uma pessoa","metonímia, pois o lugar substitui os moradores","hipérbole, pois exagera o número de pessoas","eufemismo, pois suaviza uma fofoca coletiva","antítese, pois opõe a cidade aos aprovados"],correta:1,
  porque:"Metonímia é a substituição por relação lógica ou de proximidade: ‘a cidade’ está no lugar dos ‘habitantes da cidade’ (continente pelo conteúdo). {A} é tentadora, mas não há comparação implícita por semelhança — há troca do lugar por quem está nele. {C} também atrai: pode haver algum exagero em ‘inteira’, mas o recurso que estrutura a expressão é a troca de termos. Eufemismo suaviza (‘ele partiu’ por morreu); antítese opõe ideias contrárias (‘é fogo que arde sem se ver’)."},
 
-{id:"P02",area:"port",topico:"Coesão",nivel:2,
+{id:"P02",area:"port",uso:"simulado",topico:"Coesão",nivel:2,
  texto:"O IFSC oferece cursos técnicos gratuitos e de qualidade reconhecida; ______, a concorrência nas vagas do Integrado costuma ser alta.",
  enunciado:"O conectivo que preenche a lacuna mantendo a relação de CONSEQUÊNCIA entre as orações é:",
  alts:["porém","embora","portanto","caso","apesar disso"],correta:2,
@@ -810,29 +813,29 @@ window.BANCO = [
  alts:["as falas mostram erros que impedem a comunicação entre os falantes.","as falas seguem regras próprias de uma variedade e cumprem bem sua função.","as falas devem ser corrigidas, pois a norma-padrão é superior por natureza.","as falas comprovam que a variação ocorre apenas entre regiões do país.","as falas revelam falta de regras, o que é típico da linguagem informal."],correta:1,
  porque:"Os falantes se entendem perfeitamente: a variedade tem regras próprias (‘nóis vai’ marca o plural só no pronome, de forma sistemática). A norma-padrão é PRESTIGIADA por razões históricas e sociais, não por qualidade intrínseca — tratar outras variedades como ‘erro’ é preconceito linguístico, que no fundo é preconceito social. {D} falha porque a variação também é social, situacional e histórica, não só regional; {E} falha porque informal não significa sem regras."},
 
-{id:"P04",area:"port",topico:"Concordância",nivel:2,
+{id:"P04",area:"port",uso:"simulado",topico:"Concordância",nivel:2,
  enunciado:"Assinale a frase em que a concordância verbal está de acordo com a norma-padrão:",
  alts:["Fazem cinco anos que estudo eletrônica.","Houveram muitos candidatos aprovados.","Havia muitos candidatos na sala.","Existe muitas oportunidades na área.","Aconteceu vários problemas no circuito."],correta:2,
  porque:"‘Haver’ no sentido de EXISTIR é impessoal: fica sempre na 3ª pessoa do singular (havia, houve). Logo ‘houveram muitos’ está errado. ‘Fazer’ indicando tempo decorrido também é impessoal: ‘Faz cinco anos’. Mas atenção à armadilha: ‘existir’ e ‘acontecer’ NÃO são impessoais e concordam normalmente — o certo seria ‘existem muitas oportunidades’ e ‘aconteceram vários problemas’."},
 
-{id:"P05",area:"port",topico:"Interpretação",nivel:2,
+{id:"P05",area:"port",uso:"simulado",topico:"Interpretação",nivel:2,
  texto:"Quadro 1 — Dois amigos no sofá. Um deles pergunta: “Você não acha que estamos dependendo demais das máquinas?”\nQuadro 2 — O outro, sem tirar os olhos do celular, responde: “Peraí, deixa eu pesquisar isso.”",
  enunciado:"O efeito de humor da tirinha é construído principalmente por meio de:",
  alts:["um erro gramatical proposital na fala.","uma ironia: a resposta confirma a crítica.","uma metáfora que compara pessoas a máquinas.","um exagero sobre o tempo gasto no celular.","uma mudança de assunto entre os quadros."],correta:1,
  porque:"O humor vem do descompasso entre o que se discute e o que o personagem faz: para responder se dependemos demais das máquinas, ele recorre... à máquina. É ironia situacional. {D} atrai porque o tema é o celular, mas a tirinha não exagera nada; {E} erra porque o assunto não muda — a resposta é justamente sobre ele. Método: ache a expectativa criada e a quebra dela; o humor mora na quebra, geralmente no último quadro."},
 
-{id:"P06",area:"port",topico:"Gêneros textuais",nivel:1,
+{id:"P06",area:"port",uso:"simulado",topico:"Gêneros textuais",nivel:1,
  texto:"Materiais: 1 placa protoboard, 1 LED vermelho, 1 resistor de 330 Ω, 1 bateria de 9 V.\n1. Encaixe o LED na protoboard, com a perna maior na linha positiva.\n2. Conecte o resistor entre a perna menor do LED e a linha negativa.\n3. Ligue a bateria e verifique se o LED acende.",
  enunciado:"Pela finalidade, pela estrutura e pelas marcas linguísticas, o texto pertence ao gênero:",
  alts:["crônica","tutorial","editorial","notícia","reportagem"],correta:1,
  porque:"Os três traços — lista de materiais, sequência numerada e verbos no imperativo (‘encaixe’, ‘conecte’, ‘ligue’) — caracterizam os gêneros injuntivos/instrucionais: tutorial, manual, receita, bula. Identificar gênero é sempre uma soma de três pistas: finalidade (para que serve), estrutura (como se organiza) e marcas linguísticas (tempo verbal, pessoa, vocabulário). Reportagem e editorial informam e opinam; notícia e reportagem relatam fatos; crônica narra e comenta o cotidiano. Nenhum deles ensina a fazer algo passo a passo."},
 
-{id:"P07",area:"port",topico:"Ambiguidade",nivel:2,
+{id:"P07",area:"port",uso:"simulado",topico:"Ambiguidade",nivel:2,
  enunciado:"A frase “O professor falou com o aluno na sua sala” é ambígua porque:",
  alts:["o verbo ‘falou’ não concorda com o sujeito.","o pronome ‘sua’ pode se referir aos dois.","a preposição ‘com’ indica companhia e modo.","falta uma vírgula separando o adjunto final.","o sujeito da oração pode ser ‘o aluno’."],correta:1,
  porque:"Ambiguidade é a possibilidade de mais de uma leitura. O possessivo de 3ª pessoa (seu/sua) é a fonte clássica, porque serve a vários referentes: a sala é do professor ou do aluno? Corrige-se com ‘dele’: ‘na sala do aluno’. {D} atrai, mas vírgula não resolveria a dúvida sobre de quem é a sala; {E} erra porque o sujeito é claramente ‘o professor’. Outras fontes de ambiguidade: pronome relativo distante e adjunto mal posicionado (‘vi o homem com o binóculo’)."},
 
-{id:"P08",area:"port",topico:"Argumentação",nivel:2,
+{id:"P08",area:"port",uso:"simulado",topico:"Argumentação",nivel:2,
  texto:"As cidades brasileiras precisam investir urgentemente em transporte coletivo. Segundo dados do IBGE, 85% da população brasileira vive em áreas urbanas, e é nelas que se concentram os maiores congestionamentos do país.",
  enunciado:"No texto, a referência aos dados do IBGE tem a função de:",
  alts:["expressar uma opinião pessoal do autor do texto.","sustentar a tese com dado de fonte confiável.","apresentar um contra-argumento à tese inicial.","introduzir uma digressão sobre o próprio IBGE.","narrar um fato sem relação com a tese."],correta:1,
@@ -848,7 +851,7 @@ window.BANCO = [
  alts:["O robô construiu os alunos.","O robô foi construído pelos alunos.","Os alunos foram construídos pelo robô.","O robô era construído pelos alunos.","O robô tinha construído os alunos."],correta:1,
  porque:"Na passiva analítica, o objeto direto (‘o robô’) vira sujeito, entra o auxiliar ‘ser’ no MESMO tempo do verbo original (pretérito perfeito ‘construíram’ → ‘foi’), o principal vai para o particípio (construído) e o sujeito antigo vira agente da passiva (‘pelos alunos’). {D} é a armadilha: a estrutura está certa, mas ‘era’ é pretérito imperfeito — mudou o tempo verbal e, com ele, o sentido."},
 
-{id:"P11",area:"port",topico:"Regência",nivel:3,
+{id:"P11",area:"port",uso:"simulado",topico:"Regência",nivel:3,
  enunciado:"Assinale a alternativa em que o uso do acento grave (crase) está CORRETO:",
  alts:["Vou à pé até o câmpus.","Refiro-me à você.","Assisti à aula de física.","Cheguei à Florianópolis.","Entreguei o trabalho à ele."],correta:2,
  porque:"Crase é a fusão da preposição ‘a’ com o artigo ‘a(s)’. O verbo assistir no sentido de ‘ver, presenciar’ exige a preposição a, e ‘aula’ é feminina e admite artigo → à aula. Nunca ocorre crase antes de palavra masculina (‘a pé’), de pronome pessoal (‘a você’, ‘a ele’) nem de nome de cidade que não admite artigo (‘venho de Florianópolis’ → ‘vou a Florianópolis’). Teste: troque por uma masculina — se aparecer ‘ao’, há crase (‘assisti ao filme’)."},
@@ -859,18 +862,18 @@ window.BANCO = [
  alts:["neologismo","paródia","pleonasmo","paráfrase","citação"],correta:1,
  porque:"O slogan retoma ‘Ser ou não ser, eis a questão’ e o subverte para falar de sustentabilidade: é paródia, uma forma de intertextualidade. {D} é a armadilha clássica: paráfrase reescreve MANTENDO o sentido original; paródia reescreve mudando o sentido ou o propósito. {E} erra porque citação reproduz o trecho sem alterá-lo. Neologismo é palavra nova; pleonasmo é redundância."},
 
-{id:"P13",area:"port",topico:"Interpretação",nivel:3,
+{id:"P13",area:"port",uso:"simulado",topico:"Interpretação",nivel:3,
  texto:"A tecnologia avançou tanto que hoje conseguimos nos comunicar com alguém do outro lado do mundo em segundos — e, ainda assim, muitas vezes não conversamos com quem está sentado ao nosso lado.",
  enunciado:"A ideia central do trecho é:",
  alts:["elogiar o avanço tecnológico das comunicações à distância.","apontar que estar mais conectado não garante estar mais próximo.","defender que o uso de celulares seja proibido em casa.","mostrar que a internet ainda é lenta em muitos lugares.","criticar quem mora longe e não visita a própria família."],correta:1,
  porque:"O eixo do trecho é o conectivo ‘e, ainda assim’, que marca contraste e instala um paradoxo: mais conexão técnica, menos conversa presencial. {A} capta só a primeira metade (resposta parcial); {C} e {E} extrapolam, atribuindo ao texto uma proposta ou crítica que ele não faz; {D} contradiz o texto (‘em segundos’). Regra de ouro: a resposta certa cabe INTEIRA dentro do texto — nem menos (parcial) nem mais (extrapolação)."},
 
-{id:"P14",area:"port",topico:"Morfologia",nivel:2,
+{id:"P14",area:"port",uso:"simulado",topico:"Morfologia",nivel:2,
  enunciado:"Na frase “Ele chegou muito cedo à oficina”, as palavras “muito” e “cedo” são, respectivamente:",
  alts:["adjetivo e substantivo","advérbio e advérbio","pronome e adjetivo","pronome e advérbio","advérbio e adjetivo"],correta:1,
  porque:"‘Cedo’ é advérbio de tempo, modificando o verbo ‘chegou’. ‘Muito’ aqui é advérbio de intensidade, modificando outro advérbio (‘cedo’). {D} é a armadilha: ‘muito’ é pronome indefinido quando acompanha substantivo (‘muitos livros’, varia); em ‘muito cedo’ e ‘muito bonito’ é advérbio e fica invariável. Advérbio nunca varia em gênero ou número — esse é o melhor teste."},
 
-{id:"P15",area:"port",topico:"Coerência",nivel:2,
+{id:"P15",area:"port",uso:"simulado",topico:"Coerência",nivel:2,
  enunciado:"Assinale o período em que há problema de COERÊNCIA:",
  alts:["Estudou bastante e foi aprovado.","Choveu muito, por isso as ruas alagaram.","É vegetariano, portanto come carne sempre.","Como estava cansado, foi dormir mais cedo.","Não estudou, mas mesmo assim foi bem."],correta:2,
  porque:"Coerência é a compatibilidade lógica entre as ideias. Em {C}, o conectivo conclusivo ‘portanto’ liga duas informações que se contradizem — ser vegetariano e comer carne. {E} parece estranha, mas é coerente: o ‘mas’ sinaliza justamente o resultado inesperado. A frase {C} está gramaticalmente perfeita: coesão (a costura formal) e coerência (o sentido) são coisas distintas."},
@@ -881,7 +884,7 @@ window.BANCO = [
  alts:["25/64", "5/28", "5/14", "5/8", "9/14"],correta:2,
  porque:"Sem reposição, a caixa muda depois da primeira retirada. 1ª retirada: 5 bons em 8 → 5/8. Sobram 7 fusíveis, 4 deles bons → 4/7. Como precisa acontecer uma coisa E a outra, multiplique: 5/8 × 4/7 = 20/56 = 5/14. A {A} é o cálculo COM reposição (5/8 × 5/8). A {B} divide as 10 duplas de bons (sem ordem) pelos 56 sorteios em ordem: misturou contagem com e sem ordem. A {D} considera só a primeira retirada, e a {E} é a chance do evento contrário (pelo menos um queimado). Regra: ‘sem reposição’ → o denominador diminui a cada retirada."},
 
-{id:"M17",area:"mat",topico:"Probabilidade",nivel:2,
+{id:"M17",area:"mat",uso:"simulado",topico:"Probabilidade",nivel:2,
  enunciado:"Num jogo de tabuleiro da turma, você lança dois dados comuns (faces de 1 a 6) e só avança se a soma der exatamente 7. Qual a probabilidade de você avançar numa jogada?",
  alts:["1/36", "1/12", "1/11", "1/6", "7/36"],correta:3,
  porque:"Dois dados geram 6 × 6 = 36 resultados igualmente prováveis. Soma 7: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) → 6 casos. P = 6/36 = 1/6. A {B} conta só 3 pares, esquecendo que (1,6) e (6,1) são resultados diferentes (os dados são distintos). A {C} trata as 11 somas possíveis (2 a 12) como igualmente prováveis, o que é falso: a soma 7 é a mais frequente. A {E} usa o próprio 7 como número de casos. Regra: com dois dados, monte a tabela 6 × 6 e conte os pares ordenados."},
@@ -891,12 +894,12 @@ window.BANCO = [
  alts:["3.024", "4.536", "5.040", "9.000", "10.000"],correta:1,
  porque:"Preencha posição por posição, começando pela que tem restrição. 1º algarismo: 9 opções (1 a 9). 2º: 9 opções (agora o 0 volta a valer, mas o algarismo já usado não). 3º: 8 opções. 4º: 7 opções. Total: 9 × 9 × 8 × 7 = 4.536. A {C} (10 × 9 × 8 × 7) ignora a proibição do 0 na frente. A {A} (9 × 8 × 7 × 6) esquece que o 0 pode aparecer da 2ª posição em diante. A {D} permite repetição, e a {E} ignora as duas regras. Regra: comece sempre pela posição mais restrita."},
 
-{id:"M19",area:"mat",topico:"MMC e MDC",nivel:3,
+{id:"M19",area:"mat",uso:"simulado",topico:"MMC e MDC",nivel:3,
  enunciado:"Uma oficina tem três rolos de cabo com 84 m, 126 m e 210 m. O técnico quer cortar todos os rolos em pedaços de mesmo comprimento, o MAIOR possível, sem que sobre cabo em nenhum rolo. Quantos pedaços ele obterá no total?",
  alts:["10 pedaços", "20 pedaços", "30 pedaços", "42 pedaços", "60 pedaços"],correta:0,
  porque:"‘Maior pedaço igual, sem sobra’ é MDC. 84 = 2²·3·7, 126 = 2·3²·7, 210 = 2·3·5·7 → MDC = 2·3·7 = 42 m. Pedaços: 84/42 + 126/42 + 210/42 = 2 + 3 + 5 = 10. A {D} responde o COMPRIMENTO do pedaço, não a quantidade — leia de novo o que foi perguntado. A {B}, a {C} e a {E} usam divisores comuns menores (21 m, 14 m e 7 m): cortam sem sobra, mas o pedaço não é o maior possível. Regra: MDC = maior medida que divide tudo; depois divida cada total por ele e some."},
 
-{id:"M20",area:"mat",topico:"Divisibilidade",nivel:2,
+{id:"M20",area:"mat",uso:"simulado",topico:"Divisibilidade",nivel:2,
  enunciado:"O número de série de um lote de peças tem a forma 2a46, em que a é um algarismo. O controle de qualidade exige que esse número seja divisível por 9. Qual deve ser o valor de a?",
  alts:["8", "0", "3", "4", "6"],correta:4,
  porque:"Critério do 9: a soma dos algarismos precisa ser múltiplo de 9. 2 + a + 4 + 6 = 12 + a. O único algarismo que leva a um múltiplo de 9 é a = 6 (12 + 6 = 18). A {C} dá 15, que é múltiplo de 3 mas não de 9 — confundiu os critérios. A {B} dá 12 (também só múltiplo de 3). A {D} e a {A} dão 16 e 20. Regra: 3 e 9 olham a soma dos algarismos; 2, 4, 5 e 10 olham o final do número."},
@@ -926,22 +929,22 @@ window.BANCO = [
  alts:["R$ 2.250,00", "R$ 3.000,00", "R$ 3.600,00", "R$ 4.500,00", "R$ 2.000,00"],correta:1,
  porque:"Chame o salário de x. Depois do aluguel sobram 2/3 de x. A alimentação leva 1/4 DO RESTANTE, então sobram 3/4 desses 2/3: (3/4)·(2/3)·x = x/2. Logo x/2 = 1.500 → x = R$ 3.000,00. Confira: aluguel R$ 1.000,00, sobram 2.000; alimentação 1/4 de 2.000 = R$ 500,00; sobram R$ 1.500,00. A {C} é a armadilha clássica: calculou 1/4 do salário inteiro (1 − 1/3 − 1/4 = 5/12 → 1.500 ÷ 5/12). A {A} e a {E} desfizeram só um dos gastos, e a {D} multiplicou 1.500 por 3. Regra: ‘do restante’ → multiplique as frações que sobram, não subtraia do total."},
 
-{id:"M26",area:"mat",topico:"Equação do 2º grau",nivel:3,
+{id:"M26",area:"mat",uso:"simulado",topico:"Equação do 2º grau",nivel:3,
  enunciado:"Um terreno retangular destinado a uma horta escolar tem área de 84 m², e seu comprimento mede 5 m a mais que a largura. Quantos metros de tela são necessários para cercar todo o contorno do terreno?",
  alts:["19 m", "24 m", "28 m", "38 m", "48 m"],correta:3,
  porque:"Largura x, comprimento x + 5: x(x + 5) = 84 → x² + 5x − 84 = 0. Δ = 25 + 336 = 361, √Δ = 19 → x = (−5 + 19)/2 = 7 (a raiz −12 não serve para medida). Lados: 7 m e 12 m. Contorno = perímetro = 2·(7 + 12) = 38 m. A {A} soma os dois lados uma vez só (é o semiperímetro). A {C} e a {E} tratam o terreno como quadrado de lado 7 ou 12, e a {B} soma só os dois comprimentos. Regra: resolva a equação, descarte a raiz negativa e só então responda o que foi perguntado (aqui, perímetro, não área nem lado)."},
 
-{id:"M27",area:"mat",topico:"Porcentagem composta",nivel:3,
+{id:"M27",area:"mat",uso:"simulado",topico:"Porcentagem composta",nivel:3,
  enunciado:"Um multímetro custava R$ 480,00. Em março, a loja aumentou o preço em 25%. Em abril, anunciou: “Promoção! 20% de desconto sobre o preço atual”. Quanto o multímetro passou a custar em abril?",
  alts:["R$ 504,00", "R$ 576,00", "R$ 384,00", "R$ 456,00", "R$ 480,00"],correta:4,
  porque:"Porcentagens sucessivas se MULTIPLICAM: 480 × 1,25 = 600 (março); 600 × 0,80 = 480 (abril). O fator total é 1,25 × 0,80 = 1,00: o preço voltou exatamente ao original. A {A} é o erro de somar porcentagens (+25% − 20% = +5%). A {D} faz −5%. A {B} aplica +20% sobre o preço original, e a {C} aplica os 20% de desconto sobre o preço antigo, ignorando o aumento. Regra: aumento de p% → × (1 + p/100); desconto de p% → × (1 − p/100); vários seguidos → multiplique os fatores."},
 
-{id:"M28",area:"mat",topico:"Juros simples e compostos",nivel:3,
+{id:"M28",area:"mat",uso:"simulado",topico:"Juros simples e compostos",nivel:3,
  enunciado:"Rafael aplicou R$ 2.000,00 a uma taxa de 10% ao mês, durante 3 meses. Comparando as duas modalidades, quanto ele receberia A MAIS de montante se a aplicação fosse a juros compostos em vez de juros simples?",
  alts:["R$ 62,00", "R$ 600,00", "R$ 662,00", "R$ 0,00", "R$ 20,00"],correta:0,
  porque:"Simples: os juros são sempre 10% de 2.000 = 200 por mês → 3 × 200 = 600 → montante R$ 2.600,00. Compostos: cada mês incide sobre o saldo novo: 2.000 → 2.200 → 2.420 → 2.662 → montante R$ 2.662,00. Diferença: 2.662 − 2.600 = R$ 62,00. A {C} é o total de juros compostos, não a diferença; a {B} é o juro simples. A {E} é a diferença após só 2 meses (2.420 − 2.400), e a {D} supõe que as modalidades rendem igual. Regra: simples → C·(1 + i·t); compostos → C·(1 + i)ᵗ; a diferença cresce com o tempo."},
 
-{id:"M29",area:"mat",topico:"Média, moda e mediana",nivel:3,
+{id:"M29",area:"mat",uso:"simulado",topico:"Média, moda e mediana",nivel:3,
  texto:"Notas de 20 alunos numa avaliação prática:\nNota 5 → 2 alunos\nNota 6 → 3 alunos\nNota 7 → 4 alunos\nNota 8 → 5 alunos\nNota 9 → 6 alunos",
  enunciado:"Com base na tabela, quais são, respectivamente, a média, a moda e a mediana das notas da turma?",
  alts:["média 7,5; moda 9; mediana 7", "média 7,5; moda 9; mediana 8", "média 7,0; moda 6; mediana 7", "média 7,5; moda 6; mediana 8", "média 7,0; moda 9; mediana 7"],correta:1,
@@ -952,7 +955,7 @@ window.BANCO = [
  alts:["120°", "540°", "72°", "90°", "108°"],correta:4,
  porque:"Soma dos ângulos internos de um polígono de n lados: (n − 2) × 180°. Para o pentágono: (5 − 2) × 180° = 540°. Sendo regular, os 5 ângulos são iguais: 540° ÷ 5 = 108°. A {B} é a soma, não cada ângulo. A {C} é o ângulo EXTERNO (360° ÷ 5). A {A} é o ângulo interno do hexágono regular. Regra: interno + externo = 180°, e a soma dos externos de qualquer polígono convexo é 360°."},
 
-{id:"M31",area:"mat",topico:"Semelhança de triângulos",nivel:2,
+{id:"M31",area:"mat",uso:"simulado",topico:"Semelhança de triângulos",nivel:2,
  enunciado:"Num fim de tarde ensolarado, um estudante de 1,80 m de altura projeta no chão uma sombra de 120 cm. No mesmo instante, a sombra de um prédio vizinho mede 15 m. Qual é a altura do prédio?",
  alts:["16,8 m", "22,5 m", "27 m", "225 m", "10 m"],correta:1,
  porque:"Raios de sol paralelos formam triângulos semelhantes: altura/sombra é a mesma razão para os dois. Primeiro, mesma unidade: 120 cm = 1,2 m. 1,80/1,2 = H/15 → H = 15 × 1,80 ÷ 1,2 = 22,5 m. A {E} inverteu a razão (sombra/altura de um lado e altura/sombra do outro). A {C} multiplicou por 1,80 e esqueceu de dividir por 1,2. A {D} é erro de conversão (tomou 120 cm como 0,12 m). A {A} apenas somou a altura do estudante à sombra do prédio, sem proporção. Regra: monte a proporção com grandezas correspondentes e na mesma unidade."},
@@ -962,7 +965,7 @@ window.BANCO = [
  alts:["7,92 cm²", "171,48 cm²", "177,48 cm²", "196,32 cm²", "205,74 cm²"],correta:2,
  porque:"Retângulo: 20 × 12 = 240 cm². Cada furo tem raio 3 cm (metade do diâmetro): π·r² = 3,14 × 9 = 28,26 cm²; dois furos = 56,52 cm². Triângulo: (4 × 3) ÷ 2 = 6 cm². Sobra: 240 − 56,52 − 6 = 177,48 cm². A {A} usou o diâmetro como raio (3,14 × 36 em cada furo). A {B} esqueceu de dividir a área do triângulo por 2. A {E} descontou só um furo. A {D} usou 2πr (comprimento da circunferência) no lugar da área. Regra: figura composta = área total − partes retiradas; para o círculo, sempre confira se o dado é raio ou diâmetro."},
 
-{id:"M33",area:"mat",topico:"Comprimento da circunferência",nivel:3,
+{id:"M33",area:"mat",uso:"simulado",topico:"Comprimento da circunferência",nivel:3,
  enunciado:"A roda de uma bicicleta tem 70 cm de diâmetro. Quantas voltas completas essa roda dá para percorrer uma ciclovia de 2,2 km? Use π = 22/7.",
  alts:["1.000 voltas", "2.000 voltas", "10.000 voltas", "100 voltas", "500 voltas"],correta:0,
  porque:"Em uma volta a roda percorre o comprimento da circunferência: C = π·d = (22/7) × 70 = 220 cm = 2,2 m. Distância: 2,2 km = 2.200 m. Voltas: 2.200 ÷ 2,2 = 1.000. A {E} usou C = 2·π·70, tratando o diâmetro como raio. A {B} usou C = π·35, tratando o raio como se fosse o diâmetro na fórmula π·d. A {D} e a {C} são erros de conversão entre km, m e cm. Regra: C = π·d = 2·π·r; converta tudo para a mesma unidade antes de dividir."},
@@ -972,36 +975,36 @@ window.BANCO = [
  alts:["120 m²", "0,24 m²", "1,2 m²", "12 m²", "48 m²"],correta:3,
  porque:"A escala vale para COMPRIMENTOS. 8 cm × 50 = 400 cm = 4 m; 6 cm × 50 = 300 cm = 3 m. Área real: 4 × 3 = 12 m². A {B} multiplicou a área da planta (48 cm²) por 50 uma vez só — para área, o fator é 50² = 2.500. A {E} apenas trocou cm² por m², sem aplicar a escala. A {C} e a {A} são erros de conversão de cm² para m² (lembre: 1 m² = 10.000 cm²). Regra: converta as medidas lineares primeiro e só depois calcule a área."},
 
-{id:"M35",area:"mat",topico:"Regra de três composta",nivel:3,
+{id:"M35",area:"mat",uso:"simulado",topico:"Regra de três composta",nivel:3,
  enunciado:"Numa empresa de prototipagem, 6 impressoras 3D iguais, funcionando 8 horas por dia, produzem 240 peças em 5 dias. Quantos dias serão necessários para que 4 dessas impressoras, funcionando 10 horas por dia, produzam 320 peças?",
  alts:["6 dias", "7,5 dias", "8 dias", "10 dias", "12,5 dias"],correta:2,
  porque:"Compare cada grandeza com ‘dias’, mantendo as outras fixas. Menos impressoras → mais dias (inversa): fator 6/4. Mais horas por dia → menos dias (inversa): fator 8/10. Mais peças → mais dias (direta): fator 320/240. Dias = 5 × (6/4) × (8/10) × (320/240) = 5 × 1,5 × 0,8 × 4/3 = 8 dias. A {E} tratou as horas por dia como direta. A {D} ignorou as horas, a {A} ignorou o aumento de peças e a {B} só considerou as impressoras. Regra: pergunte ‘se esta grandeza aumenta, os dias aumentam ou diminuem?’ — se diminuem, inverta a fração."},
 
 /* ===================== LÍNGUA PORTUGUESA · lote 2 (níveis 2 e 3) ===================== */
-{id:"P16",area:"port",topico:"Gêneros textuais",nivel:1,
+{id:"P16",area:"port",uso:"simulado",topico:"Gêneros textuais",nivel:1,
  texto:"VENDO bicicleta aro 26, 18 marchas, freio a disco, pouco uso. Acompanha capacete.\nR$ 650,00 — aceito proposta.\nTratar com Marcos, no bloco B, apartamento 12, após as 18h.",
  enunciado:"Pela finalidade e pela organização, o texto acima pertence ao gênero:",
  alts:["notícia de jornal", "manual de instruções", "carta do leitor", "anúncio classificado", "relato pessoal"],correta:3,
  porque:"O texto quer VENDER um objeto específico de uma pessoa para outra: descreve o produto (aro, marchas, freio, estado de uso), informa o preço, abre negociação (‘aceito proposta’) e dá o contato. Esses são os traços do anúncio classificado. {A} erra porque notícia relata um fato de interesse público; {B} porque manual ensina a usar ou montar algo; {C} porque carta do leitor comenta uma publicação do jornal; {E} porque relato pessoal narra uma experiência vivida. Dica: para identificar o gênero, pergunte primeiro ‘para que este texto existe?’."},
 
-{id:"P17",area:"port",topico:"Pontuação",nivel:1,
+{id:"P17",area:"port",uso:"simulado",topico:"Pontuação",nivel:1,
  enunciado:"Assinale a frase em que a vírgula foi empregada para isolar um VOCATIVO:",
  alts:["Na segunda-feira, começam as aulas.", "Comprei cabos, resistores e LEDs.", "Pedro, traga o carregador do notebook.", "Florianópolis, a capital, recebeu a feira.", "Cheguei cedo, mas a sala estava fechada."],correta:2,
  porque:"Vocativo é o termo usado para CHAMAR o interlocutor: em ‘Pedro, traga…’, Pedro é quem ouve a ordem, e o vocativo é sempre isolado por vírgula. {D} é a armadilha: ‘a capital’ é aposto, que explica um termo da própria oração (Florianópolis), e não chama ninguém. Em {A}, a vírgula marca o adjunto adverbial deslocado; em {B}, separa itens de uma enumeração; em {E}, introduz uma oração adversativa. Teste rápido: se dá para pôr ‘ó’ antes do termo (‘Ó Pedro, traga…’), é vocativo."},
 
-{id:"P18",area:"port",topico:"Figuras de linguagem",nivel:1,
+{id:"P18",area:"port",uso:"simulado",topico:"Figuras de linguagem",nivel:1,
  texto:"O vento entrou pela janela sem pedir licença, folheou meu caderno e espalhou as provas pelo chão da sala.",
  enunciado:"A figura de linguagem que predomina no trecho é a:",
  alts:["hipérbole, pois exagera a força real do vento", "antítese, pois opõe o vento ao caderno aberto", "eufemismo, pois suaviza a bagunça na sala", "metonímia, pois o vento substitui a chuva", "personificação, pois dá ações humanas ao vento"],correta:4,
  porque:"‘Entrar sem pedir licença’ e ‘folhear o caderno’ são ações de gente; atribuí-las ao vento é personificação (ou prosopopeia). {A} atrai porque o vento espalhou as provas, mas nada no trecho é desproporcional ao que um vento forte faz — o recurso está em ‘humanizar’, não em exagerar. {B} erra porque não há ideias contrárias; {C}, porque nada é dito de forma suavizada; {D}, porque nenhum termo está no lugar de outro. Dica: ser inanimado + verbo de ação humana = personificação."},
 
-{id:"P19",area:"port",topico:"Variação linguística",nivel:1,
+{id:"P19",area:"port",uso:"simulado",topico:"Variação linguística",nivel:1,
  texto:"Mensagem enviada por um aluno ao professor de Física, pelo aplicativo da escola:\n\n“E aí, prof! Blz? Mano, num vou consegui entregá o trabalho hj, foi mal. Amanhã eu mando, falou?”",
  enunciado:"Sobre a linguagem da mensagem, é correto afirmar que ela:",
  alts:["usa registro informal, pouco adequado para escrever a um professor.", "tem erros que impedem o professor de entender o que o aluno quer.", "segue a norma-padrão, o que a torna adequada a qualquer situação.", "mostra uma variedade regional típica do interior do Nordeste.", "é adequada, pois a língua escrita não muda conforme o interlocutor."],correta:0,
  porque:"A mensagem é perfeitamente compreensível — o problema não é de entendimento, e sim de ADEQUAÇÃO: gírias (‘mano’, ‘falou’), abreviações (‘blz’, ‘hj’) e marcas da fala (‘num vou consegui’) compõem um registro informal, próprio para amigos, e pouco adequado à relação aluno–professor. {B} erra porque a comunicação acontece; {C} contradiz o texto; {D} inventa uma origem regional que o texto não indica; {E} é falsa, pois ajustamos a linguagem ao interlocutor também na escrita. Regra prática: não existe ‘certo’ ou ‘errado’ absoluto, existe adequado ou inadequado à situação."},
 
-{id:"P20",area:"port",topico:"Referenciação",nivel:1,
+{id:"P20",area:"port",uso:"simulado",topico:"Referenciação",nivel:1,
  texto:"A biblioteca do câmpus ganhou cem livros novos. Eles foram doados por ex-alunos, que fizeram uma campanha nas redes sociais.",
  enunciado:"No texto, as palavras “Eles” e “que” retomam, respectivamente:",
  alts:["os ex-alunos e os livros novos", "os livros novos e as redes sociais", "o câmpus e os livros novos", "os livros novos e os ex-alunos", "os ex-alunos e a biblioteca"],correta:3,
@@ -1031,51 +1034,51 @@ window.BANCO = [
  alts:["à distância entre o discurso oficial e a estrutura oferecida", "aos ciclistas, que não respeitam as regras de trânsito", "aos motoristas de ônibus que param em local proibido", "ao excesso de ciclovias, que atrapalha o trânsito dos carros", "à falta de interesse da população pelo uso da bicicleta"],correta:0,
  porque:"A charge contrapõe a placa da prefeitura (‘Nossa cidade AMA a bicicleta!’) a uma ciclovia que termina num ônibus parado. A fala irônica do ciclista (‘Imagina se odiasse...’) explicita o alvo: a contradição entre a propaganda do poder público e a estrutura real. {C} é o distrator mais forte — o ônibus parado faz parte da cena, mas é apenas o elemento que evidencia a falha do projeto; o destaque está na placa oficial. {B} e {E} culpam quem não é criticado; {D} contraria a cena, que mostra ciclovia de menos. Dica: em charge, procure o contraste entre o que se diz e o que se vê."},
 
-{id:"P25",area:"port",topico:"Gêneros textuais",nivel:2,
+{id:"P25",area:"port",uso:"simulado",topico:"Gêneros textuais",nivel:2,
  texto:"Estudantes criam sensor que alerta para risco de enchentes\n\nUm grupo de cinco estudantes de um curso técnico integrado em Eletrônica desenvolveu um sensor de baixo custo que mede o nível de rios e envia alertas por mensagem de celular. O protótipo foi apresentado na última sexta-feira, durante uma feira de ciências em Florianópolis, e deve ser testado nos próximos meses em parceria com a Defesa Civil.",
  enunciado:"Assinale a alternativa que aponta um traço do gênero notícia presente no texto:",
  alts:["uso da 1ª pessoa para expor a opinião do jornalista", "linguagem figurada para emocionar o leitor do jornal", "instruções em sequência para orientar o leitor", "narração de fatos imaginários com personagens", "título com verbo no presente, relatando um fato recente"],correta:4,
  porque:"Manchete de notícia costuma usar o presente (‘criam’) para dar atualidade a um fato já ocorrido, e o primeiro parágrafo (o lide) responde às perguntas básicas: quem (cinco estudantes), o quê (um sensor de enchentes), quando (sexta-feira), onde (Florianópolis). {A} erra porque o texto é impessoal, em 3ª pessoa, sem opinião; {B} porque a linguagem é objetiva e denotativa; {C} descreve o gênero instrucional; {D} descreve conto ou crônica. Dica: notícia = fato + objetividade + 3ª pessoa + lide."},
 
-{id:"P26",area:"port",topico:"Crase",nivel:2,
+{id:"P26",area:"port",uso:"simulado",topico:"Crase",nivel:2,
  enunciado:"Assinale a alternativa em que o acento grave indicativo de crase está empregado CORRETAMENTE:",
  alts:["As inscrições vão de 10 à 20 de março.", "A prova começa às 13h30, no bloco C.", "O curso é destinado à estudantes de escola pública.", "Ele começou à estudar para a prova ontem.", "Ficou frente à frente com o diretor."],correta:1,
  porque:"Diante de horas determinadas, há crase: ‘às 13h30’ (preposição ‘a’ + artigo ‘as’, subentendido ‘as horas’). Nos demais casos não há artigo: em {A}, a estrutura ‘de… a…’ sem artigo pede ‘de 10 a 20’ (só haveria crase em ‘das 10h às 20h’); em {C}, o ‘a’ singular antes de palavra no plural é só preposição (‘a estudantes’; com artigo seria ‘aos estudantes’, ‘às estudantes’); em {D}, não há crase antes de verbo; em {E}, não há crase entre palavras repetidas (‘frente a frente’, ‘cara a cara’). Dica: ‘a’ sozinho antes de plural = sem crase."},
 
-{id:"P27",area:"port",topico:"Concordância",nivel:2,
+{id:"P27",area:"port",uso:"simulado",topico:"Concordância",nivel:2,
  enunciado:"Assinale a frase que está de acordo com a norma-padrão quanto à concordância nominal:",
  alts:["Seguem anexo os documentos solicitados.", "É proibida a entrada de pessoas sem crachá.", "A diretora ficou meia preocupada com o atraso.", "“Obrigado”, disse a professora ao receber o presente.", "Comprei bastante cadernos para o semestre."],correta:1,
  porque:"Com o substantivo determinado por artigo, o adjetivo concorda: ‘É proibida A entrada’ (sem artigo seria ‘É proibido entrada’). {A} erra porque ‘anexo’ é adjetivo e concorda com o substantivo: ‘seguem anexos os documentos’; {C}, porque ‘meio’ com o sentido de ‘um pouco’ é advérbio e não varia: ‘meio preocupada’; {D}, porque ‘obrigado’ concorda com quem agradece: a professora deve dizer ‘obrigada’; {E}, porque ‘bastante’ antes de substantivo vale ‘muitos’ e varia: ‘bastantes cadernos’. Dica: troque por ‘muitos’ — se couber, ‘bastante’ vai para o plural."},
 
-{id:"P28",area:"port",topico:"Pontuação",nivel:2,
+{id:"P28",area:"port",uso:"simulado",topico:"Pontuação",nivel:2,
  enunciado:"Assinale a frase pontuada de acordo com a norma-padrão:",
  alts:["Na feira de ciências, os estudantes apresentaram seus projetos.", "Os estudantes do curso técnico, apresentaram seus projetos.", "Na feira de ciências os estudantes apresentaram, seus projetos.", "Os estudantes, apresentaram na feira os seus melhores projetos.", "Os estudantes apresentaram seus projetos, na feira, de ciências."],correta:0,
  porque:"Em {A}, a vírgula isola o adjunto adverbial deslocado para o início (‘Na feira de ciências’), uso correto. As demais quebram a regra de ouro: não se separa por vírgula o sujeito do verbo ({B} e {D}), o verbo de seu complemento ({C}) nem um nome de seu complemento ({E}, que corta ‘feira de ciências’ ao meio). {B} engana porque o sujeito é longo — mas tamanho não autoriza vírgula. Dica: na ordem direta (sujeito + verbo + complemento), só use vírgula se algo for intercalado entre um par de vírgulas."},
 
-{id:"P29",area:"port",topico:"Variação linguística",nivel:2,
+{id:"P29",area:"port",uso:"simulado",topico:"Variação linguística",nivel:2,
  texto:"Numa entrevista de emprego, seu Antônio, pedreiro há trinta anos, explicou: “Nós tava precisando de gente que sabe fazer laje, e eu já fiz mais de duzentas”.\nDepois que ele saiu, um dos entrevistadores comentou com o colega: “Experiência ele tem, mas, desse jeito de falar, não dá pra confiar”.",
  enunciado:"O comentário do entrevistador revela:",
  alts:["avaliação técnica, já que a fala comprova a falta de experiência", "rigor justo com a norma-padrão, exigida em qualquer situação", "variação regional, pois o entrevistador é de outro estado", "preconceito linguístico, pois julga a competência pelo modo de falar", "ironia, pois o entrevistador está, na verdade, elogiando o candidato"],correta:3,
  porque:"O próprio entrevistador reconhece a competência (‘experiência ele tem’), mas a desqualifica por causa da variedade usada (‘nós tava’) — é o núcleo do preconceito linguístico: tomar a forma de falar como medida de capacidade ou de caráter. {A} contradiz o texto; {B} é falsa, pois nenhuma situação exige norma-padrão para avaliar o saber técnico de um pedreiro, e a fala comunicou perfeitamente; {C} inventa uma informação; {E} lê ironia onde há desconfiança explícita (‘não dá pra confiar’). Dica: quando alguém é desvalorizado pela fala e não pelo que diz, é preconceito linguístico."},
 
-{id:"P30",area:"port",topico:"Figuras de linguagem",nivel:2,
+{id:"P30",area:"port",uso:"simulado",topico:"Figuras de linguagem",nivel:2,
  texto:"Depois de esperar duas horas na fila do posto de saúde, com a senha 87 na mão, Dona Lúcia ouviu a atendente chamar a senha 12. Suspirou e disse à vizinha de cadeira: “Que rapidez! Desse jeito, chego em casa para o almoço de amanhã”.",
  enunciado:"Na fala de Dona Lúcia, a palavra “rapidez” é empregada com sentido:",
  alts:["literal, reconhecendo a agilidade do atendimento", "figurado, comparando a fila a um meio de transporte", "irônico, indicando o oposto do que ela de fato percebe", "eufemístico, suavizando a gravidade de uma doença", "ambíguo, valendo igualmente como elogio e como crítica"],correta:2,
  porque:"Depois de duas horas de espera, com a senha 87 e o painel chamando a 12, ‘Que rapidez!’ só pode significar o contrário: é ironia, confirmada pelo exagero da sequência (‘chego em casa para o almoço de amanhã’). {A} ignora o contexto; {E} é o distrator mais próximo, mas o contexto elimina a leitura de elogio — ironia não é ambiguidade, é um sentido inverso que o leitor recupera com segurança; {B} e {D} não encontram apoio no texto. Dica: ironia = elogio aparente + situação que o desmente."},
 
-{id:"P31",area:"port",topico:"Vozes verbais",nivel:2,
+{id:"P31",area:"port",uso:"simulado",topico:"Vozes verbais",nivel:2,
  texto:"Placa na porta de uma oficina:\n“CONSERTAM-SE BICICLETAS”",
  enunciado:"Ao transpor a frase da placa para a voz passiva analítica, mantendo o sentido e o tempo verbal, obtém-se:",
  alts:["Conserta-se bicicletas.", "Consertam bicicletas.", "Bicicletas são consertadas.", "Alguém conserta bicicletas.", "Bicicletas foram consertadas."],correta:2,
  porque:"‘Consertam-se bicicletas’ está na voz passiva SINTÉTICA (verbo transitivo direto + ‘se’ apassivador); o sujeito é ‘bicicletas’, por isso o verbo está no plural. A analítica usa ‘ser’ + particípio no mesmo tempo: ‘Bicicletas são consertadas’. {A} continua sintética e ainda erra a concordância; {B} e {D} estão na voz ativa (sujeito indeterminado e sujeito ‘alguém’); {E} muda o tempo verbal para o pretérito. Dica: para testar a passiva sintética, troque por ‘ser + particípio’; se o sentido se mantiver, o verbo concorda com o termo que vira sujeito."},
 
-{id:"P32",area:"port",topico:"Morfologia",nivel:2,
+{id:"P32",area:"port",uso:"simulado",topico:"Morfologia",nivel:2,
  enunciado:"O sufixo diminutivo pode indicar tamanho, afeto, intensidade ou desprezo. Assinale a frase em que ele tem valor PEJORATIVO:",
  alts:["Moro pertinho do câmpus, dá para ir a pé.", "Vó, guardei um pedacinho de bolo para você.", "O bebê já segura a mamadeira com as mãozinhas.", "Vamos tomar um cafezinho antes da reunião?", "Que discursinho vazio esse do candidato!"],correta:4,
  porque:"Em ‘discursinho vazio’, o diminutivo não indica tamanho: rebaixa, desvaloriza o discurso — valor pejorativo, reforçado pelo adjetivo ‘vazio’ e pelo tom exclamativo. Em {A}, ‘pertinho’ intensifica (muito perto); em {B} e {C}, há tamanho reduzido com carga afetiva; em {D}, ‘cafezinho’ expressa cordialidade, não um café pequeno. Dica: o valor do diminutivo só se decide no contexto; quando ele vem acompanhado de crítica, é pejorativo (‘gentinha’, ‘jornalzinho’)."},
 
-{id:"P33",area:"port",topico:"Interpretação",nivel:2,
+{id:"P33",area:"port",uso:"simulado",topico:"Interpretação",nivel:2,
  texto:"“Ora (direis) ouvir estrelas! Certo\nPerdeste o senso!” E eu vos direi, no entanto,\nQue, para ouvi-las, muita vez desperto\nE abro as janelas, pálido de espanto...\n(...)\nE eu vos direi: “Amai para entendê-las!\nPois só quem ama pode ter ouvido\nCapaz de ouvir e de entender estrelas”.",
  fonte:"BILAC, Olavo. Via Láctea, soneto XIII. In: Poesias. 1888 (domínio público).",
  enunciado:"No poema, o eu lírico responde à objeção dos interlocutores afirmando que:",
@@ -1088,20 +1091,20 @@ window.BANCO = [
  alts:["apenas I e III.", "apenas II e IV.", "apenas I, II e III.", "apenas I, III e IV.", "I, II, III e IV."],correta:2,
  porque:"I está correta: ‘Saí de lá sem saber se ele falava do tênis ou de nós’ abre a leitura de que a falta de paciência é das pessoas. II está correta: o ‘e continua’ mostra que ele concorda com a previsão, mas segue trabalhando. III está correta: examinar ‘como quem examina um paciente’ é comparação explícita (‘como’) que confere ao ofício a atenção de um médico. IV está errada e contradiz o texto: ‘hoje se compra sapato novo mais barato do que se conserta o velho’. {A} esquece a II; {D} e {E} incluem a IV, que inverte a informação. Dica: nas afirmativas, procure a frase do texto que confirma ou desmente cada item — e desconfie do item que inverte uma comparação."},
 
-{id:"P35",area:"port",topico:"Coesão e conectivos",nivel:3,
+{id:"P35",area:"port",uso:"simulado",topico:"Coesão e conectivos",nivel:3,
  texto:"Fosse a prefeitura mais atenta às reclamações dos moradores, a ponte do bairro não teria chegado ao ponto de ser interditada.",
  enunciado:"A oração “Fosse a prefeitura mais atenta às reclamações dos moradores” estabelece com a oração seguinte uma relação de:",
  alts:["condição, equivalente a “Se a prefeitura fosse mais atenta”", "causa, equivalente a “Como a prefeitura foi mais atenta”", "concessão, equivalente a “Embora a prefeitura fosse atenta”", "tempo, equivalente a “Quando a prefeitura for mais atenta”", "finalidade, equivalente a “Para que a prefeitura fosse atenta”"],correta:0,
  porque:"Não há conectivo visível: a relação está no verbo no imperfeito do subjuntivo anteposto (‘Fosse…’), construção que equivale a ‘Se fosse…’ e forma, com ‘não teria chegado’, uma hipótese contrária aos fatos. Daí a inferência: a prefeitura NÃO foi atenta, e a ponte foi interditada. {B} afirma o contrário do que se infere (que ela foi atenta); {C} atrai porque ‘embora’ também pede subjuntivo, mas o sentido seria ‘apesar de atenta, a ponte chegou a ser interditada’, e a oração principal está negada; {D} muda o tempo e o sentido para o futuro; {E} não faz sentido com o resto do período. Dica: verbo no subjuntivo no início da frase, sem conectivo, costuma esconder um ‘se’."},
 
-{id:"P36",area:"port",topico:"Interpretação",nivel:3,
+{id:"P36",area:"port",uso:"simulado",topico:"Interpretação",nivel:3,
  texto:"AO VERME\nQUE\nPRIMEIRO ROEU AS FRIAS CARNES\nDO MEU CADÁVER\nDEDICO\nCOMO SAUDOSA LEMBRANÇA\nESTAS\nMEMÓRIAS PÓSTUMAS",
  fonte:"ASSIS, Machado de. Memórias póstumas de Brás Cubas. 1881 (domínio público).",
  enunciado:"A dedicatória que abre o romance produz efeito de humor principalmente porque:",
  alts:["usa a linguagem formal para ridicularizar quem teme a morte", "revela que o narrador odiava as pessoas que lhe eram próximas", "emprega a palavra “saudosa” em sentido literal, sem ironia", "subverte o gênero, homenageando quem roeu o cadáver do narrador", "denuncia as más condições dos cemitérios do Rio de Janeiro"],correta:3,
  porque:"Dedicatórias homenageiam alguém querido; aqui, o homenageado é o verme que devorou o corpo do narrador — um defunto que escreve as próprias memórias. O humor nasce da quebra do gênero, e ‘saudosa lembrança’ reforça a ironia, por isso {C} está errada. {B} extrapola: o texto não fala de ódio a ninguém; {A} atribui ao trecho um alvo que ele não tem; {E} lê uma denúncia social que não está ali. Dica: quando um texto imita a forma de um gênero conhecido com conteúdo inesperado, o efeito (humor, crítica) vem justamente desse contraste."},
 
-{id:"P37",area:"port",topico:"Interpretação",nivel:3,
+{id:"P37",area:"port",uso:"simulado",topico:"Interpretação",nivel:3,
  texto:"Uma noite destas, vindo da cidade para o Engenho Novo, encontrei no trem da Central um rapaz aqui do bairro, que eu conheço de vista e de chapéu.",
  fonte:"ASSIS, Machado de. Dom Casmurro. 1899, cap. I (domínio público).",
  enunciado:"A expressão “que eu conheço de vista e de chapéu” sugere, com fina ironia, que o narrador:",
@@ -1129,12 +1132,12 @@ window.BANCO = [
  alts:["I e III, apenas.", "I, II e III, apenas.", "I, III e IV, apenas.", "III e IV, apenas.", "I, II, III e IV."],correta:2,
  porque:"I: ‘dedicar-se A’ + artigo ‘a’ (a pesquisa, a extensão) = crase. III: preposição ‘a’ + pronome ‘aquela’ = àquela. IV: nome de cidade normalmente não tem artigo (‘vou a Curitiba’), MAS, quando vem especificado (‘a Curitiba de Leminski’), passa a admitir artigo, e a crase ocorre. II está errada: ‘uma’ é artigo indefinido, que não se combina com o artigo ‘a’ — o certo é ‘foi a uma reunião’ (a crase em ‘à uma’ só ocorre na indicação de horas: ‘à uma hora’). {A} e {D} esquecem que a cidade especificada admite crase; {B} e {E} aceitam a II. Dica: ‘Vou a, volto da, crase há; vou a, volto de, crase pra quê?’ — ‘volto da Curitiba de Leminski’ confirma a crase."},
 
-{id:"P42",area:"port",topico:"Concordância",nivel:3,
+{id:"P42",area:"port",uso:"simulado",topico:"Concordância",nivel:3,
  enunciado:"Assinale a frase que está em DESACORDO com a norma-padrão quanto à concordância do verbo acompanhado da partícula “se”:",
  alts:["Alugam-se salas para cursos e reuniões.", "Vendem-se peças usadas de computador.", "Trata-se de problemas já conhecidos.", "Precisam-se de técnicos em eletrônica.", "Consertam-se notebooks e celulares."],correta:3,
  porque:"‘Precisar de’ é verbo transitivo INDIRETO: o ‘se’ é índice de indeterminação do sujeito, e o verbo fica obrigatoriamente no singular — ‘Precisa-se de técnicos’. ‘De técnicos’ é objeto indireto, não sujeito. {C} é a armadilha: parece errada, mas está certa pelo mesmo motivo — ‘tratar de’ também pede preposição, então fica ‘trata-se de problemas’. Em {A}, {B} e {E}, os verbos são transitivos diretos, o ‘se’ é apassivador e o verbo concorda com o sujeito no plural (salas são alugadas, peças são vendidas). Dica: se depois do verbo vier preposição, o verbo fica no singular."},
 
-{id:"P43",area:"port",topico:"Figuras de linguagem",nivel:3,
+{id:"P43",area:"port",uso:"simulado",topico:"Figuras de linguagem",nivel:3,
  texto:"Anúncio de uma ótica (descrição): fotografia de uma menina de óculos, sorrindo, diante de um livro aberto. Abaixo, o texto:\n\n“Ótica Horizonte. Para você ver o mundo com outros olhos.”",
  enunciado:"No anúncio, a expressão “ver o mundo com outros olhos” é eficaz porque:",
  alts:["tem apenas sentido figurado, já que óculos não substituem os olhos", "tem apenas sentido literal, indicando que a ótica faz cirurgias", "cria uma ambiguidade indesejada, que atrapalha a compreensão", "usa uma hipérbole para exagerar a qualidade das lentes vendidas", "une sentido literal (as lentes) e figurado (nova perspectiva)"],correta:4,
@@ -1146,13 +1149,13 @@ window.BANCO = [
  alts:["a reação do pai fez Juca desistir de dividir suas conquistas com ele", "Juca concluiu que estudar não vale a pena e decidiu desistir das provas", "o pai estava insatisfeito porque o 9 é uma nota baixa na escola de Juca", "Juca pretende tirar 10 na próxima prova para conseguir agradar ao pai", "a professora não reconheceu o esforço de Juca ao devolver as provas"],correta:0,
  porque:"A ‘meta’ do último quadro não é estudar mais, e sim ‘não mostrar’: a indiferença do pai (sem tirar os olhos do jornal) e a cobrança (‘Por que não 10?’) fizeram Juca desistir de dividir o resultado com ele. {D} é a leitura esperada — e é justamente a expectativa que o último quadro quebra; {B} extrapola: ele desiste de mostrar, não de estudar; {C} toma a pergunta do pai como prova de que o 9 é baixo, o que o texto não diz; {E} contradiz o quadro 1, em que Juca sorri. Dica: em tirinha, a inferência correta explica o último quadro sem acrescentar fatos."},
 
-{id:"P45",area:"port",topico:"Gêneros textuais",nivel:3,
+{id:"P45",area:"port",uso:"simulado",topico:"Gêneros textuais",nivel:3,
  texto:"REGULAMENTO DO LABORATÓRIO DE INFORMÁTICA\n1. O uso é permitido a estudantes matriculados, mediante apresentação da carteirinha.\n2. É proibido consumir alimentos e bebidas no laboratório, exceto água em garrafa com tampa.\n3. Estudantes do 1º ano só podem utilizar o laboratório acompanhados de um professor ou monitor.\n4. A instalação de programas depende de autorização prévia da coordenação.",
  enunciado:"De acordo com o regulamento, é correto concluir que:",
  alts:["um estudante do 1º ano, com carteirinha, pode usar o laboratório sozinho", "um monitor pode instalar programas sem consultar a coordenação do curso", "um aluno do 2º ano, com carteirinha, pode beber água em garrafa tampada", "qualquer bebida é permitida, desde que esteja em uma garrafa com tampa", "um professor só pode usar o laboratório se apresentar a carteirinha"],correta:2,
  porque:"O estudante do 2º ano, matriculado e com carteirinha, cumpre o item 1, não precisa de acompanhante (o item 3 vale só para o 1º ano), e a água em garrafa com tampa é a exceção prevista no item 2. {A} contraria o item 3; {B}, o item 4, que vale para qualquer pessoa; {D} generaliza a exceção, que se restringe à água; {E} extrapola, pois o item 1 trata de estudantes e o regulamento nada diz sobre professores. Dica: em textos normativos, leia as exceções (‘exceto’, ‘só’, ‘mediante’) palavra por palavra — é nelas que moram os distratores."},
 
-{id:"P46",area:"port",topico:"Variação linguística",nivel:3,
+{id:"P46",area:"port",uso:"simulado",topico:"Variação linguística",nivel:3,
  enunciado:"Sobre variação linguística e preconceito linguístico, analise as afirmativas:\nI. Uma mesma pessoa varia seu modo de falar conforme a situação, o interlocutor e o grau de formalidade.\nII. As variedades faladas em regiões economicamente menos desenvolvidas são mais simples e têm menos regras.\nIII. A norma-padrão é uma variedade de prestígio social, cujo domínio é importante em situações formais, como uma prova ou uma entrevista.\nIV. Em “os livro novo”, a marca de plural aparece só no artigo, o que segue uma regra própria da variedade, embora não seja aceito pela norma-padrão.\nEstão corretas:",
  alts:["apenas I e II.", "apenas I e III.", "apenas III e IV.", "apenas I, III e IV.", "apenas II, III e IV."],correta:3,
  porque:"I está correta: é a variação situacional (ou de registro). III está correta: o prestígio da norma-padrão é social e histórico, e dominá-la amplia as possibilidades do falante em situações formais — reconhecer isso não é preconceito. IV está correta: marcar o plural uma única vez, no primeiro elemento, é um padrão regular e sistemático, não ausência de regra. II está errada: é justamente a crença preconceituosa que associa pobreza a ‘língua sem regras’; toda variedade tem gramática própria. {A} e {E} incluem a II; {B} e {C} deixam de fora um item correto. Dica: desconfie de afirmativas que hierarquizam variedades (‘mais simples’, ‘mais pobre’, ‘errada’)."},
@@ -1163,13 +1166,13 @@ window.BANCO = [
  alts:["(4), pois a causa apresentada contradiz o fato que ela explica.", "(1), pois “vinte anos” contradiz a data citada no período (2).", "(2), pois −4 °C não é temperatura possível no sul do Brasil.", "(3), pois a abertura de abrigos não tem relação com o frio.", "(5), pois uma previsão não pode aparecer numa notícia."],correta:0,
  porque:"Em (4), a explicação (‘já que a procura por casacos aumentou muito’) não sustenta o fato (‘queda nas vendas’): se a procura subiu, o esperado é venda maior — a relação de causa é incoerente. Repare que ‘Mesmo assim’ funcionaria se o motivo fosse outro (por exemplo, falta de estoque); o problema está no ‘já que’. {B} confunde informações compatíveis (o recorde de vinte anos e o dia do mês); {C} é falsa, pois temperaturas negativas ocorrem nas serras do Sul; {D} contradiz a lógica do texto, já que os abrigos são resposta ao frio; {E} é falsa, pois notícias trazem previsões com frequência. Dica: para testar coerência, pergunte se a causa apresentada de fato produz aquele efeito."},
 
-{id:"P48",area:"port",topico:"Coesão e conectivos",nivel:3,
+{id:"P48",area:"port",uso:"simulado",topico:"Coesão e conectivos",nivel:3,
  texto:"Machado de Assis e Lima Barreto viveram no Rio de Janeiro e retrataram a sociedade carioca. Este, negro e pobre, enfrentou o preconceito e morreu sem o reconhecimento que merecia; aquele, embora também de origem humilde, tornou-se ainda em vida o escritor mais respeitado do país.",
  enunciado:"No texto, os pronomes “Este” e “aquele” referem-se, respectivamente, a:",
  alts:["Machado e Lima Barreto, pois seguem a ordem em que aparecem", "Machado e Lima Barreto, pois “este” indica o autor mais célebre", "Lima Barreto e Machado, pois “aquele” indica o autor mais jovem", "os dois autores, sem distinção, pois os pronomes se equivalem", "Lima Barreto e Machado, pois “este” retoma o termo mais próximo"],correta:4,
  porque:"Na retomada de dois termos já citados, ‘este’ se refere ao mais PRÓXIMO (o último mencionado, Lima Barreto) e ‘aquele’ ao mais DISTANTE (o primeiro, Machado de Assis). Os fatos confirmam: Lima Barreto, pobre e negro, morreu sem reconhecimento; Machado, também de origem humilde, foi consagrado em vida. {C} é a pegadinha fina: acerta os referentes, mas erra o motivo — Machado (1839) é mais VELHO que Lima Barreto (1881), e o critério é a posição no texto, não a idade. {A} aplica a ordem ao contrário; {B} inventa um critério de importância; {D} ignora a distinção. Dica: este = o último citado; aquele = o primeiro."},
 
-{id:"P49",area:"port",topico:"Interpretação",nivel:3,
+{id:"P49",area:"port",uso:"simulado",topico:"Interpretação",nivel:3,
  texto:"Uma pesquisa feita com 1.200 estudantes do ensino médio de Santa Catarina mostrou que 68% deles leem algum texto na internet todos os dias, mas apenas 22% afirmaram ter lido um livro inteiro nos últimos três meses. Entre os que leram, a maioria apontou a indicação de amigos como o principal motivo da escolha.",
  enunciado:"Com base APENAS nas informações do texto, é correto afirmar que:",
  alts:["a maioria dos estudantes pesquisados não leu um livro inteiro no período", "os estudantes que leem na internet são os que menos leem livros inteiros", "a internet é a causa de os estudantes lerem poucos livros atualmente", "a maioria dos estudantes pesquisados leu livros indicados por amigos", "menos da metade dos estudantes lê algum texto na internet todo dia"],correta:0,
@@ -1180,7 +1183,7 @@ window.BANCO = [
  alts:["Espero que o resultado saia logo.", "O livro que você indicou é ótimo.", "Estudou tanto que passou em primeiro.", "Que bela apresentação vocês fizeram!", "Saia logo, que vai chover."],correta:1,
  porque:"Pronome relativo retoma um termo anterior e pode ser trocado por ‘o qual’ (e flexões): ‘O livro o qual você indicou’ — o ‘que’ retoma ‘livro’. Em {A}, é conjunção integrante, que introduz o objeto (‘espero ISSO’); em {C}, é conjunção consecutiva, ligada a ‘tanto’; em {D}, intensifica o substantivo numa exclamação, sem retomar nada; em {E}, é conjunção explicativa (equivale a ‘pois’). Dica: teste o ‘o qual’; se a frase continuar fazendo sentido, é relativo."},
 
-{id:"P51",area:"port",topico:"Interpretação",nivel:3,
+{id:"P51",area:"port",uso:"simulado",topico:"Interpretação",nivel:3,
  texto:"Resolvi, finalmente, adotar uma vida saudável. Comprei um tênis de corrida, um relógio que conta passos, um aplicativo de receitas e três livros sobre alimentação equilibrada. Gastei tanto que, neste mês, só sobrou dinheiro para miojo. Mas estou muito motivado: amanhã, sem falta, eu começo — de novo.",
  enunciado:"No final do texto, a expressão “— de novo” revela que o narrador:",
  alts:["já pratica exercícios e vai apenas repetir o treino de ontem", "vai devolver os produtos e comprá-los outra vez mais barato", "pretende economizar dinheiro para poder voltar a comer miojo", "já tentou outras vezes começar essa mudança, sem conseguir", "começou a vida saudável ontem e vai prosseguir amanhã cedo"],correta:3,
@@ -1203,7 +1206,7 @@ window.BANCO = [
  alts:["apenas I e II.", "apenas II e III.", "apenas I, II e III.", "apenas I, II e IV.", "apenas III e IV."],correta:2,
  porque:"I: o ‘e’, aditivo na origem, liga aqui um esforço a um resultado contrário ao esperado — equivale a ‘mas’ (valor adversativo). II: ‘como’ no início, antes da oração principal, equivale a ‘já que’ (causa). III: ‘como o manual indica’ = ‘conforme o manual indica’ (conformidade). IV está errada: ‘mal’ aí é conjunção temporal (‘assim que’, ‘logo que’), e não concessão. {B} descarta a I por achar que ‘e’ só soma; {D} e {E} aceitam a IV. Dica: nunca classifique o conectivo pela forma — substitua-o por um equivalente (mas, já que, conforme, assim que) e veja qual preserva o sentido."},
 
-{id:"P55",area:"port",topico:"Interpretação",nivel:3,
+{id:"P55",area:"port",uso:"simulado",topico:"Interpretação",nivel:3,
  texto:"Pressa\n\nA cidade corre\nde casa ao trabalho,\ndo trabalho ao celular,\ndo celular ao sono curto.\n\nNo meio da calçada,\num ipê amarelo\nfloresce em silêncio\npara ninguém.",
  enunciado:"No poema, o verso final, “para ninguém”, produz o efeito de:",
  alts:["indicar que o ipê floresce numa rua deserta, por onde ninguém passa", "sugerir que a pressa impede as pessoas de notar a beleza ao redor", "criticar a prefeitura por não cuidar das árvores plantadas na cidade", "mostrar que o ipê é uma árvore rara, desconhecida pelos moradores", "reforçar que o ipê só floresce à noite, enquanto a cidade está dormindo"],correta:1,
@@ -1215,7 +1218,7 @@ window.BANCO = [
  alts:["nos hemisférios Sul e Oriental, ao sul do Trópico de Capricórnio.", "nos hemisférios Sul e Ocidental, entre o Equador e o Trópico de Capricórnio.", "nos hemisférios Sul e Ocidental, ao sul do Trópico de Capricórnio.", "nos hemisférios Norte e Ocidental, ao norte do Trópico de Câncer.", "nos hemisférios Sul e Ocidental, ao sul do Círculo Polar Antártico."],correta:2,
  porque:"A letra S da latitude diz que a cidade está ao sul do Equador. A letra O (oeste) da longitude diz que ela fica a oeste de Greenwich, ou seja, no Hemisfério Ocidental. Quem marcou {A} confundiu oeste com oriental. O Trópico de Capricórnio passa por volta de 23°27′ S. Como 27° é mais que 23°, Florianópolis fica ao sul do trópico, na zona temperada do sul, e por isso {B} erra. Já o Círculo Polar Antártico ({E}) passa por volta de 66°33′ S, perto da Antártida. Gancho: latitude é Norte/Sul e vai de 0° a 90°; longitude é Leste/Oeste e vai de 0° a 180°."},
 
-{id:"G32",area:"gh",topico:"Biomas brasileiros",nivel:1,
+{id:"G32",area:"gh",uso:"simulado",topico:"Biomas brasileiros",nivel:1,
  enunciado:"A araucária (Araucaria angustifolia), árvore-símbolo do planalto catarinense, é a espécie marcante da Floresta Ombrófila Mista. Essa formação vegetal faz parte do bioma:",
  alts:["Mata Atlântica.", "Pampa.", "Cerrado.", "Floresta Amazônica.", "Pantanal Mato-Grossense."],correta:0,
  porque:"Pelo mapa de biomas do IBGE, todo o território de Santa Catarina fica na Mata Atlântica. O bioma inclui a floresta densa das encostas, a mata de araucária do planalto, os campos de altitude, as restingas e os manguezais. O Pampa ({B}) é um bioma de campos e, no Brasil, só existe no sul do Rio Grande do Sul. As araucárias do planalto gaúcho também são Mata Atlântica. A exploração intensa da araucária, inclusive pela madeireira Lumber na época do Contestado, deixou a espécie ameaçada de extinção. Gancho: araucária é Mata Atlântica de altitude, a ‘mata dos pinhões’."},
@@ -1226,13 +1229,13 @@ window.BANCO = [
  alts:["o Mapa 2 tem escala maior, pois 500.000 é maior que 5.000, e por isso mostra mais detalhes.", "o Mapa 1 tem escala menor e representa uma área mais extensa do terreno, com menos detalhes.", "os dois mapas têm o mesmo nível de detalhe, pois a escala muda só o tamanho do papel utilizado.", "o Mapa 1 tem escala maior e mostra mais detalhes, sendo o mais adequado para planejar a trilha.", "no Mapa 1, 1 cm representa 5 km do terreno; no Mapa 2, 1 cm representa 500 km do terreno."],correta:3,
  porque:"A escala é uma fração. 1/5.000 é maior que 1/500.000, então o Mapa 1 tem escala MAIOR, área menor e mais detalhes, o ideal para uma trilha. {A} é a pegadinha clássica: quanto maior o denominador, MENOR a escala. {B} inverte tudo. Faça a conta de {E}: 1:5.000 dá 1 cm = 5.000 cm = 50 m, e 1:500.000 dá 1 cm = 5 km. Gancho: escala grande é como uma lupa, porque mostra pouca área com muito detalhe."},
 
-{id:"G34",area:"gh",topico:"Cartografia",nivel:3,
+{id:"G34",area:"gh",uso:"simulado",topico:"Cartografia",nivel:3,
  texto:"Um voo parte de São Paulo às 22h de uma segunda-feira (horário de Brasília, UTC−3) com destino a Dubai, nos Emirados Árabes Unidos (UTC+4). A viagem dura 14 horas. Considere que nenhuma das duas cidades adota horário de verão.",
  enunciado:"Com base nessas informações, o avião pousará em Dubai às:",
  alts:["12h de terça-feira.", "19h de terça-feira.", "5h de terça-feira.", "19h de segunda-feira.", "13h de terça-feira."],correta:1,
  porque:"Diferença de fuso: +4 − (−3) = 7 horas, e Dubai está a leste, portanto ADIANTADA. Quando o avião decola (22h de segunda em São Paulo), já são 5h de terça em Dubai. Some as 14 h de voo: 5h + 14h = 19h de terça. Pela outra conta dá o mesmo: o pouso é às 12h de terça em São Paulo, e 12h + 7h = 19h. {A} esquece o fuso. {C} é o horário da DECOLAGEM em Dubai. {D} acerta a hora e erra o dia. {E} usa 4 − 3 = 1 h e ignora o sinal negativo. Gancho: a Terra gira para leste, então quem está a leste vê o sol primeiro e tem a hora adiantada."},
 
-{id:"G35",area:"gh",topico:"Santa Catarina",nivel:3,
+{id:"G35",area:"gh",uso:"simulado",topico:"Santa Catarina",nivel:3,
  texto:"Entre 1748 e 1756, milhares de casais vindos dos arquipélagos dos Açores e da Madeira desembarcaram no litoral de Santa Catarina, trazidos pela Coroa portuguesa. Instalaram-se na Ilha de Santa Catarina e em pontos do continente próximo, onde formaram freguesias que deram origem a bairros e cidades atuais.",
  enunciado:"Com base no texto e em seus conhecimentos, analise as afirmações abaixo.\nI. A vinda dos casais atendia ao interesse da Coroa portuguesa de povoar e defender o sul, disputado com a Espanha.\nII. Os açorianos dedicaram-se sobretudo à pesca, à agricultura em pequenas propriedades e à produção de farinha de mandioca.\nIII. Os açorianos fundaram Blumenau e Joinville, futuros centros da indústria têxtil e metalmecânica do estado.\nIV. A renda de bilro, o boi de mamão e as festas do Divino Espírito Santo são heranças culturais ligadas a essa colonização.\nAssinale a alternativa CORRETA.",
  alts:["Apenas os itens I e II estão corretos.", "Apenas os itens I, II e IV estão corretos.", "Apenas os itens II, III e IV estão corretos.", "Apenas os itens I e IV estão corretos.", "Todos os itens estão corretos."],correta:1,
@@ -1261,7 +1264,7 @@ window.BANCO = [
  alts:["O Cerrado é chamado de ‘berço das águas’ por abrigar nascentes de importantes bacias hidrográficas.", "A Caatinga é um bioma exclusivamente brasileiro, adaptado ao clima semiárido e às secas prolongadas.", "A Mata Atlântica conserva a maior parte da cobertura original, pois ocupa áreas pouco povoadas do país.", "O Pantanal é uma das maiores planícies alagáveis do planeta, com períodos de cheia e de vazante.", "O Pampa, de vegetação predominantemente campestre, ocorre no Brasil apenas no Rio Grande do Sul."],correta:2,
  porque:"A incorreta é {C}, e ela erra duas vezes. A Mata Atlântica ocupa a faixa MAIS povoada do país, onde estão SP, RJ, BH, Curitiba e Florianópolis, e restam dela apenas fragmentos, uma pequena parte da cobertura original. As outras estão certas. Em {A}, do Cerrado saem águas que alimentam as bacias do São Francisco, do Paraná e do Tocantins-Araguaia. Em {B}, a Caatinga é o único bioma 100% brasileiro. Em {D}, o Pantanal vive do ciclo de cheias. Em {E}, o Pampa brasileiro fica só no RS e continua no Uruguai e na Argentina. Gancho: a Mata Atlântica é o bioma onde mora mais gente e por isso o que mais perdeu vegetação."},
 
-{id:"G40",area:"gh",topico:"Urbanização",nivel:2,
+{id:"G40",area:"gh",uso:"simulado",topico:"Urbanização",nivel:2,
  texto:"Na Grande Florianópolis, a área urbana da parte continental da capital emenda-se com a de São José, que por sua vez se une às de Palhoça e Biguaçu. Quem percorre a BR-101 muitas vezes nem percebe onde termina um município e começa o outro.",
  enunciado:"O fenômeno descrito no texto é chamado de:",
  alts:["megalópole.", "gentrificação.", "êxodo rural.", "metropolização.", "conurbação."],correta:4,
@@ -1337,7 +1340,7 @@ window.BANCO = [
  alts:["acabava de ser deposto pelos militares em 1945, no fim do Estado Novo, e partia para o exílio.", "liderava a Revolução de 1930 contra a política do café com leite e assumia o Governo Provisório.", "governava sob o Estado Novo e anunciava o fechamento do Congresso e a Constituição de 1937.", "exercia mandato conquistado pelo voto direto em 1950 e enfrentava uma grave crise política.", "deixava o poder após o golpe de 1964, quando os militares depuseram o presidente eleito."],correta:3,
  porque:"A carta é de 24 de agosto de 1954, do segundo governo Vargas (1951–1954), conquistado nas urnas. Esse foi o governo nacionalista que criou a Petrobras (1953). A crise explodiu depois do atentado da rua Tonelero contra o opositor Carlos Lacerda, e a pressão militar pela renúncia levou ao suicídio. {A} é 1945, quando ele foi deposto mas voltou para o RS, não para o exílio. {B} é 1930 e {C} é 1937. {E} confunde Vargas com João Goulart, seu herdeiro político, derrubado em 1964. Gancho: 1930 entra · 1937 golpe · 1945 sai · 1950 volta pelo voto · 1954 ‘sai da vida’."},
 
-{id:"H57",area:"gh",topico:"Ditadura Militar",nivel:3,
+{id:"H57",area:"gh",uso:"simulado",topico:"Ditadura Militar",nivel:3,
  texto:"Em 1974, o general Ernesto Geisel anunciou uma abertura política “lenta, gradual e segura”. O processo, porém, foi marcado por avanços e recuos até o fim do regime, em 1985.",
  enunciado:"Com base no texto e em seus conhecimentos sobre a Ditadura Militar (1964–1985), assinale a alternativa INCORRETA.",
  alts:["A emenda Dante de Oliveira foi aprovada em 1984, e Tancredo Neves acabou eleito pelo voto popular.", "O ‘milagre econômico’ (1968–1973) teve alto crescimento, mas aprofundou a concentração de renda.", "O AI-2, de 1965, extinguiu os partidos existentes e abriu caminho para o bipartidarismo Arena–MDB.", "A Lei da Anistia, de 1979, permitiu a volta de exilados e também beneficiou agentes acusados de tortura.", "A censura prévia atingiu jornais, canções, peças e filmes, sobretudo após a edição do AI-5, em 1968."],correta:0,
@@ -1363,7 +1366,7 @@ window.BANCO = [
  alts:["2 – 4 – 1 – 3 – 5", "4 – 2 – 1 – 3 – 5", "4 – 2 – 3 – 1 – 5", "4 – 1 – 2 – 3 – 5", "2 – 4 – 3 – 1 – 5"],correta:1,
  porque:"Datas: Doutrina Truman, 1947 → Bloqueio de Berlim, 1948–1949 (a resposta dos Aliados foi a ponte aérea) → Pacto de Varsóvia, 1955 (resposta à entrada da Alemanha Ocidental na OTAN) → Muro de Berlim, 1961, erguido para conter a fuga de alemães orientais para o Ocidente → fim da URSS, dezembro de 1991. {A} inverte os dois primeiros. {C} coloca o Muro antes do Pacto. {D} adianta o Pacto, mas a aliança soviética veio DEPOIS da OTAN (1949), e não antes do bloqueio. Gancho: 47 doutrina, 48 bloqueio, 55 Varsóvia, 61 muro, 89 queda, 91 fim."},
 
-{id:"H61",area:"gh",topico:"Povos originários",nivel:3,
+{id:"H61",area:"gh",uso:"simulado",topico:"Povos originários",nivel:3,
  texto:"Texto 1 — “Esta Lei regula a situação jurídica dos índios ou silvícolas e das comunidades indígenas, com o propósito de preservar a sua cultura e integrá-los, progressiva e harmoniosamente, à comunhão nacional.”\n\nTexto 2 — “São reconhecidos aos índios sua organização social, costumes, línguas, crenças e tradições, e os direitos originários sobre as terras que tradicionalmente ocupam [...]”",
  fonte:"Texto 1: Lei nº 6.001, de 19 de dezembro de 1973 (Estatuto do Índio), art. 1º. Texto 2: Constituição da República Federativa do Brasil, 1988, art. 231.",
  enunciado:"Comparando os dois textos, é correto afirmar que:",
@@ -1382,7 +1385,7 @@ window.BANCO = [
  alts:["revoltas de fazendeiros monarquistas, financiados pela antiga nobreza, para derrubar a República recém-criada.", "rebeliões ocorridas no Império e reprimidas por ordem de D. Pedro II para garantir a unidade do território.", "greves de operários urbanos, organizadas por anarquistas imigrantes, que exigiam jornada de oito horas diárias.", "conflitos encerrados por acordos de paz, nos quais o governo federal garantiu terras às famílias sertanejas.", "movimentos de sertanejos pobres, de forte religiosidade popular, esmagados pelo Exército na Primeira República."],correta:4,
  porque:"Os dois conflitos reuniram sertanejos sem terra em torno de líderes religiosos: Antônio Conselheiro em Canudos, os monges João Maria e José Maria no Contestado. Ambos foram destruídos pelo Exército com milhares de mortos, e as datas (1896 e 1912) os colocam na Primeira República. {A} é a acusação que a República fazia a Canudos, chamado de foco monarquista, mas os rebeldes eram pobres, não fazendeiros nem nobres. {B} é anacronismo, porque o Império acabou em 1889. {C} descreve a Greve Geral de 1917. {D} contradiz o desfecho violento. Gancho: Canudos e Contestado são dois sertões com fé, sem terra e massacrados pelo Exército."},
 
-{id:"H64",area:"gh",topico:"Ditadura Militar",nivel:1,
+{id:"H64",area:"gh",uso:"simulado",topico:"Ditadura Militar",nivel:1,
  enunciado:"Entre 1983 e 1984, comícios reuniram multidões em várias cidades do país para exigir a volta da eleição direta para presidente da República. Esse movimento ficou conhecido como:",
  alts:["Caras-pintadas.", "Passeata dos Cem Mil.", "Diretas Já.", "Marcha da Família com Deus pela Liberdade.", "Revolta da Vacina."],correta:2,
  porque:"As Diretas Já defendiam a emenda Dante de Oliveira e reuniram políticos de oposição, artistas e milhões de pessoas, como no comício da Candelária, no Rio, e no do Anhangabaú, em São Paulo, ambos em 1984. Cada distrator é de outra época. {A}: estudantes pelo impeachment de Collor, em 1992. {B}: protesto contra a ditadura em 1968. {D}: manifestação conservadora de 1964 que APOIOU o golpe. {E}: protesto contra a vacinação obrigatória no Rio, em 1904. Gancho: ‘Já’ porque o povo queria votar para presidente imediatamente."},
@@ -1394,7 +1397,7 @@ window.BANCO = [
  porque:"João Goulart, civil e herdeiro do trabalhismo de Vargas, propunha reforma agrária, urbana, educacional e eleitoral. Empresários, latifundiários, parte da Igreja e da classe média, a imprensa e os militares viram nisso uma ‘ameaça comunista’. O golpe teve apoio dos EUA, que reconheceram rapidamente o novo governo e chegaram a preparar a Operação Brother Sam, e isso derruba {C}. {A} erra: Jango era civil e assumiu em 1961, como vice, após a renúncia de Jânio. {B} erra porque Vargas morreu em 1954. {E} é anacronismo, já que a Lei da Anistia é de 1979. Gancho: Reformas de Base e Guerra Fria levaram ao golpe civil-militar de 1964."},
 
 /* ===================== CIÊNCIAS · lote 2 (níveis 2 e 3) ===================== */
-{id:"C29",area:"cie",topico:"Fontes de energia",nivel:1,
+{id:"C29",area:"cie",uso:"simulado",topico:"Fontes de energia",nivel:1,
  enunciado:"Qual dos recursos abaixo, usados para gerar eletricidade, é uma fonte RENOVÁVEL?",
  alts:["Óleo diesel", "Gás natural", "Carvão mineral", "Bagaço de cana", "Urânio"],correta:3,
  porque:"O bagaço de cana é biomassa: a cana cresce de novo em poucos meses, capturando CO₂ pela fotossíntese, por isso a fonte é renovável. Diesel {A}, gás natural {B} e carvão mineral {C} são combustíveis fósseis, que levaram milhões de anos para se formar. O urânio {E} é um minério com estoque limitado, então também não é renovável. Regra prática: se a natureza repõe em escala humana (sol, vento, água, plantas), é renovável."},
@@ -1404,7 +1407,7 @@ window.BANCO = [
  alts:["o mesmo número de massa.", "comportamento químico parecido.", "o mesmo número de prótons no núcleo.", "o mesmo número de nêutrons no núcleo.", "o mesmo estado físico."],correta:1,
  porque:"Elementos da mesma família têm o mesmo número de elétrons na camada de valência e, por isso, comportam-se de modo parecido nas reações (Na e K, por exemplo, reagem com força na água). O número de prótons {C} é o que DIFERENCIA um elemento do outro: cada elemento tem o seu. Estado físico {E} não serve: na família 17 há gás (cloro), líquido (bromo) e sólido (iodo). Regra prática: coluna = família = comportamento químico parecido; linha = período = mesmo número de camadas."},
 
-{id:"C31",area:"cie",topico:"Ecologia",nivel:1,
+{id:"C31",area:"cie",uso:"simulado",topico:"Ecologia",nivel:1,
  enunciado:"Fungos e bactérias que transformam restos de plantas e animais mortos em sais minerais, devolvendo-os ao solo, são classificados como:",
  alts:["produtores.", "consumidores primários.", "decompositores.", "parasitas.", "consumidores terciários."],correta:2,
  porque:"Decompositores quebram a matéria orgânica morta e liberam nutrientes minerais que as plantas voltam a absorver: eles fecham o ciclo da matéria. Produtores {A} fabricam o próprio alimento pela fotossíntese, o que fungos e bactérias decompositoras não fazem. Parasitas {D} vivem às custas de um hospedeiro VIVO. Regra prática: alimenta-se de ser morto e devolve sais ao solo → decompositor."},
@@ -1434,7 +1437,7 @@ window.BANCO = [
  alts:["Água fervendo em uma chaleira.", "Água morna soltando o ar dissolvido.", "Comprimido efervescente na água.", "Ar saindo de uma bexiga furada.", "Bomba de ar soprando no aquário."],correta:2,
  porque:"O comprimido efervescente contém bicarbonato e um ácido que, em contato com a água, reagem e formam gás carbônico, uma substância que não existia antes: é transformação química. Na {A} as bolhas são vapor de água, a mesma substância mudando de estado. Na {B} é o ar que já estava dissolvido na água e só escapa com o aquecimento, sem reação. {D} e {E} apenas movem ar de um lugar para outro. Regra prática: bolha só indica reação química se o gás for uma substância nova."},
 
-{id:"C37",area:"cie",topico:"Célula",nivel:2,
+{id:"C37",area:"cie",uso:"simulado",topico:"Célula",nivel:2,
  enunciado:"Ao microscópio, um estudante compara uma célula da folha de alface com uma célula do músculo humano. Uma estrutura presente na primeira e AUSENTE na segunda é:",
  alts:["a mitocôndria.", "a membrana plasmática.", "o núcleo.", "o ribossomo.", "o cloroplasto."],correta:4,
  porque:"O cloroplasto é a organela da fotossíntese e só existe em células de plantas e algas. A {A} é a pegadinha principal: as duas células têm mitocôndria, porque plantas também fazem respiração celular. Membrana plasmática, núcleo e ribossomos ({B}, {C} e {D}) estão presentes em ambas, que são eucarióticas. Regra prática: exclusivos da célula vegetal → parede de celulose, cloroplasto e vacúolo grande."},
@@ -1444,27 +1447,27 @@ window.BANCO = [
  alts:["contém anticorpos prontos, de ação imediata.", "estimula o corpo a fabricar anticorpos aos poucos.", "gera células de memória que protegem por anos.", "contém veneno atenuado, que treina as defesas.", "é um antibiótico que destrói a toxina do veneno."],correta:0,
  porque:"Na picada o veneno age em minutos, e não dá tempo de o corpo produzir defesa própria. O soro traz anticorpos já prontos (imunização passiva), que neutralizam o veneno na hora, mas não deixam memória. {B}, {C} e {D} descrevem a VACINA (imunização ativa), que é lenta e serve para prevenir, não para tratar uma emergência. A {E} erra porque antibiótico combate bactérias, não toxinas. Regra prática: soro trata (rápido, passageiro); vacina previne (lenta, duradoura)."},
 
-{id:"C39",area:"cie",topico:"Astronomia",nivel:2,
+{id:"C39",area:"cie",uso:"simulado",topico:"Astronomia",nivel:2,
  enunciado:"Por volta de 21 de dezembro ocorre um solstício. Em Florianópolis (hemisfério Sul), nessa data:",
  alts:["começa o verão e ocorre o dia mais longo do ano.", "começa o inverno e ocorre a noite mais longa do ano.", "começa o verão porque a Terra está mais perto do Sol.", "o dia e a noite têm a mesma duração, 12 h cada.", "começa o outono e os dias passam a ficar mais curtos."],correta:0,
  porque:"Em dezembro o hemisfério Sul está inclinado para o Sol: recebe os raios mais diretos e passa mais horas iluminado. O solstício de dezembro marca o início do verão e o dia mais longo do ano aqui. A {B} vale para o hemisfério NORTE nessa mesma data. A {C} acerta a estação, mas dá a causa errada: as estações vêm da inclinação do eixo, não da distância ao Sol. A {D} descreve um equinócio (março e setembro). Regra prática: solstício = dia ou noite mais longos; equinócio = dia e noite iguais."},
 
-{id:"C40",area:"cie",topico:"Genética",nivel:2,
+{id:"C40",area:"cie",uso:"simulado",topico:"Genética",nivel:2,
  enunciado:"Em uma planta, a flor vermelha (A) é dominante sobre a branca (a). Cruzando uma planta heterozigota com uma de flor branca, a proporção esperada nos descendentes é:",
  alts:["100% vermelhas", "75% vermelhas e 25% brancas", "50% vermelhas e 50% brancas", "25% vermelhas e 75% brancas", "100% brancas"],correta:2,
  porque:"Heterozigota = Aa; branca = aa (recessivo só aparece em homozigose). Aa × aa dá Aa, Aa, aa, aa: metade vermelha, metade branca. A {B} é a proporção 3:1 do cruzamento Aa × Aa, que você decorou, mas não é este. A {A} seria o resultado de AA × aa. Regra prática: monte sempre o quadro com os gametas de cada pai antes de responder; não aplique 3:1 no automático."},
 
-{id:"C41",area:"cie",topico:"Mecânica",nivel:2,
+{id:"C41",area:"cie",uso:"simulado",topico:"Mecânica",nivel:2,
  enunciado:"No carrinho de mão, o apoio é a roda, a carga fica na caçamba e a força é feita nos cabos. Por isso ele é classificado como alavanca:",
  alts:["interfixa, com o apoio entre a força e a carga.", "inter-resistente, com a carga entre o apoio e a força.", "interpotente, com a força entre o apoio e a carga.", "interfixa, com a carga entre o apoio e a força.", "inter-resistente, com o apoio entre a força e a carga."],correta:1,
  porque:"Na ordem roda (apoio) → caçamba (carga) → cabos (força), a carga fica no meio: alavanca inter-resistente. O braço da força (roda até os cabos) é maior que o da carga, por isso o carrinho reduz o esforço. A {A} descreve a gangorra e a tesoura. A {C} descreve a pinça. {D} e {E} usam o nome de um tipo com a definição de outro. Regra prática: o nome diz quem está no MEIO: interfixa → apoio; inter-resistente → carga; interpotente → força."},
 
-{id:"C42",area:"cie",topico:"ISTs",nivel:2,
+{id:"C42",area:"cie",uso:"simulado",topico:"ISTs",nivel:2,
  enunciado:"Sobre o HIV e a AIDS, é correto afirmar que:",
  alts:["o HIV é o vírus e a AIDS, a fase grave da infecção.", "o HIV passa por abraço, beijo no rosto e talheres.", "o antibiótico certo elimina o HIV do organismo.", "quem vive com HIV sempre apresenta sintomas visíveis.", "já existe vacina contra o HIV disponível no SUS."],correta:0,
  porque:"HIV é o vírus que ataca células de defesa (linfócitos T CD4). Sem tratamento, a imunidade cai e surge a AIDS, a fase avançada com doenças oportunistas. A {B} é falsa: o HIV passa por sangue, relação sexual sem preservativo e da mãe para o bebê, não por contato social. A {C} falha porque antibiótico não age em vírus; o tratamento é com antirretrovirais, que controlam mas não eliminam o vírus. A {D} é perigosa: a pessoa pode passar anos sem sintomas, e só o teste revela a infecção. Não há vacina contra o HIV {E}. Regra prática: HIV ≠ AIDS, e só o teste diz se há infecção."},
 
-{id:"C43",area:"cie",topico:"Eletricidade",nivel:3,
+{id:"C43",area:"cie",uso:"simulado",topico:"Eletricidade",nivel:3,
  texto:"Consumo diário de uma casa:\n• Chuveiro elétrico de 4.400 W — 30 minutos por dia\n• Televisor de 100 W — 5 horas por dia\n• 8 lâmpadas LED de 10 W cada — 6 horas por dia",
  enunciado:"Com a tarifa de R$ 0,80 por kWh, qual é o custo mensal (30 dias) desses aparelhos?",
  alts:["R$ 55,20", "R$ 66,24", "R$ 76,32", "R$ 95,40", "R$ 52,80"],correta:2,
@@ -1476,7 +1479,7 @@ window.BANCO = [
  alts:["Chaleira, micro-ondas e liquidificador", "Air fryer, micro-ondas e cafeteira", "Chaleira, cafeteira e liquidificador", "Air fryer, cafeteira e liquidificador", "Chaleira, air fryer e liquidificador"],correta:4,
  porque:"Tomadas de uma casa ficam em PARALELO: cada aparelho recebe 220 V e as correntes se SOMAM. Calcule I = P ÷ U de cada um: chaleira 10 A, air fryer 8 A, micro-ondas 6 A, cafeteira 4 A, liquidificador 3 A. Somas: {A} 19 A; {B} 18 A; {C} 17 A; {D} 15 A; {E} 10 + 8 + 3 = 21 A, a única acima de 20 A. Quem soma as potências e compara com 20 se perde: o disjuntor olha a corrente, não os watts. Regra prática: em paralelo, a corrente total é a soma das correntes de cada aparelho."},
 
-{id:"C45",area:"cie",topico:"Eletricidade",nivel:3,
+{id:"C45",area:"cie",uso:"simulado",topico:"Eletricidade",nivel:3,
  enunciado:"Dois resistores, de 4 Ω e de 8 Ω, são ligados em SÉRIE a uma bateria de 12 V. A corrente no circuito e a tensão no resistor de 8 Ω valem, respectivamente:",
  alts:["1 A e 4 V", "3 A e 12 V", "1 A e 12 V", "4,5 A e 12 V", "1 A e 8 V"],correta:4,
  porque:"Em série as resistências se somam: R = 4 + 8 = 12 Ω. Corrente: I = U ÷ R = 12 ÷ 12 = 1 A, a mesma nos dois. Tensão no de 8 Ω: U = R × I = 8 × 1 = 8 V (e 4 V no outro; 8 + 4 = 12 V). A {A} trocou os resistores. A {C} supôs que cada resistor recebe a tensão toda, o que só acontece em PARALELO. A {D} é o resultado de quem calculou como se fosse paralelo (3 A + 1,5 A). Regra prática: em série a corrente é igual e a tensão se divide; em paralelo a tensão é igual e a corrente se divide."},
@@ -1487,66 +1490,66 @@ window.BANCO = [
  alts:["Apenas I e II", "Apenas I e III", "Apenas II e IV", "Apenas I, II e IV", "Apenas II, III e IV"],correta:0,
  porque:"I é correta: na incandescente, quase toda a energia vira calor, e só uma pequena parte vira luz. II é correta: cada troca economiza 60 − 9 = 51 W; 10 lâmpadas → 510 W = 0,51 kW; 0,51 × 5 h × 30 dias = 76,5 kWh. III é falsa: a LED não cria energia, ela apenas desperdiça menos em calor, e a conservação continua valendo. IV é falsa: energia não é destruída; a parte que não vira luz vira calor. Por isso {B}, {C}, {D} e {E} falham, todas incluem III ou IV. Regra prática: lâmpada eficiente desperdiça menos; nenhuma cria ou destrói energia."},
 
-{id:"C47",area:"cie",topico:"Propagação de calor",nivel:3,
+{id:"C47",area:"cie",uso:"simulado",topico:"Propagação de calor",nivel:3,
  enunciado:"Assinale a alternativa INCORRETA sobre propagação de calor no cotidiano:",
  alts:["O calor do Sol chega à Terra por irradiação, que atravessa o vácuo.", "O ar-condicionado fica no alto porque o ar frio, mais denso, desce.", "Cabos de panela são de madeira ou plástico porque conduzem mal o calor.", "A blusa de lã aquece porque produz calor em contato com o corpo.", "Roupa escura ao sol esquenta mais porque absorve mais radiação."],correta:3,
  porque:"A lã NÃO produz calor: quem produz é o corpo. A lã é isolante (prende ar entre as fibras) e só deixa o calor do corpo escapar mais devagar, por isso a {D} é a incorreta. As demais são verdadeiras: a irradiação é a única forma que atravessa o vácuo {A}; o ar frio desce e o quente sobe, formando correntes de convecção {B}; madeira e plástico são maus condutores {C}; superfícies escuras absorvem mais radiação {E}. Regra prática: isolante não aquece nem esfria, só retarda a troca de calor."},
 
-{id:"C48",area:"cie",topico:"Fontes de energia",nivel:3,
+{id:"C48",area:"cie",uso:"simulado",topico:"Fontes de energia",nivel:3,
  texto:"Participação de cada fonte na geração de eletricidade de uma região:\n• Hidrelétrica — 55%\n• Eólica — 15%\n• Termelétrica a gás natural — 12%\n• Biomassa (bagaço de cana) — 8%\n• Solar fotovoltaica — 6%\n• Termelétrica a carvão mineral — 4%",
  enunciado:"De acordo com a tabela, a porcentagem da eletricidade dessa região que vem de fontes RENOVÁVEIS é:",
  alts:["70%", "76%", "84%", "88%", "96%"],correta:2,
  porque:"Renováveis: hidrelétrica (55) + eólica (15) + biomassa de bagaço de cana (8) + solar (6) = 84%. Não renováveis: gás natural (12) e carvão mineral (4), ambos fósseis. A {B} esqueceu a biomassa (ela é queimada, mas a cana é replantada). A {E} contou o gás natural como renovável; ele é fóssil, embora polua menos que o carvão. A {D} confundiu carvão mineral (fóssil) com carvão vegetal. A {A} somou só hidrelétrica e eólica. Regra prática: classifique cada fonte antes de somar; queimar algo não o torna não renovável, o que importa é se a natureza repõe."},
 
-{id:"C49",area:"cie",topico:"Estrutura atômica",nivel:3,
+{id:"C49",area:"cie",uso:"simulado",topico:"Estrutura atômica",nivel:3,
  enunciado:"O ânion X²⁻ possui 18 elétrons e 16 nêutrons. O número atômico (Z) e o número de massa (A) do elemento X são:",
  alts:["Z = 20 e A = 36", "Z = 18 e A = 34", "Z = 16 e A = 34", "Z = 16 e A = 32", "Z = 32 e A = 16"],correta:3,
  porque:"Carga 2− significa que o átomo GANHOU 2 elétrons. Neutro, ele tinha 18 − 2 = 16 elétrons, e portanto 16 prótons: Z = 16. A = prótons + nêutrons = 16 + 16 = 32 (é o enxofre). A {A} somou os 2 elétrons em vez de subtrair, como se fosse cátion. A {B} igualou prótons a elétrons, o que só vale no átomo neutro. A {C} somou elétrons e nêutrons para achar A. A {E} trocou Z com A. Regra prática: no ânion, prótons = elétrons − carga; A sempre soma prótons e nêutrons."},
 
-{id:"C50",area:"cie",topico:"Tabela periódica",nivel:3,
+{id:"C50",area:"cie",uso:"simulado",topico:"Tabela periódica",nivel:3,
  texto:"Alguns elementos e sua posição na tabela periódica:\n• Sódio (Na, Z = 11) — grupo 1, 3º período\n• Potássio (K, Z = 19) — grupo 1, 4º período\n• Cloro (Cl, Z = 17) — grupo 17, 3º período\n• Neônio (Ne, Z = 10) — grupo 18, 2º período",
  enunciado:"Com base nas informações, analise:\nI. Sódio e potássio estão no mesmo período da tabela.\nII. O cloro tende a ganhar 1 elétron, formando o ânion Cl⁻.\nIII. Por ser gás nobre, o neônio reage facilmente com o sódio.\nIV. O sódio tende a perder 1 elétron, formando o cátion Na⁺.\nEstão corretas:",
  alts:["Apenas I e II", "Apenas II e IV", "Apenas I, II e IV", "Apenas II e III", "Apenas III e IV"],correta:1,
  porque:"I é falsa: Na e K estão na mesma FAMÍLIA (grupo 1, metais alcalinos), em períodos diferentes (3º e 4º). II é correta: com 7 elétrons na última camada, o cloro tende a receber 1 e forma Cl⁻. III é falsa: gases nobres têm a camada de valência completa e quase não reagem. IV é correta: com 1 elétron na última camada, o sódio tende a perder esse elétron e forma Na⁺. A {C} cai na troca entre família e período. Regra prática: coluna = família (propriedades parecidas); linha = período (mesmo número de camadas)."},
 
-{id:"C51",area:"cie",topico:"Misturas e separação",nivel:3,
+{id:"C51",area:"cie",uso:"simulado",topico:"Misturas e separação",nivel:3,
  enunciado:"Um técnico precisa recuperar, SEPARADOS, os três componentes de uma mistura de areia, sal de cozinha e limalha de ferro. Qual sequência de etapas funciona?",
  alts:["Água; evaporação; filtração; ímã.", "Filtração; ímã; água; decantação.", "Ímã; água; filtração; evaporação.", "Ímã; água; evaporação; filtração.", "Água; ímã; decantação; filtração."],correta:2,
  porque:"Primeiro o ímã retira o ferro. Depois a água dissolve o sal, e a areia, insolúvel, fica retida no filtro. Por fim, evaporar a água da solução devolve o sal. A {D} evapora antes de filtrar: o sal volta a se misturar com a areia. A {A} também evapora cedo demais e junta tudo de novo. A {E} separa o ferro e a areia, mas nunca recupera o sal, que fica dissolvido na água. A {B} começa filtrando uma mistura seca, o que não separa nada. Regra prática: dissolva o que é solúvel, filtre o insolúvel e só então evapore."},
 
-{id:"C52",area:"cie",topico:"Substâncias",nivel:3,
+{id:"C52",area:"cie",uso:"simulado",topico:"Substâncias",nivel:3,
  texto:"Lista de materiais: gás oxigênio (O₂), ozônio (O₃), água destilada, ar atmosférico, água do mar, gás carbônico (CO₂), aço e diamante.",
  enunciado:"Considerando os materiais da lista, os números de substâncias simples, de substâncias compostas e de misturas são, respectivamente:",
  alts:["2, 3 e 3", "3, 3 e 2", "4, 2 e 2", "3, 2 e 3", "2, 2 e 4"],correta:3,
  porque:"Simples (um só elemento): O₂, O₃ e diamante (só carbono) → 3. Compostas (mais de um elemento, fórmula fixa): água destilada (H₂O) e CO₂ → 2. Misturas: ar, água do mar e aço (ferro + carbono) → 3. A {A} contou o ozônio como composto; ele tem só oxigênio. A {B} contou o aço como substância composta; liga metálica é mistura. A {C} classificou o aço como simples, só porque é quase todo ferro. Regra prática: tem fórmula com um único símbolo → simples; fórmula com símbolos diferentes → composta; não tem fórmula única → mistura."},
 
-{id:"C53",area:"cie",topico:"Fotossíntese",nivel:3,
+{id:"C53",area:"cie",uso:"simulado",topico:"Fotossíntese",nivel:3,
  texto:"Um estudante montou três tubos fechados com água e azul de bromotimol, um indicador que fica AZUL com pouco CO₂ dissolvido, VERDE com quantidade intermediária e AMARELO com muito CO₂. No início, os três estavam verdes.\n• Tubo 1: ramo de planta aquática, sob luz forte\n• Tubo 2: ramo da mesma planta, no escuro\n• Tubo 3: apenas água e indicador, sob luz forte",
  enunciado:"Depois de algumas horas, o resultado esperado é:",
  alts:["tubo 1 amarelo; tubo 2 azul; tubo 3 verde.", "tubo 1 azul; tubo 2 verde; tubo 3 verde.", "tubo 1 azul; tubo 2 amarelo; tubo 3 verde.", "tubo 1 amarelo; tubo 2 amarelo; tubo 3 verde.", "tubo 1 verde; tubo 2 amarelo; tubo 3 azul."],correta:2,
  porque:"Tubo 1 (luz): a planta faz fotossíntese mais intensa que a respiração e consome CO₂ → pouco CO₂ → azul. Tubo 2 (escuro): sem luz não há fotossíntese, mas a planta continua RESPIRANDO e libera CO₂ → amarelo. Tubo 3: sem ser vivo, nada muda → verde (é o controle). A {B} é o erro clássico de achar que a planta no escuro 'para': ela respira o tempo todo. A {A} inverte fotossíntese e respiração. A {D} esquece que, na luz, a fotossíntese supera a respiração. Regra prática: planta na luz forte consome CO₂ no total; no escuro, só libera."},
 
-{id:"C54",area:"cie",topico:"Respiração celular",nivel:3,
+{id:"C54",area:"cie",uso:"simulado",topico:"Respiração celular",nivel:3,
  enunciado:"Na fabricação do pão, o fermento biológico (levedura) faz a massa crescer. Analise:\nI. A massa cresce por causa do CO₂ liberado na fermentação.\nII. A fermentação produz menos ATP por glicose que a respiração aeróbica.\nIII. O álcool produzido na fermentação permanece todo no pão depois de assado.\nIV. As leveduras do fermento são fungos unicelulares.\nEstão corretas:",
  alts:["Apenas I e II", "Apenas I e III", "Apenas II e IV", "Apenas I, II e IV", "Apenas II, III e IV"],correta:3,
  porque:"I é correta: as bolhas de CO₂ ficam presas na massa e a fazem crescer. II é correta: a fermentação quebra a glicose só em parte e rende 2 ATP, muito menos que a respiração aeróbica. III é falsa: o álcool evapora no calor do forno. IV é correta: leveduras são fungos, e não bactérias. A {A} e a {C} deixam de fora uma afirmativa verdadeira. A {E} aceita a III e recusa a I. Regra prática: fermentação alcoólica = glicose → álcool + CO₂ + pouca energia, sem usar oxigênio."},
 
-{id:"C55",area:"cie",topico:"Vírus e imunidade",nivel:3,
+{id:"C55",area:"cie",uso:"simulado",topico:"Vírus e imunidade",nivel:3,
  enunciado:"Um adolescente com gripe (causada pelo vírus influenza) pede um antibiótico na farmácia. A tia dele lembra que a vacina da gripe precisa ser tomada TODO ANO. Assinale a explicação correta:",
  alts:["O antibiótico cura a gripe, e a vacina é anual porque perde o efeito.", "O antibiótico não age no vírus, e a vacina é anual porque é um soro.", "O antibiótico age no vírus, e a vacina anual evita resistência a ele.", "O antibiótico não age no vírus, e a vacina anual cura quem está gripado.", "O antibiótico não age no vírus, e a vacina é anual porque o vírus muda."],correta:4,
  porque:"Antibióticos atacam estruturas das BACTÉRIAS e não têm efeito sobre vírus. O vírus influenza sofre mutações com frequência, e a cada ano circulam variantes um pouco diferentes; por isso a vacina é atualizada e reaplicada. A {A} e a {C} erram logo na primeira parte. A {B} confunde vacina com soro. A {D} erra porque vacina previne, não cura. Usar antibiótico sem necessidade ainda favorece bactérias resistentes. Regra prática: vírus → antiviral ou vacina; bactéria → antibiótico."},
 
-{id:"C56",area:"cie",topico:"Astronomia",nivel:3,
+{id:"C56",area:"cie",uso:"simulado",topico:"Astronomia",nivel:3,
  enunciado:"Um equipamento tem peso de 1.200 N na Terra, onde g = 10 m/s². Levado a Marte, onde g ≈ 3,7 m/s², sua massa e seu peso serão, respectivamente:",
  alts:["44,4 kg e 444 N", "120 kg e 1.200 N", "1.200 kg e 4.440 N", "120 kg e 444 N", "120 kg e 3.243 N"],correta:3,
  porque:"Primeiro ache a massa: m = P ÷ g = 1.200 ÷ 10 = 120 kg, e ela não muda em lugar nenhum. Em Marte: P = m × g = 120 × 3,7 = 444 N. A {A} reduziu também a massa, mas massa não depende da gravidade. A {B} acha que nada muda. A {C} tratou os 1.200 N como se fossem kg. A {E} inverteu a proporção: gravidade menor dá peso MENOR, não maior. Regra prática: massa (kg) é fixa; peso (N) = massa × gravidade local."},
 
-{id:"C57",area:"cie",topico:"Ecologia",nivel:3,
+{id:"C57",area:"cie",uso:"simulado",topico:"Ecologia",nivel:3,
  enunciado:"Na cadeia alimentar capim → preá → jaguatirica, considere que apenas cerca de 10% da energia de um nível passa para o nível seguinte. Se o capim armazena 50.000 kcal, a energia que chega à jaguatirica é de aproximadamente:",
  alts:["5.000 kcal", "50 kcal", "500 kcal", "40.500 kcal", "45.000 kcal"],correta:2,
  porque:"São duas passagens: capim → preá (10% de 50.000 = 5.000 kcal) e preá → jaguatirica (10% de 5.000 = 500 kcal). A {A} parou na primeira passagem, que é a energia do preá. A {B} fez uma passagem a mais. A {D} entendeu que só 10% se PERDE a cada nível (50.000 × 0,9 × 0,9), quando na verdade só 10% PASSA adiante. A maior parte é gasta na respiração e nas atividades de cada ser vivo, ou sai como calor. Por isso cadeias raramente passam de 4 ou 5 níveis. Regra prática: conte as setas e multiplique por 0,1 em cada uma."},
 
-{id:"C58",area:"cie",topico:"Genética",nivel:3,
+{id:"C58",area:"cie",uso:"simulado",topico:"Genética",nivel:3,
  enunciado:"O albinismo é uma característica recessiva (a). Um casal de pigmentação normal tem um primeiro filho albino. A probabilidade de o próximo filho do casal ser uma MENINA albina é de:",
  alts:["25%", "50%", "12,5%", "6,25%", "75%"],correta:2,
  porque:"Se os pais são normais e tiveram filho aa, cada um precisa ter um alelo a: o casal é Aa × Aa. A chance de nascer aa é 1/4. A chance de ser menina é 1/2. Os dois eventos são independentes, então multiplique: 1/4 × 1/2 = 1/8 = 12,5%. A {A} esqueceu a condição 'menina'. A {E} é a chance de ter pigmentação normal. A {D} multiplicou 1/4 por 1/4 sem motivo. Os filhos anteriores não mudam a chance do próximo. Regra prática: 'e' entre eventos independentes → multiplique as probabilidades."},
@@ -1559,6 +1562,302 @@ window.BANCO = [
 {id:"C60",area:"cie",topico:"Evolução",nivel:3,
  enunciado:"O uso de antibióticos sem receita, ou a interrupção do tratamento antes do prazo, aumenta o número de bactérias resistentes. Pela teoria da seleção natural, isso acontece porque:",
  alts:["o antibiótico provoca nas bactérias a mutação que as torna resistentes.", "as bactérias se acostumam ao remédio e passam esse hábito aos descendentes.", "variantes resistentes, surgidas ao acaso, sobrevivem e se multiplicam.", "o organismo do paciente fica imune ao remédio depois de muitas doses.", "o antibiótico se enfraquece e perde a ação com o uso repetido."],correta:2,
- porque:"Numa população de bactérias há variação: algumas, por mutações ao acaso, já são menos sensíveis ao remédio. O antibiótico mata as sensíveis, e as resistentes sobrevivem e se multiplicam: o ambiente (o remédio) SELECIONA, não cria a característica. A {A} é a pegadinha principal: o antibiótico não produz a mutação, só favorece quem já a tinha. A {B} é pensamento lamarckista (herança do que foi adquirido). A {D} erra o alvo: quem fica resistente é a bactéria, não o paciente. Regra prática: na seleção natural, a variação vem antes e o ambiente só escolhe quem sobrevive."}
+ porque:"Numa população de bactérias há variação: algumas, por mutações ao acaso, já são menos sensíveis ao remédio. O antibiótico mata as sensíveis, e as resistentes sobrevivem e se multiplicam: o ambiente (o remédio) SELECIONA, não cria a característica. A {A} é a pegadinha principal: o antibiótico não produz a mutação, só favorece quem já a tinha. A {B} é pensamento lamarckista (herança do que foi adquirido). A {D} erra o alvo: quem fica resistente é a bactéria, não o paciente. Regra prática: na seleção natural, a variação vem antes e o ambiente só escolhe quem sobrevive."},
 
+/* ===================== MATEMÁTICA · lote 3 (treino; não marcar uso:"simulado") ===================== */
+{id:"M36",area:"mat",topico:"Conversão de unidades",nivel:1,
+ enunciado:"Na festa da família de uma escola em Palhoça, a cantina serve suco de um galão de 20 L em copos de 250 mL, sempre cheios até a borda. Quantos copos é possível encher com o galão cheio?",
+ alts:["4 copos","5 copos","8 copos","80 copos","800 copos"],correta:3,
+ porque:"Primeiro, mesma unidade: 1 L = 1.000 mL, então 20 L = 20 × 1.000 = 20.000 mL. Depois divida: 20.000 ÷ 250 = 80 copos. Outro caminho: 250 mL = 0,25 L, e 20 ÷ 0,25 = 80. A {C} usa 1 L = 100 mL (2.000 ÷ 250). A {E} usa 1 L = 10.000 mL. A {B} multiplicou 20 × 0,25 em vez de dividir. A {A} é só a quantidade de copos em 1 litro (1.000 ÷ 250 = 4), esquecendo os 20 litros."},
+
+{id:"M37",area:"mat",topico:"Leitura de gráfico",nivel:1,
+ texto:"Chuva acumulada em Blumenau no 1º semestre (em mm):\nJaneiro → 210\nFevereiro → 180\nMarço → 150\nAbril → 95\nMaio → 110\nJunho → 85",
+ enunciado:"De acordo com a tabela, qual foi a diferença entre a chuva do mês mais chuvoso e a do mês menos chuvoso do semestre?",
+ alts:["125 mm","115 mm","95 mm","295 mm","25 mm"],correta:0,
+ porque:"Localize os extremos lendo a coluna inteira: o maior valor é janeiro (210 mm) e o menor é junho (85 mm). Diferença: 210 − 85 = 125 mm. A {B} tomou abril (95 mm) como o menor — 95 e 85 são parecidos, por isso vale conferir linha por linha. A {C} usou fevereiro (180) como o maior. A {D} somou em vez de subtrair. A {E} é a diferença entre maio e junho, os dois últimos meses."},
+
+{id:"M38",area:"mat",topico:"Juros e porcentagem",nivel:2,
+ enunciado:"Numa loja de Joinville, um par de tênis sai por R$ 156,00 para quem paga no Pix, valor que já tem 20% de desconto sobre o preço da etiqueta. Qual é o preço da etiqueta?",
+ alts:["R$ 124,80","R$ 176,00","R$ 187,20","R$ 780,00","R$ 195,00"],correta:4,
+ porque:"Com 20% de desconto o cliente paga 80% da etiqueta: 0,80 × E = 156. Para voltar ao preço original, DIVIDA pelo fator: E = 156 ÷ 0,80 = R$ 195,00. Confira: 20% de 195 = 39, e 195 − 39 = 156. A {C} somou 20% sobre os 156 (156 × 1,20), mas os 20% eram da etiqueta, não do preço com desconto. A {A} deu mais 20% de desconto (156 × 0,80). A {B} somou R$ 20,00 como se fosse porcentagem. A {D} dividiu por 0,20 em vez de 0,80."},
+
+{id:"M39",area:"mat",topico:"Sistema do 1º grau",nivel:2,
+ enunciado:"Na festa junina de um câmpus do IFSC, o ingresso custava R$ 8,00 para estudantes e R$ 15,00 para visitantes. Foram vendidos 240 ingressos, com arrecadação total de R$ 2.690,00. Quantos ingressos de visitante foram vendidos?",
+ alts:["120","110","130","51","179"],correta:1,
+ porque:"Seja e = estudantes e v = visitantes:\ne + v = 240\n8e + 15v = 2.690\nDa 1ª, e = 240 − v. Substituindo: 8·(240 − v) + 15v = 2.690 → 1.920 + 7v = 2.690 → 7v = 770 → v = 110. Então e = 130. Confira: 8·130 + 15·110 = 1.040 + 1.650 = 2.690 ✓. A {C} é a quantidade de ESTUDANTES — a pergunta era visitantes. A {A} supôs metade de cada. A {E} dividiu 2.690 por 15, como se todos fossem visitantes. A {D} dividiu a sobra de 770 por 15, quando cada visitante ‘troca’ R$ 7,00 a mais (15 − 8), não 15."},
+
+{id:"M40",area:"mat",topico:"Regra de três",nivel:2,
+ enunciado:"Na feira de ciências de uma escola de Chapecó, um prêmio de R$ 1.800,00 será dividido entre três equipes em partes diretamente proporcionais ao número de integrantes: 2, 3 e 5 estudantes. Quanto receberá a equipe de 3 estudantes?",
+ alts:["R$ 360,00","R$ 600,00","R$ 540,00","R$ 900,00","R$ 180,00"],correta:2,
+ porque:"Divisão proporcional: some as partes, 2 + 3 + 5 = 10 partes. Cada parte vale 1.800 ÷ 10 = R$ 180,00. A equipe de 3 estudantes recebe 3 × 180 = R$ 540,00 (as outras recebem 360 e 900; confira: 360 + 540 + 900 = 1.800). A {B} dividiu igualmente entre as três equipes, ignorando a proporção. A {E} é o valor de uma parte só. A {A} e a {D} são as quantias das equipes de 2 e de 5 estudantes."},
+
+{id:"M41",area:"mat",topico:"Área em contexto",nivel:2,
+ enunciado:"O piso de uma sala de aula retangular de 4,8 m por 3,2 m será revestido com lajotas quadradas de 40 cm de lado, encaixadas sem espaço entre elas e sem cortes. Quantas lajotas serão necessárias?",
+ alts:["40 lajotas","38 lajotas","960 lajotas","10 lajotas","96 lajotas"],correta:4,
+ porque:"Área da sala: 4,8 × 3,2 = 15,36 m². Lajota: 40 cm = 0,4 m, área 0,4 × 0,4 = 0,16 m². Quantidade: 15,36 ÷ 0,16 = 96. Confira pelas fileiras: 4,8 ÷ 0,4 = 12 e 3,2 ÷ 0,4 = 8 → 12 × 8 = 96. A {B} dividiu a área pelo LADO da lajota (15,36 ÷ 0,4 ≈ 38), e não pela área dela. A {A} usou o perímetro da sala (16 m ÷ 0,4), que serviria para rodapé, não para piso. A {C} errou a conversão (0,016 m²) e a {D} também (1,6 m²): de cm² para m² divide-se por 10.000."},
+
+{id:"M42",area:"mat",topico:"Volume",nivel:3,
+ enunciado:"Uma escola em Lages capta a água da chuva de um telhado cuja área de captação (projeção horizontal) é de 60 m². Toda essa água vai para uma cisterna vazia em forma de bloco retangular com medidas internas de 1,2 m × 1,0 m × 1,0 m. Numa chuva de 25 mm, quantos litros transbordarão da cisterna?",
+ alts:["300 L","1.200 L","1.500 L","13.800 L","0 L (cabe tudo)"],correta:0,
+ porque:"Chuva de 25 mm significa uma lâmina de água de 25 mm = 0,025 m de altura sobre a área. Volume captado: 60 × 0,025 = 1,5 m³ = 1.500 L (1 m³ = 1.000 L). Capacidade da cisterna: 1,2 × 1,0 × 1,0 = 1,2 m³ = 1.200 L. Transborda: 1.500 − 1.200 = 300 L. Atalho útil: 1 mm de chuva = 1 L por m². A {C} é o total captado e a {B} é a capacidade — nenhuma das duas responde o que transborda. A {D} converteu 25 mm como 0,25 m (15.000 − 1.200). A {E} converteu como 0,0025 m (150 L, que caberiam)."},
+
+{id:"M43",area:"mat",topico:"Leitura de gráfico",nivel:3,
+ texto:"Resultado de um câmpus no Exame de Classificação:\nAno 2025 → 250 inscritos, 40% aprovados\nAno 2026 → 300 inscritos, 50% aprovados",
+ enunciado:"De 2025 para 2026, em quantos por cento aumentou o NÚMERO de estudantes aprovados nesse câmpus?",
+ alts:["10%","20%","25%","50%","150%"],correta:3,
+ porque:"A pergunta é sobre o número de aprovados, então calcule as quantidades. 2025: 40% de 250 = 100. 2026: 50% de 300 = 150. Aumento: 150 − 100 = 50 aprovados, sobre a base de 100 → 50 ÷ 100 = 0,5 = 50%. A {A} subtraiu as taxas (50% − 40%): isso é um aumento de 10 PONTOS PERCENTUAIS, não de 10%. A {C} é o aumento relativo da TAXA (10 ÷ 40), ignorando que os inscritos também mudaram. A {B} é só o aumento de inscritos (50 ÷ 250). A {E} confundiu o novo valor com o aumento (150 ÷ 100 = 150% do anterior, ou seja, +50%)."},
+
+{id:"M44",area:"mat",topico:"Pitágoras",nivel:3,
+ enunciado:"Num parque de aventura da Serra Catarinense, o cabo de uma tirolesa vai, esticado em linha reta, do topo de uma torre de 20 m de altura até uma plataforma de 12 m de altura. A distância horizontal entre a torre e a plataforma é de 15 m. Qual é o comprimento do cabo?",
+ alts:["25 m","17 m","23 m","19,2 m","35 m"],correta:1,
+ porque:"O triângulo retângulo NÃO usa a altura da torre inteira: o cateto vertical é a diferença entre as alturas, 20 − 12 = 8 m. O cateto horizontal é 15 m. Cabo = hipotenusa: c² = 8² + 15² = 64 + 225 = 289 → c = 17 m (o trio 8-15-17). A {A} usou os 20 m da torre como cateto (√(400 + 225) = 25). A {D} usou os 12 m da plataforma (√369 ≈ 19,2). A {C} somou os catetos (8 + 15) e a {E} somou 20 + 15, sem Pitágoras. Dica: desenhe uma linha horizontal na altura da plataforma — o triângulo aparece acima dela."},
+
+{id:"M45",area:"mat",topico:"Probabilidade",nivel:3,
+ enunciado:"Numa turma de 30 estudantes, 18 jogam futebol, 12 jogam vôlei e 5 jogam os dois esportes. Sorteando ao acaso um estudante dessa turma, qual é a probabilidade de ele NÃO jogar nenhum dos dois esportes?",
+ alts:["0","5/6","1/6","13/30","7/30"],correta:2,
+ porque:"Quem joga os dois foi contado duas vezes (no futebol e no vôlei). Jogam pelo menos um: 18 + 12 − 5 = 25. Não jogam nenhum: 30 − 25 = 5. P = 5/30 = 1/6. Pelo diagrama: só futebol 18 − 5 = 13, só vôlei 12 − 5 = 7, os dois 5 → 13 + 7 + 5 = 25. A {A} somou 18 + 12 = 30 sem descontar os 5 em dobro e concluiu que todos jogam. A {B} é a probabilidade de jogar PELO MENOS UM (25/30), o complemento do que foi pedido. A {D} e a {E} são as probabilidades de jogar só futebol e só vôlei."},
+
+/* ===================== LÍNGUA PORTUGUESA · lote 3 (treino; não marcar uso:"simulado") ===================== */
+{id:"P56",area:"port",topico:"Interpretação",nivel:1,
+ texto:"Na Escola Municipal Vila Nova, os alunos do 8º ano transformaram um terreno abandonado atrás da quadra em uma horta. O trabalho começou em março, com a retirada do lixo acumulado, e hoje o espaço produz alface, couve e temperos. Parte da colheita vai para a merenda; o restante é dividido entre as famílias que ajudam a regar os canteiros nos fins de semana.",
+ fonte:"Texto elaborado para fins didáticos.",
+ enunciado:"De acordo com o texto, o que é feito com a parte da colheita que NÃO vai para a merenda?",
+ alts:["É vendida numa feira para custear a horta.","É dividida entre as famílias que ajudam a regar.","É doada a outras escolas do mesmo bairro.","É usada nas aulas de Ciências do 8º ano.","É entregue aos professores que coordenam o projeto."],correta:1,
+ porque:"A resposta está escrita no texto: ‘Parte da colheita vai para a merenda; o restante é dividido entre as famílias que ajudam a regar os canteiros’. ‘O restante’ é justamente a parte que não vai para a merenda. {A} inventa uma feira que o texto não menciona; {C} e {E} citam destinos que não aparecem; {D} confunde o projeto com uma atividade de aula. Dica: em pergunta de informação explícita, ache a frase que responde e confira palavra por palavra — aqui, ‘o restante’ é a ponte entre a pergunta e o texto."},
+
+{id:"P57",area:"port",topico:"Interpretação",nivel:1,
+ texto:"Quadro 1 — Lia aparece na sala e anuncia à mãe: “Mãe, arrumei o quarto inteirinho!”.\nQuadro 2 — A mãe, desconfiada, espia pela porta: o chão está limpo e a cama, feita.\nQuadro 3 — Sorrindo, orgulhosa, a mãe abre o armário para guardar uma blusa, e uma avalanche de roupas, brinquedos e livros desaba sobre ela.",
+ fonte:"Tirinha descrita, elaborada para fins didáticos.",
+ enunciado:"O humor da tirinha é produzido principalmente porque:",
+ alts:["a mãe fica brava ao perceber que a filha mentiu","a filha arrumou o quarto para ganhar um presente","o armário desaba porque é velho e frágil demais","a arrumação era aparente: a bagunça foi escondida","a mãe esperava que a filha limpasse também a sala"],correta:3,
+ porque:"Os dois primeiros quadros criam a expectativa de que o quarto foi mesmo arrumado — e a mãe até se convence disso. O terceiro quebra a expectativa: tudo o que estava fora do lugar tinha sido enfiado no armário. A graça está no contraste entre aparência (chão limpo, cama feita) e realidade (bagunça escondida). {A} descreve uma reação que a tirinha não mostra — a mãe aparece sorrindo, e a avalanche é a última cena; {C} dá uma explicação literal que ignora o que havia dentro do armário; {B} e {E} não têm nenhuma base nos quadros. Dica: em tirinha, compare o que o último quadro revela com o que os anteriores fizeram o leitor esperar."},
+
+{id:"P58",area:"port",topico:"Interpretação",nivel:2,
+ texto:"Aprendi a andar de bicicleta aos trinta e quatro anos, numa praça de Lages, com a ajuda da minha sobrinha de nove. Ela corria ao meu lado segurando o banco e gritando instruções que não deixavam dúvida: “Olha pra frente, tia! Não olha pro chão!”. Na terceira tarde, percebi que a voz dela vinha de longe: ela tinha soltado o banco uns vinte metros antes. Caí, claro, assim que me dei conta. Até hoje acho que o mais difícil não foi pedalar; foi saber que ninguém estava segurando.",
+ fonte:"Texto elaborado para fins didáticos.",
+ enunciado:"A frase final do texto sugere que, para a narradora,",
+ alts:["o equilíbrio na bicicleta depende sobretudo da força","a sobrinha errou ao soltar o banco sem avisar antes","o obstáculo maior era a insegurança, não a técnica","aprender a pedalar depois dos trinta é quase impossível","a praça de Lages era um lugar ruim para treinar"],correta:2,
+ porque:"Enquanto acreditava que a sobrinha segurava o banco, a narradora pedalou vinte metros sem problema; caiu ‘assim que me dei conta’ de que estava sozinha. Ou seja, a habilidade ela já tinha — faltava confiar em si mesma. A frase final (‘o mais difícil não foi pedalar; foi saber que ninguém estava segurando’) explicita essa oposição. {A} não tem apoio, pois o texto não fala em força; {B} transforma em erro um gesto que, na verdade, provou que ela já conseguia; {D} é desmentida pelo próprio relato, já que ela aprendeu aos 34; {E} não tem base no texto. Dica: quando o texto opõe duas coisas (‘não foi X; foi Y’), a resposta costuma estar no Y."},
+
+{id:"P59",area:"port",topico:"Interpretação",nivel:2,
+ texto:"Desde que a prefeitura de uma cidade do litoral catarinense instalou vinte estações de bicicletas compartilhadas, em janeiro, foram registradas 41 mil viagens. A maior parte delas aconteceu nos fins de semana e teve como destino a orla. Nos dias úteis, o uso cai pela metade, e as estações mais distantes do centro quase não são procuradas. A prefeitura estuda instalar novas estações perto de escolas e de terminais de ônibus.",
+ fonte:"Texto elaborado para fins didáticos.",
+ enunciado:"Com base APENAS nas informações do texto, é correto afirmar que:",
+ alts:["o programa reduziu o trânsito de carros nas ruas do centro","as estações perto das escolas são as mais procuradas da cidade","nos dias úteis, o número de viagens dobra em relação ao fim de semana","a prefeitura decidiu retirar as estações mais afastadas do centro","o uso se concentra em dias e destinos associados ao lazer"],correta:4,
+ porque:"{E} junta duas informações explícitas: a maioria das viagens ocorre nos fins de semana e vai para a orla — dias e destino típicos de lazer. {A} é extrapolação: pode até ser verdade, mas o texto não traz nenhum dado sobre o trânsito de carros; {B} confunde plano com fato, pois as estações perto de escolas ainda estão em estudo; {C} inverte o texto, que diz que nos dias úteis o uso CAI pela metade; {D} troca ‘quase não são procuradas’ por uma decisão de retirada que ninguém tomou. Dica: ‘com base apenas no texto’ é o aviso de que a armadilha será algo plausível no mundo real, mas que o texto não afirma."},
+
+{id:"P60",area:"port",topico:"Interpretação",nivel:2,
+ texto:"Bilhete\n\nFui ao mercado.\nVolto logo.\nO feijão está no fogo baixo,\nnão deixe queimar.\nBeijo, mãe.\n\nTrinta anos depois,\nachei o papel dentro de um livro\ne, sem pensar,\nolhei para o fogão.",
+ fonte:"Texto elaborado para fins didáticos.",
+ enunciado:"No poema, o gesto final do eu lírico, ao olhar para o fogão, revela que:",
+ alts:["ele pretende cozinhar seguindo as instruções do bilhete","o fogão da cozinha continua o mesmo de trinta anos antes","a mãe acabou de sair e logo vai voltar do mercado","o bilhete despertou, como num reflexo, a antiga convivência","ele se arrepende de ter deixado o feijão queimar naquele dia"],correta:3,
+ porque:"Trinta anos depois, não há feijão nenhum no fogo — mas, ao reler o bilhete, o eu lírico obedece ‘sem pensar’, como fazia quando morava com a mãe. O gesto automático mostra que o papel trouxe de volta, de uma vez, a presença dela e a rotina da casa antiga. {C} lê o bilhete como se tivesse sido escrito agora, ignorando ‘Trinta anos depois’; {A} e {B} tomam o gesto ao pé da letra; {E} inventa um fato (o feijão queimado) que o poema não conta. Dica: em poema, um gesto pequeno e concreto no final costuma carregar a emoção que o texto não diz com todas as letras."},
+
+{id:"P61",area:"port",topico:"Interpretação",nivel:3,
+ texto:"Meu pai não aceita o caminho que o aplicativo mostra. “Conheço um atalho”, anuncia, e entra numa rua de terra que ninguém conhece. No domingo, a viagem até a casa da minha tia, em Biguaçu, que deveria levar quarenta minutos, levou duas horas e incluiu uma troca de pneu. Quando enfim chegamos, ele desceu do carro, limpou as mãos na calça e disse, satisfeito: “Viu? Se tivéssemos ido pela BR, estaríamos parados até agora”. Ninguém teve coragem de lembrar que a BR estava livre.",
+ fonte:"Texto elaborado para fins didáticos.",
+ enunciado:"Considere as afirmativas sobre o texto:\nI. A fala final do pai mostra que ele interpreta o episódio de modo a confirmar a própria escolha.\nII. A informação de que “a BR estava livre” desmente a justificativa dada pelo pai.\nIII. O narrador confronta o pai diretamente e o obriga a reconhecer o erro.\nIV. A expressão “ninguém teve coragem” indica que a família preferiu não contrariar o pai.\nAssinale a alternativa CORRETA.",
+ alts:["Apenas as afirmativas I e II estão corretas.","Apenas as afirmativas II e III estão corretas.","Apenas as afirmativas I, II e IV estão corretas.","Apenas as afirmativas I, III e IV estão corretas.","Todas as afirmativas estão corretas."],correta:2,
+ porque:"I: mesmo depois de duas horas e um pneu trocado, o pai apresenta o atalho como vitória — ele ajusta os fatos à sua convicção. II: ‘estaríamos parados’ só faria sentido se a BR estivesse congestionada; a última frase revela que não estava, e é aí que mora o humor. IV: ‘não ter coragem de lembrar’ mostra que todos se calaram, embora soubessem a verdade. III é falsa justamente por isso: ninguém confronta o pai — a crítica fica para o leitor, pela ironia do narrador. Por isso {A} está incompleta (falta a IV), e {B}, {D} e {E} incluem a III. Dica: em crônica humorística, a última frase costuma desmontar o que o personagem acabou de afirmar."},
+
+{id:"P62",area:"port",topico:"Interpretação",nivel:3,
+ texto:"Há bibliotecas escolares que parecem museus: livros encapados, prateleiras impecáveis, nenhum volume fora do lugar. Seus responsáveis se orgulham de que, em dez anos, quase nada se perdeu. Deveriam se preocupar. Livro que volta intacto todo semestre provavelmente não foi lido; livro sem orelha dobrada e sem mancha de café é livro que não saiu da estante. Uma biblioteca escolar deveria ser medida menos pelo que conserva e mais pelo que gasta.",
+ fonte:"Texto elaborado para fins didáticos.",
+ enunciado:"A frase final do texto resume a tese do autor, segundo a qual:",
+ alts:["os livros da biblioteca devem ser trocados a cada semestre","é preciso proibir o consumo de café durante a leitura","as bibliotecas escolares deveriam funcionar como museus","a perda de livros mostra desrespeito ao patrimônio escolar","o valor da biblioteca está no uso, mesmo com desgaste"],correta:4,
+ porque:"O autor parte de uma imagem que parece elogio (bibliotecas impecáveis) e a vira do avesso: ‘Deveriam se preocupar’. Livros intactos são sinal de que ninguém os leu; as marcas de uso (orelhas, manchas) são prova de leitura. A frase final condensa a tese: medir a biblioteca ‘mais pelo que gasta’, isto é, pelo uso. {C} inverte o texto, que usa ‘museus’ como crítica; {D} vai na direção oposta, pois o autor relativiza a preocupação com a perda; {A} e {B} tomam detalhes do texto ao pé da letra. Dica: a tese é a ideia que todos os exemplos ajudam a provar — pergunte se as orelhas dobradas e o café servem de argumento para a alternativa."},
+
+{id:"P63",area:"port",topico:"Interpretação",nivel:3,
+ texto:"Texto 1 — “A Secretaria Municipal de Saúde informa que 92% das crianças de até cinco anos estão com a vacinação em dia.” (boletim oficial)\n\nTexto 2 — “Levei meu filho três vezes ao posto do bairro este mês, e nas três a vacina estava em falta.” (comentário de uma mãe nas redes sociais)",
+ fonte:"Textos elaborados para fins didáticos.",
+ enunciado:"Comparando os dois textos, é correto afirmar que:",
+ alts:["um dado geral não exclui falhas pontuais como a do Texto 2","o relato do Texto 2 prova que o índice do Texto 1 é falso","o Texto 1 garante que nunca falta vacina em nenhum posto","os dois textos põem em dúvida a importância da vacina","o Texto 2 merece mais crédito por estar em primeira pessoa"],correta:0,
+ porque:"O Texto 1 traz um dado sobre o conjunto das crianças do município; o Texto 2, a experiência de uma família num posto. Os dois podem ser verdadeiros ao mesmo tempo: 92% de cobertura deixa espaço para crianças atrasadas e para falta de vacina em algum lugar. {B} generaliza a partir de um único caso; {C} atribui ao boletim uma afirmação que ele não faz; {E} confunde envolvimento pessoal com prova — relato em primeira pessoa é testemunho, não estatística; {D} contraria os dois textos, já que a mãe procura a vacina. Dica: antes de concluir que dois textos se contradizem, verifique se falam da mesma coisa na mesma escala."},
+
+{id:"P64",area:"port",topico:"Coesão e conectivos",nivel:1,
+ texto:"A equipe de robótica perdeu a semifinal; TODAVIA, saiu do torneio com o prêmio de melhor projeto.",
+ fonte:"Texto elaborado para fins didáticos.",
+ enunciado:"O conectivo em destaque pode ser substituído, sem alteração de sentido, por:",
+ alts:["portanto","pois","por exemplo","ou seja","porém"],correta:4,
+ porque:"‘Todavia’ é conjunção adversativa: opõe à derrota um resultado que contraria a expectativa (o prêmio). Só ‘porém’, do mesmo grupo (mas, contudo, entretanto, no entanto), mantém o sentido. {A} transformaria o prêmio em conclusão tirada da derrota; {B} transformaria a segunda oração em explicação da primeira; {C} e {D} introduzem exemplo e esclarecimento, relações que não existem entre as orações. Dica: na substituição de conectivo, descubra primeiro a relação (aqui, oposição) e depois procure o único que pertence ao mesmo grupo."},
+
+{id:"P65",area:"port",topico:"Coesão e conectivos",nivel:2,
+ enunciado:"No período “À medida que a maré subia, os banhistas arrastavam as cadeiras para mais perto do calçadão”, a oração introduzida por “À medida que” expressa ideia de:",
+ alts:["proporção","causa","finalidade","concessão","condição"],correta:0,
+ porque:"‘À medida que’ indica que um fato avança junto com o outro: quanto mais a maré subia, mais os banhistas recuavam — relação de PROPORÇÃO (equivale a ‘conforme’, ‘ao passo que’). {B} atrai porque a maré é, de certo modo, o motivo do recuo, mas a locução põe em destaque o crescimento simultâneo, não a causa; para causa, a norma usa ‘na medida em que’ (= porque). {C} exigiria ‘para que’; {D}, ‘embora’; {E}, ‘se’ ou ‘caso’. Cuidado com a forma: ‘à medida que’ (com crase) e ‘na medida em que’ são corretas; ‘à medida em que’ é um cruzamento das duas."},
+
+{id:"P66",area:"port",topico:"Coesão e conectivos",nivel:3,
+ texto:"(1) A prefeitura apresentou ontem o projeto do novo mercado público. (2) A construção deve começar em abril, no terreno da antiga rodoviária. (3) O local está abandonado desde 2015. (4) Segundo o secretário de Obras, o prédio terá quarenta boxes para pequenos produtores. (5) Ele afirmou ainda que a obra deve ficar pronta em dezoito meses.",
+ fonte:"Texto elaborado para fins didáticos.",
+ enunciado:"Sobre os termos que retomam informações no texto, é correto afirmar que:",
+ alts:["“O local” (3) retoma “o projeto do novo mercado” (1).","“Ele” (5) retoma “o prédio”, citado no período (4).","“A construção” (2) e “a obra” (5) são o mesmo fato.","“O prédio” (4) retoma “a antiga rodoviária”, do (2).","“O local” (3) e “o prédio” (4) têm o mesmo referente."],correta:2,
+ porque:"‘A construção’ e ‘a obra’ retomam, por palavras equivalentes, a mesma coisa: a edificação do novo mercado — é a coesão por substituição lexical, que evita repetir ‘a construção do mercado’. {A} e {E} erram sobre ‘o local’: ele retoma ‘o terreno da antiga rodoviária’, que está abandonado; o mercado ainda nem existe. {D} também falha: ‘o prédio’ que ‘terá quarenta boxes’ é o mercado futuro, não a rodoviária. Em {B}, ‘Ele afirmou’ só pode ser o secretário — prédio não afirma nada. Dica: para achar o referente, troque o termo pelo candidato e veja se a frase continua fazendo sentido."},
+
+{id:"P67",area:"port",topico:"Gêneros textuais",nivel:1,
+ texto:"O jacaré e o sabiá\n\nToda manhã, um sabiá cantava num galho sobre o rio. O jacaré, que nunca tinha cantado na vida, resolveu reclamar: “Que barulho inútil! Ninguém enche a barriga com canção”. Os outros bichos concordaram, só para não contrariar o jacaré. Um dia, o sabiá mudou-se para a outra margem. Nas manhãs seguintes, o rio ficou tão quieto que até o jacaré passou a acordar de mau humor.\n\nMoral: muitas coisas só são valorizadas depois que fazem falta.",
+ fonte:"Texto elaborado para fins didáticos.",
+ enunciado:"Pela estrutura e pela finalidade, o texto pertence ao gênero:",
+ alts:["crônica","fábula","notícia","verbete","anúncio"],correta:1,
+ porque:"Três marcas definem a fábula: narrativa curta, animais que agem e falam como gente (o jacaré reclama, os bichos concordam ‘para não contrariar’) e uma moral explícita no final, que transforma a história em lição de comportamento. {A} atrai por também ser narrativa curta, mas a crônica parte de cenas do cotidiano humano e não fecha com moral; {C} relataria um fato real e recente; {D} definiria um termo; {E} tentaria convencer o leitor a comprar ou aderir a algo. Dica: animal personificado + moral = fábula."},
+
+{id:"P68",area:"port",topico:"Gêneros textuais",nivel:2,
+ texto:"“O farol do Arvoredo”, primeiro romance de Helena Duarte, acompanha uma adolescente que passa as férias com o avô, faroleiro numa ilha do litoral catarinense. A autora acerta ao criar uma narradora curiosa e engraçada, cuja voz prende o leitor desde a primeira página. O ritmo, porém, cai na segunda metade, quando a trama se perde em longas descrições do mar. Ainda assim, é uma leitura que vale a viagem, sobretudo para quem gosta de histórias de família.",
+ fonte:"Texto elaborado para fins didáticos (obra e autora fictícias).",
+ enunciado:"O texto é uma resenha. Assinale o traço que o caracteriza como tal.",
+ alts:["a narração de fatos vividos pelo próprio autor do texto","a sequência de instruções que orientam a leitura do livro","a apresentação neutra da obra, sem juízo de valor","o relato objetivo de um fato recente, com data e local","o resumo da obra seguido de avaliação de méritos e falhas"],correta:4,
+ porque:"Resenha crítica = apresentar a obra + avaliá-la. O texto resume o enredo (a adolescente, o avô faroleiro, a ilha) e julga: elogia a narradora (‘A autora acerta’), aponta um defeito (‘O ritmo, porém, cai’) e recomenda (‘vale a viagem’). {C} é o oposto disso: há juízo de valor do começo ao fim; {A} descreve relato pessoal ou diário; {B}, texto instrucional; {D}, notícia. Dica: em resenha, procure as palavras avaliativas (‘acerta’, ‘cai’, ‘vale’) — são elas que separam a resenha do simples resumo."},
+
+{id:"P69",area:"port",topico:"Gêneros textuais",nivel:3,
+ texto:"Cartaz afixado no pátio de uma escola:\n\nLIXO COMUM NÃO É LUGAR DE PILHA.\nUma única pilha descartada de forma errada pode contaminar o solo e a água por muitos anos.\nTraga as suas para o coletor da secretaria. O planeta agradece.\nGrêmio Estudantil — Semana do Meio Ambiente",
+ fonte:"Texto elaborado para fins didáticos.",
+ enunciado:"Analise as afirmativas sobre o cartaz:\nI. A informação sobre a contaminação funciona como argumento que justifica o pedido feito ao leitor.\nII. O verbo “Traga”, no imperativo, indica a ação que se espera do leitor.\nIII. Em “O planeta agradece”, atribui-se ao planeta uma atitude humana, o que ajuda a envolver o leitor.\nIV. Como não vende nenhum produto, o cartaz não tem finalidade persuasiva.\nAssinale a alternativa CORRETA.",
+ alts:["Apenas as afirmativas I e II estão corretas.","Apenas as afirmativas I, II e III estão corretas.","Apenas as afirmativas II e IV estão corretas.","Apenas as afirmativas I, III e IV estão corretas.","Todas as afirmativas estão corretas."],correta:1,
+ porque:"I, II e III estão corretas. O cartaz é uma campanha: quer mudar um comportamento. Para isso, apresenta um argumento (a pilha contamina solo e água por anos), faz o pedido no imperativo (‘Traga’) e fecha com uma personificação afetiva (‘O planeta agradece’). IV é falsa: persuadir não é só vender — campanha de conscientização é texto persuasivo mesmo sem produto. Por isso {C}, {D} e {E} caem (todas incluem a IV), e {A} deixa de fora a III, que está certa. Dica: anúncio publicitário vende; campanha convence a agir. Os dois persuadem."},
+
+{id:"P70",area:"port",topico:"Variação linguística",nivel:2,
+ texto:"Recém-chegado a Porto Alegre, Daniel entrou numa padaria e pediu seis pães franceses. A atendente sorriu: “Seis cacetinhos, então?”. Meses depois, de férias em Fortaleza, ouviu a tia mandar o primo comprar “pão carioquinha”. E, em Belo Horizonte, na casa de um amigo, o mesmo pão era chamado de “pão de sal”.",
+ fonte:"Texto elaborado para fins didáticos.",
+ enunciado:"Com base no texto, é correto afirmar que:",
+ alts:["o mesmo objeto recebe nomes diferentes conforme a região","os nomes do pão mudaram ao longo dos séculos na mesma cidade","só “pão francês” é correto; os outros nomes são desvios","a variação ocorre por causa da profissão de quem fala","os nomes diferentes indicam pães de receitas diferentes"],correta:0,
+ porque:"O texto mostra a variação REGIONAL no vocabulário: o pão é o mesmo (a atendente o reconhece de imediato), mas cada cidade tem seu nome para ele. {C} é a armadilha do preconceito linguístico: ‘pão francês’ não é mais correto do que ‘cacetinho’ — cada forma é adequada no lugar onde é usada; {B} descreve variação histórica, e o texto fala de lugares, não de épocas; {D} descreve variação social; {E} contradiz o texto, que fala em ‘o mesmo pão’. Dica: mesma coisa + lugares diferentes = variação regional (ou diatópica)."},
+
+{id:"P71",area:"port",topico:"Variação linguística",nivel:3,
+ texto:"Ninguém vai a um velório de bermuda e chinelo, nem à praia de terno. Com a língua acontece algo parecido: a mesma pessoa que escreve “Venho, por meio deste, solicitar...” num requerimento diz “Bora lá?” ao chamar um amigo. Não há aí duas línguas, uma certa e outra errada, mas um único falante que escolhe, entre os recursos que domina, os mais adequados a cada situação. Quem conhece um só desses registros não fala “melhor”: apenas tem menos opções.",
+ fonte:"Texto elaborado para fins didáticos.",
+ enunciado:"A frase final, “Quem conhece um só desses registros não fala ‘melhor’: apenas tem menos opções”, permite concluir que:",
+ alts:["a norma-padrão deveria substituir a fala informal em toda situação","quem usa expressões como “Bora lá?” mostra pouco domínio da língua","registros formais e informais formam duas línguas separadas","dominar vários registros amplia a capacidade de adequação","a escolha do registro depende só da escolaridade de quem fala"],correta:3,
+ porque:"O texto compara a língua à roupa: não há traje ‘certo’ em si, há traje adequado à ocasião. Quem domina vários registros — o formal do requerimento e o informal da conversa — pode escolher o que cada situação pede; quem domina só um fica sem essa escolha. É isso que ‘tem menos opções’ quer dizer. {A} contradiz o texto, que defende a adequação, não a troca de um registro por outro; {B} é preconceito linguístico, pois a mesma pessoa usa as duas formas; {C} é negada com todas as letras (‘Não há aí duas línguas’); {E} troca situação por escolaridade. Dica: a alternativa que valoriza a adequação ao contexto costuma ser a certa; a que hierarquiza falantes, nunca."},
+
+{id:"P72",area:"port",topico:"Figuras de linguagem",nivel:1,
+ texto:"Quando o técnico leu o nome dela na lista das convocadas para a seleção estadual de vôlei, Júlia chorou tanto de alegria que encheu um balde de lágrimas. Depois, ligou para a avó e contou a novidade umas quinhentas vezes.",
+ fonte:"Texto elaborado para fins didáticos.",
+ enunciado:"Os trechos “encheu um balde de lágrimas” e “umas quinhentas vezes” são exemplos de:",
+ alts:["eufemismo","antítese","personificação","metonímia","hipérbole"],correta:4,
+ porque:"Hipérbole é o exagero intencional para dar ênfase: ninguém enche um balde de lágrimas nem repete a mesma notícia quinhentas vezes — o exagero transmite o tamanho da emoção de Júlia. {A} seria o contrário, suavizar algo desagradável; {B} exigiria ideias opostas lado a lado; {C} daria características humanas a algo não humano, e Júlia já é gente; {D} trocaria um termo por outro com o qual tem relação real (autor pela obra, parte pelo todo). Dica: pergunte ‘isso poderia acontecer literalmente?’. Se a resposta for ‘não, é exagero’, é hipérbole."},
+
+{id:"P73",area:"port",topico:"Figuras de linguagem",nivel:2,
+ texto:"A velha casa da esquina\nfechou os olhos de vidro\nquando o último morador\nlevou as chaves consigo.",
+ fonte:"Texto elaborado para fins didáticos.",
+ enunciado:"No poema, a expressão “fechou os olhos de vidro” combina dois recursos expressivos. Eles são:",
+ alts:["metáfora, pois as janelas viram olhos, e personificação da casa","comparação, marcada por “como”, e hipérbole sobre o tamanho","antítese entre casa e morador, e onomatopeia no som do vidro","metonímia do vidro pela casa inteira, e ironia contra o morador","gradação nas ações da casa, e paradoxo entre fechar e abrir"],correta:0,
+ porque:"‘Olhos de vidro’ é metáfora: as janelas são chamadas de olhos, sem conectivo de comparação. E ‘fechou os olhos’ é ação humana atribuída à casa — personificação. A imagem ainda sugere sono ou morte (fechar os olhos), reforçando o abandono depois que o último morador partiu. {B} falha porque não há ‘como’ no verso nem exagero; {C}, porque casa e morador não são ideias opostas e nenhum som é imitado; {D}, porque o vidro não substitui a casa e não há crítica ao morador; {E}, porque há uma única ação, sem sequência crescente. Dica: metáfora e personificação aparecem juntas com frequência — a metáfora nomeia (olhos), a personificação faz agir (fechou)."},
+
+{id:"P74",area:"port",topico:"Concordância",nivel:2,
+ enunciado:"Assinale a frase que está de acordo com a norma-padrão quanto à concordância verbal:",
+ alts:["Sobrou, depois da feira, muitas caixas de morango encalhadas.","Era duas horas da tarde quando o resultado da prova saiu.","Faltou, na reunião de pais, alguns professores do noturno.","Bastam duas assinaturas para validar o documento do grêmio.","Chegou, no fim da tarde, os técnicos que iam consertar a rede."],correta:3,
+ porque:"Em {D}, o sujeito é ‘duas assinaturas’ (o que basta? duas assinaturas), e o verbo vai para o plural: ‘bastam’. Nas outras, o sujeito vem DEPOIS do verbo, e isso engana o ouvido: em {A}, ‘muitas caixas’ sobraram → ‘Sobraram’; em {C}, ‘alguns professores’ faltaram → ‘Faltaram’; em {E}, ‘os técnicos’ chegaram → ‘Chegaram’. Em {B}, na indicação de horas, o verbo ‘ser’ concorda com o numeral: ‘Eram duas horas’ (mas ‘Era uma hora’). Dica: com verbo antes do sujeito, pergunte ao verbo ‘o que…?’ ou ‘quem…?’ e ponha a resposta na frente dele: ‘muitas caixas sobraram’."},
+
+{id:"P75",area:"port",topico:"Pontuação",nivel:1,
+ enunciado:"Em “Para a aula prática, traga apenas três itens: jaleco, óculos de proteção e caderno”, os dois-pontos foram usados para introduzir:",
+ alts:["uma enumeração","a fala de uma personagem","uma citação de outro autor","uma oposição ao que foi dito","uma pergunta indireta"],correta:0,
+ porque:"Depois dos dois-pontos vêm os três itens anunciados — jaleco, óculos de proteção e caderno: é uma ENUMERAÇÃO, a lista que detalha o que foi antecipado (‘três itens’). {B} exigiria um verbo de fala e, em geral, travessão ou aspas; {C} viria entre aspas, com indicação do autor; {D} seria marcada por um conectivo como ‘mas’; {E} não aparece na frase. Dica: dois-pontos anunciam algo que completa ou explica o que veio antes — enumeração, explicação, fala ou citação; veja qual delas vem depois deles."},
+
+{id:"P76",area:"port",topico:"Morfologia",nivel:3,
+ enunciado:"Assinale a alternativa em que a palavra “como” expressa CONFORMIDADE, podendo ser substituída por “conforme” sem mudança de sentido:",
+ alts:["Como faltou energia, a aula acabou mais cedo.","Montamos o circuito como o manual indicava.","O motor da caminhonete ronca como um trator velho.","Como você conseguiu chegar aqui tão depressa?","Eu como arroz com feijão quase todos os dias."],correta:1,
+ porque:"Em {B}, ‘como o manual indicava’ = ‘conforme o manual indicava’: o circuito foi montado de acordo com as instruções — conjunção conformativa. Nas outras, o ‘como’ muda de papel: em {A}, é causal (= ‘já que faltou energia’); em {C}, comparativo (o motor é comparado a um trator); em {D}, advérbio interrogativo de modo (= ‘de que maneira’); em {E}, nem é conjunção: é o verbo ‘comer’ na 1ª pessoa do presente. Dica: para descobrir o valor do ‘como’, teste substituições — ‘já que’ (causa), ‘tal qual’ (comparação), ‘conforme’ (conformidade), ‘de que modo’ (pergunta)."},
+
+{id:"P77",area:"port",topico:"Regência",nivel:2,
+ enunciado:"Assinale a alternativa em que a regência verbal está de ACORDO com a norma-padrão:",
+ alts:["Chegamos no ginásio meia hora antes da apresentação.","A falta de manutenção implicou em gastos bem maiores.","Paguei o eletricista assim que ele terminou o serviço.","Ela simpatizou logo com a nova professora de Química.","O filme que eu mais gostei foi o da sessão de sexta."],correta:3,
+ porque:"‘Simpatizar’ pede a preposição ‘com’ e não é pronominal: ‘simpatizou com a professora’ (e não ‘simpatizou-se’). Nas demais: em {A}, verbo de movimento pede ‘a’ — ‘Chegamos ao ginásio’; em {B}, ‘implicar’ no sentido de ‘acarretar’ é transitivo direto — ‘implicou gastos maiores’; em {C}, paga-se algo A alguém — ‘Paguei ao eletricista’; em {E}, quem gosta gosta DE algo, e a preposição tem de vir antes do relativo — ‘O filme de que eu mais gostei’. Dica: em oração com ‘que’, devolva a frase à ordem direta (‘eu gostei DO filme’) para ver se falta preposição."},
+
+{id:"P78",area:"port",topico:"Crase",nivel:1,
+ enunciado:"Assinale a frase em que o acento grave indicativo de crase está empregado CORRETAMENTE:",
+ alts:["Os ingressos custam à partir de vinte reais.","O professor se dirigiu à todos os presentes.","Enviei meu currículo à empresa de tecnologia.","Fizemos o trajeto à cavalo pela serra catarinense.","Distribuíram as camisetas à cada participante."],correta:2,
+ porque:"Em {C}, ‘enviar’ pede a preposição ‘a’ (envia-se algo A alguém ou a algum lugar) e ‘empresa’ aceita o artigo ‘a’: a + a = à. Teste do masculino: ‘enviei meu currículo AO escritório’. Nas outras não há artigo feminino: em {A}, vem um verbo (‘a partir de’); em {B}, um pronome indefinido (‘a todos’); em {D}, uma palavra masculina (‘a cavalo’); em {E}, o pronome ‘cada’, que não admite artigo (‘a cada participante’). Dica: se, trocando a palavra por uma masculina, aparecer ‘ao’, há crase; se continuar ‘a’, não há."},
+
+{id:"P79",area:"port",topico:"Coerência",nivel:2,
+ texto:"(1) A biblioteca municipal de Vila Serena reabriu na segunda-feira, depois de oito meses fechada para reforma. (2) O prédio ganhou rampa de acesso, elevador e uma sala de estudos com 40 lugares. (3) No primeiro dia, 350 pessoas visitaram o espaço. (4) Como o prédio tem um único andar, a reforma dispensou a instalação de elevador. (5) A administração pretende ampliar o horário de funcionamento a partir do próximo mês.",
+ fonte:"Texto elaborado para fins didáticos.",
+ enunciado:"O período que compromete a coerência do texto é o:",
+ alts:["(3), pois 350 visitantes excedem os 40 lugares da sala de estudos.","(4), pois contradiz uma informação apresentada no período (2).","(1), pois uma reforma de biblioteca não pode durar oito meses.","(5), pois ampliar o horário contradiz a reforma recém-concluída.","(2), pois rampa e elevador cumprem a mesma função de acesso."],correta:1,
+ porque:"O período (2) informa que o prédio ‘ganhou… elevador’; o (4) afirma que a reforma ‘dispensou a instalação de elevador’. As duas informações não podem ser verdadeiras ao mesmo tempo — é contradição interna, o caso mais claro de incoerência. {A} confunde visitantes do prédio com usuários da sala de estudos, e nada indica que todos estiveram lá ao mesmo tempo; {C} inventa uma regra que não existe; {D} não percebe que ampliar o horário é consequência natural da reabertura; {E} ignora que rampa e elevador podem coexistir — um não exclui o outro. Dica: em coerência, procure duas afirmações do próprio texto que se anulem."},
+
+{id:"P80",area:"port",topico:"Ambiguidade",nivel:3,
+ texto:"Manchete de um jornal escolar:\n“Diretora conversa com aluna sobre a briga no corredor”",
+ fonte:"Texto elaborado para fins didáticos.",
+ enunciado:"A manchete é ambígua. Assinale a reescrita que elimina a ambiguidade e deixa claro que foi a CONVERSA — e não a briga — que aconteceu no corredor.",
+ alts:["A diretora conversa sobre a briga no corredor com a aluna.","A diretora conversa com a aluna sobre a briga que houve no corredor.","No corredor, a diretora conversa com a aluna sobre a briga.","A diretora, no corredor da briga, conversa com a aluna.","Sobre a briga no corredor, a diretora conversa com a aluna."],correta:2,
+ porque:"Na manchete, ‘no corredor’ pode se ligar a ‘briga’ (a briga que aconteceu no corredor) ou a ‘conversa’ (a conversa acontece no corredor). Deslocar o termo para o início da frase, como em {C}, faz com que ele se refira à oração inteira: é a conversa que ocorre no corredor, e o local da briga fica em aberto. {B}, {D} e {E} afirmam que a briga foi no corredor — o contrário do pedido ({D} ainda põe as duas coisas lá); {A} mantém ‘a briga no corredor’ lado a lado e conserva a dupla leitura. Dica: ambiguidade causada pela posição de um termo se resolve mudando a ordem da frase; a causada por pronome, trocando o pronome por um termo claro."},
+
+/* ===================== CIÊNCIAS · lote 3 (treino; não marcar uso:"simulado") ===================== */
+{id:"C61",area:"cie",topico:"Célula",nivel:1,
+ enunciado:"No corpo humano, células musculares cardíacas formam o tecido muscular cardíaco, que, junto com outros tecidos, forma o coração. O coração, por sua vez, faz parte do sistema circulatório. A sequência CRESCENTE dos níveis de organização é:",
+ alts:["tecido → célula → órgão → sistema → organismo","célula → órgão → tecido → sistema → organismo","célula → tecido → sistema → órgão → organismo","célula → tecido → órgão → sistema → organismo","organismo → sistema → órgão → tecido → célula"],correta:3,
+ porque:"A célula é a unidade básica; células semelhantes formam um tecido; vários tecidos formam um órgão (o coração tem tecido muscular, conjuntivo, nervoso); órgãos que trabalham juntos formam um sistema; e os sistemas formam o organismo. A {B} troca tecido e órgão — um órgão é feito de vários tecidos, não o contrário. A {C} põe o sistema antes do órgão, mas o sistema é que reúne órgãos. A {A} começa pelo tecido, que é feito de células. A {E} está na ordem DECRESCENTE, e o enunciado pede a crescente."},
+
+{id:"C62",area:"cie",topico:"Célula",nivel:3,
+ texto:"Num laboratório, gotas de sangue foram colocadas em três tubos e observadas ao microscópio depois de alguns minutos:\n• Tubo 1: água destilada (sem sais)\n• Tubo 2: soro fisiológico (água com 0,9% de sal, concentração parecida com a do interior da hemácia)\n• Tubo 3: água com muito sal\nO mesmo teste do tubo 1 foi repetido com células de folha de elódea, uma planta aquática.",
+ enunciado:"Considerando a osmose, o resultado esperado é:",
+ alts:["hemácias do tubo 1 murcham; as do tubo 3 incham; a elódea estoura.","hemácias do tubo 1 estouram; as do tubo 3 murcham; a elódea incha sem estourar.","hemácias do tubo 1 estouram; as do tubo 3 murcham; a elódea também estoura.","hemácias dos três tubos ficam iguais, pois a membrana barra a passagem de água.","hemácias do tubo 2 estouram; as do tubo 1 não mudam; a elódea murcha."],correta:1,
+ porque:"Na osmose, a água atravessa a membrana do meio menos concentrado em sais para o mais concentrado. Tubo 1: o interior da hemácia é mais concentrado, a água entra, a célula incha e estoura. Tubo 3: o meio de fora é mais concentrado, a água sai e a hemácia murcha. Tubo 2: concentrações parecidas, nada muda (é o controle). A elódea também recebe água, mas a parede celular de celulose resiste à pressão: a célula fica túrgida e não estoura. A {C} esquece justamente a parede celular. A {A} inverte o sentido da água. A {D} erra o próprio conceito: a membrana deixa a água passar — isso é a osmose. Regra prática: a água vai para onde tem mais sal; a parede segura a célula vegetal."},
+
+{id:"C63",area:"cie",topico:"Fotossíntese",nivel:1,
+ enunciado:"Na fotossíntese, a energia da luz do Sol é captada por um pigmento verde que fica dentro dos cloroplastos. Esse pigmento é a:",
+ alts:["clorofila.","hemoglobina.","glicose.","celulose.","melanina."],correta:0,
+ porque:"A clorofila absorve sobretudo a luz vermelha e a azul e reflete a verde — por isso as folhas são verdes. A {B} é o pigmento das hemácias, que transporta oxigênio no sangue. A {C} é o PRODUTO da fotossíntese, onde a energia fica guardada, e não o que capta a luz. A {D} forma a parede da célula vegetal. A {E} é o pigmento da pele humana, que protege da radiação ultravioleta."},
+
+{id:"C64",area:"cie",topico:"Fotossíntese",nivel:2,
+ enunciado:"Uma semente de poucos gramas vira, depois de décadas, uma árvore de várias toneladas, sem que o solo ao redor diminua de forma perceptível. Descontada a água, a maior parte da matéria que forma o corpo da árvore veio:",
+ alts:["dos sais minerais retirados do solo pelas raízes.","da energia da luz solar, que se transforma em matéria.","do gás carbônico do ar, fixado pela fotossíntese.","do oxigênio do ar, absorvido durante a respiração.","dos adubos e do húmus acumulados junto às raízes."],correta:2,
+ porque:"Na fotossíntese (CO₂ + água + luz → glicose + O₂), o carbono da glicose vem do gás carbônico do ar; a glicose é transformada em celulose e madeira. Ou seja, a árvore é feita, em grande parte, de ar. A {A} e a {E} são a intuição comum, mas os sais minerais entram em quantidade pequena — é por isso que o solo quase não diminui. A {B} confunde energia com matéria: a luz fornece a energia, que fica armazenada na glicose, mas não vira massa. A {D} erra o papel do O₂: ele é liberado na fotossíntese, e o que a planta absorve na respiração serve para quebrar glicose, não para construir o corpo."},
+
+{id:"C65",area:"cie",topico:"Respiração celular",nivel:2,
+ enunciado:"No fim de uma corrida de 400 metros em velocidade máxima, os músculos das pernas consomem glicose mais depressa do que o sangue consegue entregar oxigênio. Nessa situação, as células musculares:",
+ alts:["param de produzir ATP até o oxigênio voltar a chegar.","fazem fotossíntese para repor o oxigênio que falta.","passam a usar o gás carbônico no lugar do oxigênio.","fazem fermentação alcoólica, que libera etanol no sangue.","fazem também fermentação láctica, que gera pouco ATP."],correta:4,
+ porque:"Quando falta oxigênio, a célula muscular complementa a respiração aeróbica com a fermentação láctica: glicose → ácido lático + apenas 2 ATP, contra dezenas de ATP na respiração aeróbica. É uma saída de emergência, pouco eficiente. A {D} troca o tipo de fermentação: a alcoólica é a das leveduras (pão, cerveja), não a do músculo humano. A {B} é impossível, pois célula animal não tem cloroplasto. A {A} erra porque a célula não para — a fermentação mantém algum ATP. A {C} inverte os papéis: o CO₂ é produto da respiração, não substituto do O₂."},
+
+{id:"C66",area:"cie",topico:"Respiração celular",nivel:3,
+ texto:"Pesquisadores mediram, a cada 6 horas, a concentração de oxigênio dissolvido na água de uma lagoa rasa, cheia de algas, num dia ensolarado:\n• 6h (amanhecer): 4 mg/L\n• 12h: 8 mg/L\n• 18h (fim da tarde): 11 mg/L\n• 24h (meia-noite): 7 mg/L",
+ enunciado:"A explicação correta para a variação observada é:",
+ alts:["as algas só respiram à noite e, de dia, apenas fazem fotossíntese.","de dia a fotossíntese supera a respiração; à noite só há respiração.","o oxigênio aumenta de dia porque a água quente dissolve mais gás.","à noite as algas fazem uma fotossíntese lenta, que consome oxigênio.","os peixes respiram só de dia, quando o oxigênio da água está alto."],correta:1,
+ porque:"As algas respiram o tempo todo. Com luz, a fotossíntese libera mais O₂ do que a respiração consome, e o oxigênio sobe até o fim da tarde. No escuro não há fotossíntese: a respiração das algas e dos outros seres da lagoa só consome O₂, que cai até o menor valor, ao amanhecer. A {A} é a armadilha clássica de achar que a planta só respira à noite. A {C} inverte a física: água mais quente dissolve MENOS gás — se dependesse só da temperatura, o O₂ cairia de dia. A {D} erra duas vezes: não há fotossíntese no escuro, e ela libera O₂ em vez de consumir. A {E} esquece que animais respiram dia e noite."},
+
+{id:"C67",area:"cie",topico:"Misturas e separação",nivel:1,
+ enunciado:"Qual dos sistemas abaixo é uma mistura HOMOGÊNEA?",
+ alts:["Água e óleo de cozinha","Granito, rocha de grãos visíveis","Água e álcool comum","Água com cubos de gelo","Água barrenta com areia"],correta:2,
+ porque:"Água e álcool se misturam em qualquer proporção e formam uma fase só — mistura homogênea. A {A} tem duas fases, com o óleo por cima. A {B} mostra grãos de minerais diferentes (quartzo, feldspato, mica) a olho nu, logo é heterogênea. A {D} é a pegadinha: gelo e água líquida são a MESMA substância, então o sistema tem duas fases, mas não é mistura nenhuma. A {E} separa sozinha, com a areia indo para o fundo."},
+
+{id:"C68",area:"cie",topico:"Misturas e separação",nivel:2,
+ enunciado:"Numa estação de tratamento de água (ETA), a água do rio passa por várias etapas antes de chegar às casas. Qual sequência está na ordem CORRETA?",
+ alts:["Filtração, floculação, cloração e decantação","Cloração, decantação, floculação e filtração","Decantação, filtração, floculação e cloração","Floculação, decantação, filtração e cloração","Floculação, cloração, filtração e decantação"],correta:3,
+ porque:"Primeiro um coagulante (sulfato de alumínio) junta as partículas finas de sujeira em flocos (floculação); os flocos, mais pesados, descem no fundo dos tanques (decantação); o que resta fica preso em camadas de areia e cascalho (filtração); por último, o cloro mata os microrganismos (desinfecção). A {C} decanta antes de formar os flocos, e as partículas finas continuariam boiando. A {A} filtra antes de decantar, o que entupiria o filtro rapidamente. A {B} põe o cloro no começo, quando ele ainda seria gasto reagindo com a sujeira, e a água sairia da ETA sem desinfecção final."},
+
+{id:"C69",area:"cie",topico:"Substâncias",nivel:3,
+ texto:"Dois líquidos incolores, X e Y, foram aquecidos ao nível do mar. Depois que começaram a ferver, a temperatura foi anotada a cada minuto:\n• Líquido X: 100 °C, 100 °C, 100 °C, 100 °C\n• Líquido Y: 101 °C, 102 °C, 103 °C, 104 °C\nQuando todo o líquido evaporou, sobrou um resíduo sólido branco no recipiente de Y; no de X, nada.",
+ enunciado:"Com base nos dados, é correto concluir que:",
+ alts:["X se comporta como substância pura e Y, como mistura.","X é mistura, pois ferveu a uma temperatura mais baixa.","Y é substância pura, pois deixou um sólido ao evaporar.","os dois são misturas, porque ambos passaram para gás.","os dois são substâncias puras, pois são incolores e límpidos."],correta:0,
+ porque:"Substância pura muda de estado a temperatura CONSTANTE: X ferve a 100 °C fixos, como a água pura ao nível do mar. Em Y a temperatura sobe durante a fervura, porque, à medida que a água sai, o que está dissolvido fica mais concentrado — comportamento de mistura (no caso, água com sal, que é o resíduo branco). A {B} usa o critério errado: o que importa é a temperatura ficar constante, não ser alta ou baixa. A {E} confia na aparência, mas água com sal também é incolor e límpida — é uma mistura homogênea. A {C} inverte a conclusão: o resíduo prova que havia outra substância dissolvida."},
+
+{id:"C70",area:"cie",topico:"Tabela periódica",nivel:2,
+ enunciado:"O magnésio (Mg) tem número atômico Z = 12. Sabendo que a camada K comporta no máximo 2 elétrons e a camada L, no máximo 8, conclui-se que o magnésio está no:",
+ alts:["2º período e grupo 12: tem 12 elétrons no total.","3º período e grupo 12: tem 12 prótons no núcleo.","2º período e grupo 2: tem 2 camadas completas.","12º período e grupo 3: os elétrons ocupam 3 camadas.","3º período e grupo 2: 3 camadas e 2 na última."],correta:4,
+ porque:"Distribuindo os 12 elétrons: K = 2, L = 8, M = 2. São 3 camadas ocupadas → 3º período; 2 elétrons na última camada → grupo 2 (metais alcalinoterrosos), por isso o magnésio tende a perder esses 2 e formar Mg²⁺. A {A} e a {B} usam o número atômico como se fosse o número do grupo. A {C} conta só as camadas cheias, mas o período conta todas as camadas ocupadas, inclusive a incompleta. A {D} confunde período com número atômico — a tabela tem só 7 períodos."},
+
+{id:"C71",area:"cie",topico:"Transformações químicas",nivel:2,
+ enunciado:"Um estudante pesou um chumaço de palha de aço (ferro), queimou-o ao ar livre e pesou o resíduo escuro. Depois, fez o mesmo com um pedaço de papel. A palha de aço ficou MAIS pesada, e o papel, MAIS leve. Esse resultado:",
+ alts:["contradiz Lavoisier, já que a massa mudou nos dois casos.","segue Lavoisier: o ferro fixou O₂; o papel soltou gases.","mostra que o fogo cria matéria no ferro e destrói no papel.","indica transformação física no ferro e química no papel.","ocorre porque o ferro absorve calor, que tem massa própria."],correta:1,
+ porque:"A Lei de Lavoisier (a massa se conserva) vale para o sistema fechado; ao ar livre há troca de matéria com o ambiente. O ferro reage com o oxigênio do ar e forma óxido de ferro, cuja massa é a do ferro MAIS a do oxigênio incorporado. O papel queima formando gás carbônico e vapor de água, que escapam para o ar. Num frasco fechado, a massa total não mudaria em nenhum dos dois. A {A} esquece que o sistema estava aberto. A {D} erra porque as duas são combustões, ambas transformações químicas. A {E} trata calor como matéria, mas calor é energia em trânsito."},
+
+{id:"C72",area:"cie",topico:"Transformações químicas",nivel:3,
+ texto:"Em experimentos feitos em recipiente fechado, a formação de água a partir dos gases hidrogênio e oxigênio deu os resultados abaixo:\n• Experimento 1: 2 g de hidrogênio + 16 g de oxigênio → 18 g de água, sem sobra de reagente\n• Experimento 2: 4 g de hidrogênio + 40 g de oxigênio → ? g de água + sobra de um dos reagentes",
+ enunciado:"No experimento 2, a massa de água formada e a sobra são, respectivamente:",
+ alts:["44 g de água, sem sobra de reagente","40 g de água e 4 g de hidrogênio","36 g de água e 4 g de hidrogênio","36 g de água e 8 g de oxigênio","18 g de água e 26 g de oxigênio"],correta:3,
+ porque:"A proporção entre os reagentes é fixa (Proust): 2 g de hidrogênio para 16 g de oxigênio, ou 1 : 8. Com 4 g de hidrogênio (o dobro), reagem 32 g de oxigênio, formando 4 + 32 = 36 g de água. Dos 40 g de oxigênio, sobram 40 − 32 = 8 g. Conferindo com Lavoisier: 4 + 40 = 44 g antes, e 36 + 8 = 44 g depois. A {A} soma tudo como se não houvesse excesso, contrariando o próprio enunciado. A {B} e a {C} dizem que sobra hidrogênio, mas é ele que acaba primeiro. A {E} ignora a proporção e repete o experimento 1: se só 2 g de hidrogênio reagissem, sobrariam 2 g de hidrogênio e 24 g de oxigênio, e não 26 g; além disso, com oxigênio sobrando, todo o hidrogênio reage."},
+
+{id:"C73",area:"cie",topico:"Corpo humano",nivel:2,
+ enunciado:"Ao subir correndo uma ladeira, uma pessoa passa a respirar mais rápido e sente o coração acelerar. A principal razão dessa resposta conjunta dos sistemas respiratório e circulatório é:",
+ alts:["levar mais O₂ e glicose aos músculos e retirar mais CO₂ deles.","esfriar o corpo, já que o ar inspirado é mais frio que o sangue.","levar mais O₂ ao estômago, que digere mais rápido no esforço.","eliminar mais O₂ pelos pulmões, gás que sobra com o esforço.","fazer o sangue chegar aos pulmões para ali produzir energia."],correta:0,
+ porque:"Em esforço, as células musculares fazem mais respiração celular nas mitocôndrias: precisam de mais O₂ e glicose e produzem mais CO₂. A respiração acelerada aumenta a troca de gases nos alvéolos, e o coração acelerado faz o sangue circular mais depressa entre pulmões e músculos. A {D} inverte os gases: o pulmão elimina CO₂. A {E} erra o local: a energia (ATP) é produzida dentro das células de todo o corpo, não nos pulmões. A {B} confunde com o suor, que é o que resfria o corpo. A {C} erra o destino: no esforço o sangue é desviado para os músculos, e a digestão fica mais lenta."},
+
+{id:"C74",area:"cie",topico:"Estrutura atômica",nivel:1,
+ enunciado:"O carbono-12 e o carbono-14 (usado para datar fósseis) são isótopos. Isso significa que os átomos dos dois têm:",
+ alts:["mesmo número de massa e prótons diferentes.","12 e 14 prótons no núcleo, respectivamente.","mesmos prótons, mas número de nêutrons diferente.","mesmos nêutrons, mas número de prótons diferente.","mesmo número de massa, mas elétrons diferentes."],correta:2,
+ porque:"Isótopos são átomos do MESMO elemento, então têm o mesmo número de prótons (Z = 6 no carbono). O que muda é o número de massa (12 e 14), porque um tem 6 nêutrons e o outro, 8 (nêutrons = A − Z). A {B} confunde número de massa com número de prótons. A {D} descreve outro elemento: se o número de prótons mudasse, já não seria carbono (com 7 prótons seria nitrogênio). A {A} e a {E} dizem que o número de massa é igual, mas é exatamente ele que difere — está no próprio nome, 12 e 14."},
+
+{id:"C75",area:"cie",topico:"Corpo humano",nivel:3,
+ enunciado:"Uma molécula de oxigênio inspirada pelo nariz acaba sendo usada numa célula do músculo da perna. Qual sequência, simplificada, descreve corretamente o caminho dela?",
+ alts:["traqueia → alvéolos → artérias pulmonares → coração → aorta → capilares → mitocôndria","traqueia → alvéolos → veias pulmonares → coração → veia cava → capilares → mitocôndria","traqueia → alvéolos → veias pulmonares → coração → aorta → capilares → ribossomo","traqueia → alvéolos → coração → veias pulmonares → aorta → capilares → mitocôndria","traqueia → alvéolos → veias pulmonares → coração → aorta → capilares → mitocôndria"],correta:4,
+ porque:"Nos alvéolos, o O₂ passa para o sangue dos capilares pulmonares; o sangue oxigenado volta ao coração (átrio esquerdo) pelas VEIAS pulmonares — veia se define pelo sentido: chega ao coração. O ventrículo esquerdo lança esse sangue na aorta, que se ramifica em artérias até os capilares da perna; ali o O₂ passa para a célula e é consumido na mitocôndria, na respiração celular. A {A} usa as artérias pulmonares, que saem do coração para o pulmão levando sangue pobre em O₂. A {B} usa a veia cava, que traz sangue do corpo para o coração, e não leva sangue dele. A {D} põe as veias pulmonares saindo do coração. A {C} termina no ribossomo, que fabrica proteínas; quem usa o O₂ é a mitocôndria."}
 ];
